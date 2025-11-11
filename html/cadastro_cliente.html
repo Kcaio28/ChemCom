@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    
+    <h2>Cadastro de Clientes</h2>
+    <form id="formCadastro">
+        <label>Nome Da Empresa:</label>
+        <input type="text" name="nome" required>
+
+        <label>CNPJ:</label>
+        <input type="text" name="cnpj" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Senha:</label>
+        <input type="password" name="senha" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <script>
+        document.getElementById("formCadastro").addEventListener("submit", async (e) =>{
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const dados = Object.fromEntries(formData.entries());
+
+            const resposta = await fetch ("/clienteRotas/cadastro", {
+                method: "POST",
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify(dados)
+            });
+
+            const resultado = await resposta.json();
+            alert(resultado.mensagem || "Cadastro realizado!");
+        });
+    </script>
+</body>
+</html>
