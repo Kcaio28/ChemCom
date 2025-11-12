@@ -1,5 +1,5 @@
 -- Migration: Criar tabela item
--- Data: 2025-11-11
+-- Data: 2025-11-12
 -- Descrição: Criação da tabela item
 
 use chemcom;
