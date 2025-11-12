@@ -5,7 +5,7 @@
 use chemcom;
 
 create table itensPedidos(
-	id_produto int,
+	id_item int,
     nro_pedido int,
     id_lote int,
     qtd int,
@@ -13,9 +13,8 @@ create table itensPedidos(
     
     primary key (id_produto),
     
-    foreign key (id_produto) references produto(id),
+    foreign key (id_item) references prod(id),
     foreign key (nro_pedido) references pedido(nro_pedido),
     foreign key (id_lote) references lotes(id)
 );
-
 
