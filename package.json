@@ -33,5 +33,13 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kcaio28/ChemCom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kcaio28/ChemCom/issues"
+  },
+  "homepage": "https://github.com/Kcaio28/ChemCom#readme"
 }
