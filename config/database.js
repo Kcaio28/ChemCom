@@ -42,17 +42,27 @@ async function read(table, where = null) {
 async function create(table, data) {
     const connection = await getConnection();
     try {
-        const columns = Object.keys(data).join(', ');
-        const placeholders = Array(Object.keys(data).length).fill('?').join(', ');
-        const sql = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
-        const values = Object.values(data);
+        // Normaliza valores (objeto -> string)
+        const safeData = {};
+        for (const [key, value] of Object.entries(data)) {
+            if (value === undefined) safeData[key] = null;
+            else if (typeof value === 'object') safeData[key] = JSON.stringify(value);
+            else safeData[key] = value;
+        }
 
+        const columns = Object.keys(safeData).join(', ');
+        const placeholders = Array(Object.keys(safeData).length).fill('?').join(', ');
+        const values = Object.values(safeData);
+
+        const sql = `INSERT INTO ${table} (${columns}) VALUES (${placeholders})`;
         const [result] = await connection.execute(sql, values);
+
         return result.insertId;
     } finally {
         connection.release();
     }
 }
+
 
 // Função para atualizar um registro
 async function update(table, data, where) {

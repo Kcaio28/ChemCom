@@ -1,7 +1,7 @@
 import express from 'express';
 import UsuarioModel from '../models/UsuarioModel.js';
 
-const router = express.Router;
+const router = express.Router();
 
 router.post('/cadastro', async (req, res) =>{
     try {
