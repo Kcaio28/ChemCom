@@ -17,4 +17,3 @@ create table itensPedidos(
     foreign key (nro_pedido) references pedido(nro_pedido),
     foreign key (id_lote) references lotes(id)
 );
-
