@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
 </head>
+
 <body>
-    
+
     <h2>Cadastro de Clientes</h2>
     <form id="formCadastro">
         <label>Nome Da Empresa:</label>
@@ -21,9 +23,31 @@
         <label>Senha:</label>
         <input type="password" name="senha" required>
 
+        <label>Telefone</label>
+        <input type="number" name="telefone" required>
+
+        <label>CEP:</label>
+        <input type="number" name="cep" required>
+
+        <label>Estado</label>
+        <input type="text" name="estado" required>
+
+        <label>Cidade</label>
+        <input type="text" name="cidade" required>
+
+        <label>Número</label>
+        <input type="number" name="numero" required>
+
+        <label>ID</label>
+        <input type="number" name="id" required>
+
+        <label>Logradouro:</label>
+        <input type="text" name="logradouro" required>
+
         <button type="submit">Cadastrar</button>
     </form>
 
     <script src="/public/js/cadastro.js"></script>
 </body>
+
 </html>

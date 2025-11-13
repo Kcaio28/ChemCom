@@ -12,4 +12,7 @@ document.getElementById("formCadastro").addEventListener("submit", async (e) => 
 
     const resultado = await resposta.json();
     alert(resultado.mensagem || "Cadastro realizado!");
+    if(resposta.ok) {
+        window.location.href = "/login_cliente.html";
+    }
 });
