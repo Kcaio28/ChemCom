@@ -19,14 +19,14 @@
         <div class="container-fluid top-bar">
             <!-- Logo minimalista -->
             <div class="logo">
-                <a href="home.html"><img src="../images/logo_mini.png" alt="Logo"></a>
+                <a href="home.html"><img src="/images/logo_mini.png" alt="Logo"></a>
             </div>
 
             <!-- Barra de pesquisa -->
             <div class="search-bar">
                 <div class="input-group">
                     <span class="input-group-text">
-                        <img src="../images/icons/icon_search.svg" alt="Buscar" width="18" height="18">
+                        <img src="/images/icons/icon_search.svg" alt="Buscar" width="18" height="18">
                     </span>
                     <input type="text" class="form-control" placeholder="Pesquisar...">
                 </div>
@@ -35,13 +35,13 @@
             <!-- Carrinho -->
             <div class="d-flex align-items-center gap-3">
                 <a href="" class="icon-btn text-menu">
-                    <img src="../images/icons/icon_carrinho.svg" alt="Carrinho" width="22" height="22">
+                    <img src="/images/icons/icon_carrinho.svg" alt="Carrinho" width="22" height="22">
                     Carrinho
                 </a>
 
                 <!-- Conta -->
                 <a href="" class="icon-btn text-menu">
-                    <img src="../images/icons/icon_user.svg" alt="Usuário" width="22" height="22">
+                    <img src="/images/icons/icon_user.svg" alt="Usuário" width="22" height="22">
                     Conta
                 </a>
             </div>
@@ -69,20 +69,40 @@
     </header>
 
 
-    <div class="bloco-contato">
-        <h1 class="text-p-bloco-contato">Nos Contate<div class="linha-contato-1"></div>
-        </h1>
-        <h1 class="text-s-bloco-contato">Tem alguma dúvida ou precisa de mais informações? Entre em contato conosco!
-            Nossa equipe está pronta para ajudar você com rapidez e atenção. Seja para orçamentos, suporte ou
-            informações sobre produtos, estamos sempre disponíveis para oferecer o melhor atendimento.</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col imgDoContato p-0">
+                <form class="formContato" id="formContato">
+                    <h1 class="mt-4">Nos Contate</h1>
+                    <div class="textoEmCimaInp">
+                        <h5>Nome</h5>
+                        <input type="text" name="nome" id="nome" required>
+                    </div>
 
-        <div class="bloco-contato-direita">
-            <div class="linha-contato-2"></div>
-            <h1 class="text-p2-bloco-contato">Telefone(icone)<br>99 99999-9999<br><br>Email(icone)<br>chemcom@gmail.com<br><br>Mande
-                Sua Mensagem</h1>
-            <a href="formContato.html"><button class="botao-contato" type="button">Feedback</button></a>
+                    <div class="textoEmCimaInp">
+                        <h5>Email</h5>
+                        <input type="email" name="email" id="email" required>
+                    </div>
+
+                    <div class="textoEmCimaInp">
+                        <h5>Nome da Empresa</h5>
+                        <input type="text" name="nomeempresa" id="nomeempresa" required>
+                    </div>
+
+                    <div class="textoEmCimaInp">
+                        <h5>Quais desses melhor descreve seu problema/dúvida?</h5>
+                        <input type="text" name="nomeempresa" id="nomeempresa" required>
+                    </div>
+
+                    <div class="textoEmCimaInp">
+                        <h5>Mensagem</h5>
+                        <input type="text" name="mensagem" id="mensagem" required>
+                    </div>
+
+                    <button type="submit" class="botaoFormContato">Enviar</button>
+            </div>
+
         </div>
-
     </div>
 
 

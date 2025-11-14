@@ -267,21 +267,154 @@ body{
     height: 320px;
 }
 
-.input-contato{
+.botao-contato{
     width: 150px;
     height: 40px;
     margin-top: 275px;
     margin-left: 10%;
     background-color:#00bf63;
     border-radius: 15px;
+    color: white;
+    border: none;
+    font-size: 20px;
 }
 
-.input-contato:hover{
+.botao-contato:hover{
     background-color: #1ea85c;
     transition-duration: 0.3s;
 }
 
-.input-text{
-    color: white;
+/*----------------------------------------------------*/
+/*-----------------formContato--------------------*/
+
+.imgDoContato {
+    background-image: url('/images/predioChemCom.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 1090px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.formContato {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #00bf63aa;
+    width: 580px;
+    height: 750px;
+    color: white;
+    border-radius: 25px;
+    box-shadow: 1px 1px 20px #01241a;
+    backdrop-filter: blur(4px);
+}
+
+.textoEmCimaInp {
+    margin-top: 1vw;
+    width: 420px;
+}
+
+.textoEmCimaInp input {
+    width: 420px;
+    border: none;
+    border-radius: 8px;
+    padding: .4vw;
+}
+
+.botaoFormContato {
+    margin-top: 40px;
+    border: none;
+    background-color: #005e4588;
+    backdrop-filter: blur(4px);
+    box-shadow: 1px 1px 10px #00000066;
+    color: #ffffff;
+    width: 240px;
+    height: 50px;
+    border-radius: 15px;
+    transition: 1s ease;
+}
+
+.botaoFormContato:hover {
+    color: #04f5b4;
+    background-color: #013023fa;
+    transition: 1s ease;
+}
+
+@media (max-width:800px) {
+    .imgDoContato {
+        height: 935px;
+    }
+
+    .formContato {
+        width: 620px;
+        height: 720px;
+    }
+
+    .textoEmCimaInp {
+        margin-top: 10px;
+        width: 470px;
+    }
+
+    .textoEmCimaInp input {
+        padding: 10px;
+        width: 470px;
+    }
+
+}
+
+
+@media (max-width:530px) {
+    .imgDoContato {
+        height: 935px;
+    }
+
+    .formContato {
+        width: 420px;
+        height: 720px;
+    }
+
+    .textoEmCimaInp {
+        margin-top: 10px;
+        width: 370px;
+    }
+
+    .textoEmCimaInp input {
+        padding: 10px;
+        width: 370px;
+    }
+}
+
+@media (max-width:400px) {
+    .imgDoContato {
+        height: 775px;
+    }
+
+    .formContato {
+        width: 350px;
+        height: 620px;
+    }
+
+    .textoEmCimaInp {
+        margin-top: 10px;
+        width: 270px;
+    }
+
+    .textoEmCimaInp input {
+        padding: 5px;
+        width: 270px;
+    }
+
+
+    h5 {
+        font-size: 15px;
+    }
+
+    .botaoFormContato {
+        bottom: 30px;
+    }
+}
