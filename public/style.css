@@ -268,21 +268,46 @@ body{
     height: 320px;
 }
 
-.input-contato{
+.botao-contato{
     width: 150px;
     height: 40px;
     margin-top: 275px;
     margin-left: 10%;
     background-color:#00bf63;
     border-radius: 15px;
+    color: white;
+    border: none;
+    font-size: 20px;
 }
 
-.input-contato:hover{
+.botao-contato:hover{
     background-color: #1ea85c;
     transition-duration: 0.3s;
 }
 
-.input-text{
-    color: white;
+/*----------------------------------------------------*/
+/*-----------------formContato--------------------*/
+
+.imgDoContato {
+    background-image: url('/images/predioChemCom.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 1090px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.formContato {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #00bf63aa;
+    width: 580px;
+    height: 750px;
+    color: white;
+}
