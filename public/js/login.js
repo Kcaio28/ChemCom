@@ -13,7 +13,7 @@ document.getElementById("formLogin").addEventListener("submit", async (e) => {
     if (resposta.ok) {
         alert("Login realizado com sucesso!");
         localStorage.setItem("empresa", JSON.stringify(resultado.usuario));
-        window.location.href = "/dashboard.html";
+        window.location.href = "/home.html";
     } else {
         alert(resultado.mensagem);
     }

@@ -47,14 +47,18 @@ class UsuarioModel {
     // Buscar empresa por email
     static async buscarPorEmail(email) {
         try {
-            const rows = await read(TABELA, `email = '${email}'`);
+            const connection = await getConnection();
+            const [rows] = await connection.query(
+                `SELECT * FROM ${TABELA} WHERE email = ? LIMIT 1`,
+                [email]
+            );
+            connection.release();
             return rows[0] || null;
         } catch (error) {
             console.error('Erro ao buscar empresa por email:', error);
             throw error;
         }
     }
-
     // Criar nova empresa
     static async criar(dadosEmpresa) {
         try {
@@ -108,21 +112,28 @@ class UsuarioModel {
     // Verificar credenciais de login
     static async verificarCredenciais(email, senha) {
         try {
+            console.log("🔍 Verificando email:", email);
+
             const empresa = await this.buscarPorEmail(email);
 
             if (!empresa) {
+                console.log("❌ EMAIL NÃO ENCONTRADO");
                 return null;
             }
+
+            console.log("🔍 Hash encontrado no banco:", empresa.senha_hash);
 
             const senhaValida = await comparePassword(senha, empresa.senha_hash);
 
+            console.log("🔍 Resultado da comparação:", senhaValida);
+
             if (!senhaValida) {
+                console.log("❌ SENHA INCORRETA");
                 return null;
             }
 
-            // Remove o hash antes de retornar
-            const { senha_hash, ...empresaSemSenha } = empresa;
-            return empresaSemSenha;
+            const { senha_hash, ...resto } = empresa;
+            return resto;
         } catch (error) {
             console.error('Erro ao verificar credenciais:', error);
             throw error;
