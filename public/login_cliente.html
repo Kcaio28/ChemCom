@@ -1,24 +1,138 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="produtos.css" />
+  </head>
 
-<body>
+  <body>
+    <header>
+      <div class="container-fluid top-bar">
+        <!-- Logo minimalista -->
+        <div class="logo">
+          <a href="home.html"
+            ><img src="../images/logo_mini.png" alt="Logo"
+          /></a>
+        </div>
 
-    <h2>Login da Empresa</h2>
-    <form id="formLogin">
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <label>Senha:</label>
-        <input type="password" name="senha" required>
+        <!-- Barra de pesquisa -->
+        <div class="search-bar">
+          <div class="input-group">
+            <span class="input-group-text">
+              <img
+                src="../images/icons/icon_search.svg"
+                alt="Buscar"
+                width="18"
+                height="18"
+              />
+            </span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Pesquisar..."
+            />
+          </div>
+        </div>
+
+        <!-- Carrinho -->
+        <div class="d-flex align-items-center gap-3">
+          <a href="" class="icon-btn text-menu">
+            <img
+              src="../images/icons/icon_carrinho.svg"
+              alt="Carrinho"
+              width="22"
+              height="22"
+            />
+            Carrinho
+          </a>
+
+          <!-- Conta -->
+          <a href="" class="icon-btn text-menu">
+            <img
+              src="../images/icons/icon_user.svg"
+              alt="Usuário"
+              width="22"
+              height="22"
+            />
+            Conta
+          </a>
+        </div>
+      </div>
+
+      <!-- Menu inferior -->
+      <nav class="navbar navbar-expand-lg menu-bar">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler border-0"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menuNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="menuNav">
+            <ul class="navbar-nav">
+              <li class="nav-item text-menu">
+                <a class="nav-link" href="">Catálogo</a>
+              </li>
+              <li class="nav-item text-menu">
+                <a class="nav-link" href="">Empresas</a>
+              </li>
+              <li class="nav-item text-menu">
+                <a class="nav-link" href="">Sobre</a>
+              </li>
+              <li class="nav-item text-menu">
+                <a class="nav-link" href="">Contato</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Principal do site -->
+    <div class="login-image">
+      <img src="../images/img_produtos_login.png" alt="Login" />
+    </div>
+    <div class="login-container">
+      <div class="logo">
+        <img src="../images/logo_chemcom.png" alt="Logo" />
+      </div>
+
+      <form id="formLogin" class="login-form">
+        <h2>Conecte-se à sua conta</h2>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required />
+        </div>
+
         <button type="submit">Entrar</button>
-    </form>
 
+        <div class="cadastro-link">
+            Não tem uma conta? <a href="cadastro_cliente.html">Cadastre-se agora</a>
+        </div>
+      </form>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
     <script src="/public/js/login.js"></script>
-</body>
-
+  </body>
 </html>
