@@ -1,4 +1,4 @@
--- Migration: Criar trigger após alterar produto
+-- Migration: Criar trigger antes de alterar produto
 -- Data: 2025-11-13
 -- Descrição: Criação do trigger log_update_produto
 
@@ -7,7 +7,7 @@ use chemcom;
 DELIMITER //
 
 create trigger log_update_produto
-before delete on produto
+before update on produto
 for each row
 begin
 	insert into log (acao, tabela_afetada, id_registro_afetado, descricao)
