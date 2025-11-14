@@ -15,5 +15,3 @@ create table item(
     foreign key (id_produto) references produto(id),
     foreign key (id_lote) references lotes(id)
 );
-
-drop table item;

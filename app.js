@@ -38,6 +38,7 @@ app.use(cors({
     optionsSuccessStatus: 200 // Responder com 200 para requisições OPTIONS
 }));
 
+app.use(express.static(path.join(process.cwd(), "public")));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.json());

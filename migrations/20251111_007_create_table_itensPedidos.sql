@@ -13,7 +13,7 @@ create table itensPedidos(
     
     primary key (id_item),
     
-    foreign key (id_item) references prod(id),
+    foreign key (id_item) references item(id),
     foreign key (nro_pedido) references pedido(nro_pedido),
     foreign key (id_lote) references lotes(id)
 );

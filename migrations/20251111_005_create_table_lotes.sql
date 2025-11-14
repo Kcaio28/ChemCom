@@ -14,5 +14,3 @@ create table lotes (
     primary key (id),
     foreign key (id_produto) references produto(id)
 );
-
-drop table lotes;
