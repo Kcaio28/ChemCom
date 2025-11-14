@@ -14,4 +14,3 @@ create table produto(
     primary key (id),
     foreign key (id_classificacao) references classificacao_risco(id)
     );
-

@@ -1,24 +1,24 @@
 import { create, read, update, deleteRecord, comparePassword, hashPassword, getConnection } from '../config/database.js';
 
-// Model para operações com usuários
+const TABELA = 'empresa'; // nome correto da tabela
+
 class UsuarioModel {
-    // Listar todos os usuários (com paginação)
+
+    // Listar todas as empresas (com paginação)
     static async listarTodos(pagina = 1, limite = 10) {
         try {
             const offset = (pagina - 1) * limite;
-            
-            // Buscar usuários com paginação (usando prepared statements para segurança)
             const connection = await getConnection();
+
             try {
-                const sql = 'SELECT * FROM usuarios ORDER BY id DESC LIMIT ? OFFSET ?';
-                const [usuarios] = await connection.query(sql, [limite, offset]);
-                
-                // Contar total de registros
-                const [totalResult] = await connection.execute('SELECT COUNT(*) as total FROM usuarios');
+                const sql = `SELECT * FROM ${TABELA} ORDER BY id DESC LIMIT ? OFFSET ?`;
+                const [empresas] = await connection.query(sql, [limite, offset]);
+
+                const [totalResult] = await connection.execute(`SELECT COUNT(*) as total FROM ${TABELA}`);
                 const total = totalResult[0].total;
-                
+
                 return {
-                    usuarios,
+                    empresas,
                     total,
                     pagina,
                     limite,
@@ -28,71 +28,83 @@ class UsuarioModel {
                 connection.release();
             }
         } catch (error) {
-            console.error('Erro ao listar usuários:', error);
+            console.error('Erro ao listar empresas:', error);
             throw error;
         }
     }
 
-    // Buscar usuário por ID
+    // Buscar empresa por ID
     static async buscarPorId(id) {
         try {
-            const rows = await read('usuarios', `id = ${id}`);
+            const rows = await read(TABELA, `id = ${id}`);
             return rows[0] || null;
         } catch (error) {
-            console.error('Erro ao buscar usuário por ID:', error);
+            console.error('Erro ao buscar empresa por ID:', error);
             throw error;
         }
     }
 
-    // Buscar usuário por email
+    // Buscar empresa por email
     static async buscarPorEmail(email) {
         try {
-            const rows = await read('usuarios', `email = '${email}'`);
+            const connection = await getConnection();
+            const [rows] = await connection.query(
+                `SELECT * FROM ${TABELA} WHERE email = ? LIMIT 1`,
+                [email]
+            );
+            connection.release();
             return rows[0] || null;
         } catch (error) {
-            console.error('Erro ao buscar usuário por email:', error);
+            console.error('Erro ao buscar empresa por email:', error);
             throw error;
         }
     }
-
-    // Criar novo usuário
-    static async criar(dadosUsuario) {
+    // Criar nova empresa
+    static async criar(dadosEmpresa) {
         try {
-            // Hash da senha antes de salvar
-            const senhaHash = await hashPassword(dadosUsuario.senha);
-            const dadosComHash = {
-                ...dadosUsuario,
-                senha: senhaHash
+            const senhaHash = await hashPassword(dadosEmpresa.senha);
+
+            const dadosCompletos = {
+                nome: dadosEmpresa.nome,
+                CNPJ: dadosEmpresa.cnpj,
+                Telefone: dadosEmpresa.telefone,
+                email: dadosEmpresa.email,
+                senha_hash: senhaHash, // nome da coluna correto
+                CEP: dadosEmpresa.cep,
+                estado: dadosEmpresa.estado,
+                cidade: dadosEmpresa.cidade,
+                logradouro: dadosEmpresa.logradouro,
+                Nro: dadosEmpresa.numero
             };
-            
-            return await create('usuarios', dadosComHash);
+
+            return await create(TABELA, dadosCompletos);
         } catch (error) {
-            console.error('Erro ao criar usuário:', error);
+            console.error('Erro ao criar empresa:', error);
             throw error;
         }
     }
 
-    // Atualizar usuário
-    static async atualizar(id, dadosUsuario) {
+    // Atualizar empresa
+    static async atualizar(id, dadosEmpresa) {
         try {
-            // Se a senha foi fornecida, fazer hash
-            if (dadosUsuario.senha) {
-                dadosUsuario.senha = await hashPassword(dadosUsuario.senha);
+            if (dadosEmpresa.senha) {
+                dadosEmpresa.senha_hash = await hashPassword(dadosEmpresa.senha);
+                delete dadosEmpresa.senha;
             }
-            
-            return await update('usuarios', dadosUsuario, `id = ${id}`);
+
+            return await update(TABELA, dadosEmpresa, `id = ${id}`);
         } catch (error) {
-            console.error('Erro ao atualizar usuário:', error);
+            console.error('Erro ao atualizar empresa:', error);
             throw error;
         }
     }
 
-    // Excluir usuário
+    // Excluir empresa
     static async excluir(id) {
         try {
-            return await deleteRecord('usuarios', `id = ${id}`);
+            return await deleteRecord(TABELA, `id = ${id}`);
         } catch (error) {
-            console.error('Erro ao excluir usuário:', error);
+            console.error('Erro ao excluir empresa:', error);
             throw error;
         }
     }
@@ -100,21 +112,28 @@ class UsuarioModel {
     // Verificar credenciais de login
     static async verificarCredenciais(email, senha) {
         try {
-            const usuario = await this.buscarPorEmail(email);
-            
-            if (!usuario) {
+            console.log("🔍 Verificando email:", email);
+
+            const empresa = await this.buscarPorEmail(email);
+
+            if (!empresa) {
+                console.log("❌ EMAIL NÃO ENCONTRADO");
                 return null;
             }
 
-            const senhaValida = await comparePassword(senha, usuario.senha);
-            
+            console.log("🔍 Hash encontrado no banco:", empresa.senha_hash);
+
+            const senhaValida = await comparePassword(senha, empresa.senha_hash);
+
+            console.log("🔍 Resultado da comparação:", senhaValida);
+
             if (!senhaValida) {
+                console.log("❌ SENHA INCORRETA");
                 return null;
             }
 
-            // Retornar usuário sem a senha
-            const { senha: _, ...usuarioSemSenha } = usuario;
-            return usuarioSemSenha;
+            const { senha_hash, ...resto } = empresa;
+            return resto;
         } catch (error) {
             console.error('Erro ao verificar credenciais:', error);
             throw error;
