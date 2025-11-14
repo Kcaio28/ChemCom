@@ -11,7 +11,7 @@ create table itensPedidos(
     qtd int,
     preco_unitario decimal(10,2),
     
-    primary key (id_produto),
+    primary key (id_item),
     
     foreign key (id_item) references prod(id),
     foreign key (nro_pedido) references pedido(nro_pedido),
