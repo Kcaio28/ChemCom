@@ -202,7 +202,7 @@ body{
     margin-bottom: 30px;
 }
 
-.btn-saiba {
+.btn-saiba-transporte {
     display: inline-block;
     background: #00bf63;
     color: white;
@@ -214,7 +214,7 @@ body{
     transition: 0.3s;
 }
 
-.btn-saiba:hover {
+.btn-saiba-transporte:hover {
     background: #00a555;
 }
 
