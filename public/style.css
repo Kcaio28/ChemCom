@@ -44,7 +44,7 @@ body{
 }
 
 .input-group-text{
-    border: 2px solid #00bf63;
+    border: 1px solid #00bf63;
     border-right: none;
     background-color: #fff;
     color: #00bf63;
@@ -52,7 +52,7 @@ body{
 }
 
 .form-control{
-    border: 2px solid #00bf63;
+    border: 1px solid #00bf63;
     border-left: none;
     border-radius: 0 8px 8px 0;
 }
@@ -93,7 +93,7 @@ body{
 
 /* Nav inferior */
 .menu-bar{
-    border-top: 2px solid #00bf63;
+    border-top: 1px solid #00bf63;
     padding: 0;
 }
 
@@ -107,13 +107,17 @@ body{
 }
 
 .nav-link{
+    margin: 2px ;
     color: #00bf63;
     font-weight: 600;
     padding: 12px 15px;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s  ease-in-out;
 }
 
 .nav-link:hover{
-    color: #009b66;
+    border-bottom: 1px solid #00a555;
+    color:  #009b66;
 }
 
 /* Responsividade */
@@ -148,16 +152,72 @@ body{
 
 /*----------------------------------------------------*/
 /*-----------------home--------------------*/
-.img-home {
-    margin-top: -110px;
+
+
+.img-home-transporte {
+    position: relative;
     width: 100%;
-    height: 100%;
-    filter: brightness(75%);
+    height: 80vh;
+    background: url("images/caminhaoChemCom.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+    color: white;
 }
 
-.carousel-item {
-    padding: 50px;
+.img-home-transporte .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 91%;
+    background: rgba(0, 0, 0, 0.55);
 }
+
+.img-home-transporte-texto {
+    position: relative;
+    max-width: 600px;
+    z-index: 2;
+}
+
+.img-home-transporte-texto h4 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.img-home-transporte-texto h4 span {
+    color: #00bf63;
+}
+
+.img-home-transporte-texto h1 {
+    font-size: 64px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.img-home-transporte-texto p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.btn-saiba-transporte {
+    display: inline-block;
+    background: #00bf63;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-saiba-transporte:hover {
+    background: #00a555;
+}
+
 
 .card {
     display: flex;
@@ -168,10 +228,24 @@ body{
     color: white;
 }
 
+
+.carousel-item {
+    padding:50px;
+}
+
+
+
+.carousel .card{
+    width: 300px;
+    height: 350px;
+}
+
 .card-img-top {
-    height: 400px;
+    margin-top: 20px;
+    height: 200px;
     object-fit: contain;
 }
+
 .card-body {
     text-align: center;
     text-decoration: none;
@@ -182,26 +256,105 @@ body{
   filter: invert(1);
 }
 
-.bloco-home{
-    height: 600px;
-    width: 1800px;
-    margin-top: 100px;
-}
-
-.bloco-home img{
-    height: 100%;
+.img-home-lab {
+    position: relative;
     width: 100%;
-    object-fit:cover;
-    border-radius: 30px;
-    filter: brightness(75%);
+    height: 55vh;
+    background: url("images/laboratorio.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+    color: white;
+    border-radius: 15px;
 }
 
-.text-bloco-home{
+.img-home-lab .overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 15px;
+}
+
+.img-home-lab-texto {
+    position: relative;
+    max-width: 100%;
+    z-index: 2;
+}
+
+.img-home-lab-texto h1 {
+    font-size: 64px;
+    font-weight: 800;
+    margin-bottom: 50px;
     text-align: center;
+}
+
+.img-home-lab-texto p {
+    font-size: 25px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.btn-saiba {
+    display: flex;
+    justify-content: center;
+    background: #00bf63;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 5px;
+    font-size: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+    width: 30%;
+    margin-left: 35%;
+}
+
+.btn-saiba:hover {
+    background: #00a555;
+}
+
+.img-home-sustentabilidade {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    background: url("images/florestaSustentabilidade.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+    color: white;
+    border-radius: 15px;
+}
+
+.img-home-sustentabilidade .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 15px;
+}
+
+.img-home-sustentabilidade-texto {
+    position: relative;
+    max-width: 100%;
+    z-index: 2;
+}
+
+.img-home-sustentabilidade-texto h1 {
+    font-size: 64px;
+    font-weight: 800;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.img-home-sustentabilidade-texto p {
+    font-size: 25px;
+    line-height: 1.5;
+    margin-bottom: 30px;
 }
 
 /*----------------------------------------------------*/
@@ -274,7 +427,7 @@ body{
     margin-top: 275px;
     margin-left: 10%;
     background-color:#00bf63;
-    border-radius: 15px;
+    border-radius: 5px;
     color: white;
     border: none;
     font-size: 20px;
@@ -289,7 +442,7 @@ body{
 /*-----------------formContato--------------------*/
 
 .imgDoContato {
-    background-image: url('/images/predioChemCom.png');
+    background-image: url('images/predioChemCom.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -310,4 +463,143 @@ body{
     width: 580px;
     height: 750px;
     color: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 20px #01241a;
+    backdrop-filter: blur(4px);
+}
+
+.textoEmCimaInp {
+    margin-top: 1vw;
+    width: 420px;
+}
+
+.textoEmCimaInp input {
+    width: 420px;
+    border: none;
+    border-radius: 5px;
+    padding: .4vw;
+}
+
+.botaoFormContato {
+    margin-top: 40px;
+    border: none;
+    background-color: #005e4588;
+    backdrop-filter: blur(4px);
+    box-shadow: 1px 1px 10px #00000066;
+    color: #ffffff;
+    width: 240px;
+    height: 50px;
+    border-radius: 5px;
+    transition: 1s ease;
+}
+
+.botaoFormContato:hover {
+    color: #04f5b4;
+    background-color: #013023fa;
+    transition: 1s ease;
+}
+
+@media (max-width:800px) {
+    .imgDoContato {
+        height: 935px;
+    }
+
+    .formContato {
+        width: 620px;
+        height: 720px;
+    }
+
+    .textoEmCimaInp {
+        margin-top: 10px;
+        width: 470px;
+    }
+
+    .textoEmCimaInp input {
+        padding: 10px;
+        width: 470px;
+    }
+
+}
+
+
+@media (max-width:530px) {
+    .imgDoContato {
+        height: 935px;
+    }
+
+    .formContato {
+        width: 420px;
+        height: 720px;
+    }
+
+    .textoEmCimaInp {
+        margin-top: 10px;
+        width: 370px;
+    }
+
+    .textoEmCimaInp input {
+        padding: 10px;
+        width: 370px;
+    }
+}
+
+@media (max-width:400px) {
+    .imgDoContato {
+        height: 775px;
+    }
+
+    .formContato {
+        width: 350px;
+        height: 620px;
+    }
+
+    .textoEmCimaInp {
+        margin-top: 10px;
+        width: 270px;
+    }
+
+    .textoEmCimaInp input {
+        padding: 5px;
+        width: 270px;
+    }
+
+
+    h5 {
+        font-size: 15px;
+    }
+
+    .botaoFormContato {
+        bottom: 30px;
+    }
+}
+
+/*----------------------------------------------------*/
+/*-----------------sobre--------------------*/
+
+.imgSobre {
+    background-image: url('images/predioChemCom.png');
+    background-size: cover;
+    background-position:top center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 650px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-sobre {
+    color: #00bf63;
+    text-align: center;
+}
+
+.linha-sobre{
+    background-color: #00bf63;
+    width: 300px;
+    height: 5px;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
