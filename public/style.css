@@ -306,6 +306,47 @@ body{
     background: #00a555;
 }
 
+.img-home-sustentabilidade {
+    position: relative;
+    width: 100%;
+    height: 55vh;
+    background: url("images/florestaSustentabilidade.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+    color: white;
+    border-radius: 15px;
+}
+
+.img-home-sustentabilidade .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 15px;
+}
+
+.img-home-sustentabilidade-texto {
+    position: relative;
+    max-width: 100%;
+    z-index: 2;
+}
+
+.img-home-sustentabilidade-texto h1 {
+    font-size: 64px;
+    font-weight: 800;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.img-home-sustentabilidade-texto p {
+    font-size: 25px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
 /*----------------------------------------------------*/
 /*-----------------contato--------------------*/
 
@@ -376,7 +417,7 @@ body{
     margin-top: 275px;
     margin-left: 10%;
     background-color:#00bf63;
-    border-radius: 15px;
+    border-radius: 5px;
     color: white;
     border: none;
     font-size: 20px;
