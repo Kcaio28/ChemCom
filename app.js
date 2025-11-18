@@ -27,7 +27,40 @@ const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 3000;
 
 // Middlewares globais
-app.use(helmet()); // Segurança HTTP
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "'unsafe-inline'"   // se quiser remover scripts inline, posso te ajudar a retirar
+        ],
+        styleSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net",
+          "https://fonts.googleapis.com",
+          "'unsafe-inline'"
+        ],
+        imgSrc: ["'self'", "data:", "blob:"],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://cdn.jsdelivr.net"
+        ],
+        connectSrc: [
+          "'self'",
+          "https://cdn.jsdelivr.net"
+        ],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'self'"]
+      },
+    },
+  })
+);
+
 
 // Configuração CORS global
 app.use(cors({
@@ -43,17 +76,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy",
-    "default-src 'self'; " +
-    "style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com 'unsafe-inline'; " +
-    "script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline' 'unsafe-eval'; " +
-    "font-src 'self' https://fonts.gstatic.com; " +
-    "img-src 'self' data: https://cdn.jsdelivr.net; " +
-    "connect-src 'self' https://cdn.jsdelivr.net;"
-  );
-  next();
-});
 
 
 //  Servir arquivos estáticos
