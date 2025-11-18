@@ -1,5 +1,5 @@
 /*Header*/
-header{
+header {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,16 +9,16 @@ header{
     z-index: 1050;
 }
 
-body{
+body {
     padding-top: 130px;
 }
 
-.text-menu{
+.text-menu {
     font-size: 2.1vh;
 }
 
 /* NavBar superior */
-.top-bar{
+.top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -27,23 +27,23 @@ body{
 }
 
 /* Logo */
-.logo{
+.logo {
     flex-shrink: 0;
     margin-left: 70px;
 }
 
-.logo img{
+.logo img {
     height: 45px;
 }
 
 /* Barra de pesquisa */
-.search-bar{
+.search-bar {
     flex-grow: 1;
     max-width: 600px;
     margin: 0 auto;
 }
 
-.input-group-text{
+.input-group-text {
     border: 1px solid #00bf63;
     border-right: none;
     background-color: #fff;
@@ -51,19 +51,19 @@ body{
     border-radius: 8px 0 0 8px;
 }
 
-.form-control{
+.form-control {
     border: 1px solid #00bf63;
     border-left: none;
     border-radius: 0 8px 8px 0;
 }
 
-.form-control:focus{
+.form-control:focus {
     box-shadow: none;
     border-color: #00bf63;
 }
 
 /* Ícones de Carrinho e Conta*/
-.icon-btn{
+.icon-btn {
     color: #00bf63;
     text-decoration: none;
     font-weight: 600;
@@ -73,78 +73,78 @@ body{
     white-space: nowrap;
 }
 
-.icon-btn:hover{
+.icon-btn:hover {
     color: #009b66;
 }
 
 /* Ícone hamburguer do menu inferior */
-.navbar-toggler{
+.navbar-toggler {
     border: none;
     padding: 5px 10px;
 }
 
-.navbar-toggler:focus{
+.navbar-toggler:focus {
     box-shadow: none;
 }
 
-.navbar-toggler-icon{
+.navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300bf63' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* Nav inferior */
-.menu-bar{
+.menu-bar {
     border-top: 1px solid #00bf63;
     padding: 0;
 }
 
-.menu-bar .container-fluid{
+.menu-bar .container-fluid {
     padding-left: 30px;
     padding-right: 30px;
 }
 
-.navbar-nav{
+.navbar-nav {
     gap: 15px;
 }
 
-.nav-link{
-    margin: 2px ;
+.nav-link {
+    margin: 2px;
     color: #00bf63;
     font-weight: 600;
     padding: 12px 15px;
     border-bottom: 1px solid transparent;
-    transition: 0.2s  ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     border-bottom: 1px solid #00a555;
-    color:  #009b66;
+    color: #009b66;
 }
 
 /* Responsividade */
-@media(max-width: 992px){
-    .top-bar{
+@media(max-width: 992px) {
+    .top-bar {
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
         padding: 10px 15px;
     }
 
-    .logo{
+    .logo {
         order: 1;
     }
 
-    .d-flex{
+    .d-flex {
         order: 2;
     }
 
-    .search-bar{
+    .search-bar {
         order: 3;
         margin: 0;
         width: 100%;
         max-width: 100%;
     }
 
-    .menu-bar .container-fluid{
+    .menu-bar .container-fluid {
         padding-left: 15px;
         padding-right: 15px;
     }
@@ -230,12 +230,12 @@ body{
 
 
 .carousel-item {
-    padding:50px;
+    padding: 50px;
 }
 
 
 
-.carousel .card{
+.carousel .card {
     width: 300px;
     height: 350px;
 }
@@ -253,7 +253,7 @@ body{
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(1);
+    filter: invert(1);
 }
 
 .img-home-lab {
@@ -360,13 +360,13 @@ body{
 /*----------------------------------------------------*/
 /*-----------------contato--------------------*/
 
-.bloco-contato{
+.bloco-contato {
     height: 500px;
     width: 100%;
     background-color: #e8e8e8;
 }
 
-.text-p-bloco-contato{
+.text-p-bloco-contato {
     position: absolute;
     color: #00bf63;
     text-align: center;
@@ -375,7 +375,7 @@ body{
     font-size: 50px;
 }
 
-.linha-contato-1{
+.linha-contato-1 {
     position: absolute;
     width: 240px;
     height: 5px;
@@ -385,7 +385,7 @@ body{
     margin-top: 10px;
 }
 
-.text-s-bloco-contato{
+.text-s-bloco-contato {
     position: absolute;
     color: black;
     text-align: center;
@@ -396,7 +396,7 @@ body{
     text-align: start;
 }
 
-.linha-contato-2{
+.linha-contato-2 {
     position: absolute;
     width: 5px;
     height: 320px;
@@ -404,7 +404,7 @@ body{
     border-radius: 5px;
 }
 
-.text-p2-bloco-contato{
+.text-p2-bloco-contato {
     position: absolute;
     color: #00bf63;
     text-align: start;
@@ -413,7 +413,7 @@ body{
     margin-top: 2%;
 }
 
-.bloco-contato-direita{
+.bloco-contato-direita {
     position: absolute;
     margin-left: 55%;
     margin-top: 5%;
@@ -421,19 +421,19 @@ body{
     height: 320px;
 }
 
-.botao-contato{
+.botao-contato {
     width: 150px;
     height: 40px;
     margin-top: 275px;
     margin-left: 10%;
-    background-color:#00bf63;
+    background-color: #00bf63;
     border-radius: 5px;
     color: white;
     border: none;
     font-size: 20px;
 }
 
-.botao-contato:hover{
+.botao-contato:hover {
     background-color: #1ea85c;
     transition-duration: 0.3s;
 }
@@ -459,7 +459,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #00bf63aa;
+    background: #1c5e3a;
     width: 580px;
     height: 750px;
     color: white;
@@ -483,7 +483,7 @@ body{
 .botaoFormContato {
     margin-top: 40px;
     border: none;
-    background-color: #005e4588;
+    background-color: #00bf63cc;
     backdrop-filter: blur(4px);
     box-shadow: 1px 1px 10px #00000066;
     color: #ffffff;
@@ -577,9 +577,9 @@ body{
 /*-----------------sobre--------------------*/
 
 .imgSobre {
-    background-image: url('images/predioChemCom.png');
+    background-image: url('images/predioChemCom2.png');
     background-size: cover;
-    background-position:top center;
+    background-position: top center;
     background-repeat: no-repeat;
     width: 100%;
     height: 650px;
@@ -595,11 +595,85 @@ body{
     text-align: center;
 }
 
-.linha-sobre{
+.linha-sobre {
     background-color: #00bf63;
     width: 300px;
     height: 5px;
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.caixa-sobre {
+    width: 800px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+
+}
+
+.caixa-sobre p {
+    font-size: 20px;
+    text-align: justify;
+    line-height: 1.6;
+    color: #333;
+}
+
+.caixa-sobre2 {
+    width: 100%;
+    height: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.texto-caixa-sobre2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.caixa-sobre2 h1 {
+    color: #00bf63;
+    text-align: start;
+}
+
+.caixa-sobre2 p {
+    font-size: 20px;
+    text-align: justify;
+    line-height: 1.6;
+    color: #333;
+}
+
+.caixa-sobre2 img {
+    object-fit: cover;
+    height: 300px;
+    width: 350px;
+    border-radius: 5px;
+}
+
+/*------------------------------------------------*/
+/*----------Pagamento--------------*/
+
+.caixa-pagamento {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.caixa-pagamento h1{
+    color: #00bf63;
+}
+
+.linha-pagamento {
+    background-color: #00bf63;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
 }
