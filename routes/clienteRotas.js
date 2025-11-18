@@ -35,12 +35,21 @@ router.post('/login', async (req, res) => {
     try {
         const { email, senha } = req.body;
         const usuario = await UsuarioModel.verificarCredenciais(email, senha);
+        let adm = null;
+
 
         if (!usuario) {
+            adm = await UsuarioModel.verificarADM(email, senha);
+        }
+        if (!usuario && !adm) {
             return res.status(401).json({ mensagem: 'Email ou senha inválidos.' });
         }
-
-        res.json({ mensagem: 'Login bem-sucedido!', usuario });
+        if (usuario) {
+            res.json({ mensagem: 'Login bem-sucedido!', usuario });
+        }
+        if (adm) {
+            res.json({ mensagem: 'Login bem-sucedido!', adm });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ mensagem: 'Erro ao realizar login.' });
