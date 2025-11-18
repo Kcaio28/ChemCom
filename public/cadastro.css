@@ -1,5 +1,3 @@
-/*---------------------------------------------------------------------------*/
-
 /*Header*/
 header{
     position: fixed;
@@ -8,6 +6,14 @@ header{
     width: 100%;
     background-color: #fff;
     z-index: 1050;
+}
+
+body{
+    padding-top: 170px;
+    background-image: url('images/predioChemCom.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .text-menu{
@@ -41,7 +47,7 @@ header{
 }
 
 .input-group-text{
-    border: 2px solid #00bf63;
+    border: 1px solid #00bf63;
     border-right: none;
     background-color: #fff;
     color: #00bf63;
@@ -49,7 +55,7 @@ header{
 }
 
 .form-control{
-    border: 2px solid #00bf63;
+    border: 1px solid #00bf63;
     border-left: none;
     border-radius: 0 8px 8px 0;
 }
@@ -90,7 +96,7 @@ header{
 
 /* Nav inferior */
 .menu-bar{
-    border-top: 2px solid #00bf63;
+    border-top: 1px solid #00bf63;
     padding: 0;
 }
 
@@ -104,12 +110,192 @@ header{
 }
 
 .nav-link{
+    margin: 2px ;
     color: #00bf63;
     font-weight: 600;
     padding: 12px 15px;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s  ease-in-out;
 }
 
 .nav-link:hover{
-    color: #009b66;
+    border-bottom: 1px solid #00a555;
+    color:  #009b66;
 }
-/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* Responsividade */
+@media(max-width: 992px){
+    /* Header */
+    .top-bar{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 10px 15px;
+    }
+
+    .logo{
+        order: 1;
+    }
+
+    .d-flex{
+        order: 2;
+    }
+
+    .search-bar{
+        order: 3;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .menu-bar .container-fluid{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Cadastar */
+    .cadastro-header h1{
+        font-size: 1.3rem;
+    }
+
+    .formCadastro{
+        padding: 20px 25px;
+    }
+
+    .row.mb-3 > [class*="col-"]{
+        margin-bottom: 15px;
+    }
+}
+
+@media(max-width:768px){
+    body{
+        padding-top: 180px;
+    }
+
+    .cadastro-container{
+        padding: 20px 10px;
+    }
+
+    .formCadastro{
+        padding: 20px 15px;
+    }
+
+    .cadastro-header h1{
+        font-size: 1.1rem;
+    }
+}
+
+/*===============================================================================================*/
+/* Container de cadastro */
+.cadastro-container{
+    padding: 40px 20px;
+    min-height: calc(100vh - 120px);
+}
+
+.cadastro-card{
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.cadastro-header{
+    background-color: #00bf63;
+    color: #fff;
+    padding: 20px 30px;
+    position: relative;
+}
+
+.cadastro-header::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #fff;
+}
+
+.cadastro-header h1{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* Forms */
+.formCadastro{
+    padding: 30px 40px;
+    background-color: #fff;
+}
+
+.section-title{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Divisor */
+.divider{
+    height: 1px;
+    background-color: #ddd;
+    margin: 25px 0;
+}
+
+/* Label e input */
+.form-label{
+    color: #333;
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.required{
+    color: #d32f2f;
+}
+
+.form-input{
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus{
+    border-color: #009b66;
+    box-shadow: 0 0 0 0 0.2rem rgba(0, 191, 99, 0.15);
+    outline: none;
+}
+
+/* Botão Cadastrar */
+.btn-cadastrar{
+    background-color: #009b66;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-cadastrar:hover{
+    background-color: #00bf63;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 191, 99, 0.3);
+}
+
+.btn-cadastrar .arrow{
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+}
+
+.btn-cadastrar:hover .arrow{
+    transform: translateX(5px);
+}
