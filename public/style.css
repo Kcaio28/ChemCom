@@ -221,7 +221,7 @@ body {
 
 .card {
     display: flex;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     background-color: #1c5e3a;
@@ -230,15 +230,16 @@ body {
 
 
 .carousel-item {
-    padding: 50px;
+    padding: 70px;
 }
-
-
 
 .carousel .card {
     width: 300px;
     height: 350px;
+    
 }
+
+
 
 .card-img-top {
     margin-top: 20px;
@@ -398,7 +399,7 @@ body {
 
 .linha-contato-2 {
     position: absolute;
-    width: 5px;
+    width: 2.5px;
     height: 320px;
     background-color: #00bf63;
     border-radius: 5px;
@@ -408,7 +409,7 @@ body {
     position: absolute;
     color: #00bf63;
     text-align: start;
-    font-size: 30px;
+    font-size: 25px;
     margin-left: 10%;
     margin-top: 2%;
 }
@@ -424,7 +425,7 @@ body {
 .botao-contato {
     width: 150px;
     height: 40px;
-    margin-top: 275px;
+    margin-top: 250px;
     margin-left: 10%;
     background-color: #00bf63;
     border-radius: 5px;
@@ -676,4 +677,5 @@ body {
     width: 100%;
     height: 5px;
     border-radius: 5px;
+    flex-direction: column;
 }
