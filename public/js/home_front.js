@@ -14,13 +14,20 @@ function getSessaoUsuario() {
 
 function atualizarVisibilidadeBotoes() {
     const sessao = getSessaoUsuario();
-    const teste = document.getElementById('teste');
+    const divLogin = document.getElementById('divLogin');
+    const divCarrinho = document.getElementById('divCarrinho');
 
     console.log("Sessão carregada:", sessao);
 
     if (sessao) {
-        teste.classList.add("d-none")
-        teste.classList.remove("d-flex");
+        divLogin.classList.add("d-none")
+        divLogin.classList.remove("d-flex");
+        divCarrinho.classList.remove("d-none")
+        divCarrinho.classList.add("d-flex");
+    }
+    if (sessao.tipo === "adm") {
+        const painelAdm = document.getElementById("painelAdm")
+        painelAdm.classList.remove("d-none")
     }
 }
 

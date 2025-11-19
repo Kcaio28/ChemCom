@@ -5,7 +5,7 @@ import {
   uploadImagens,
   handleUploadError,
 } from "../middlewares/uploadMiddleware.js";
-import { ProdutoModel } from "../models/ProdutoModel.js";
+import ProdutoModel from "../models/ProdutoModel.js";
 import fs from "fs";
 
 const router = express.Router();
@@ -65,7 +65,7 @@ router.options("/:id", (req, res) => {
       return;
     }
 
-    const produto = ProdutoModel.buscarPorId()
+    const produtos = ProdutoModel.buscarPorId()
 
     let paginaFinal = null
 
