@@ -15,7 +15,7 @@
         <div class="container-fluid top-bar">
             <!-- Logo minimalista -->
             <div class="logo">
-                <a href="home.html"><img src="./images/logo_mini.png" alt="Logo" /></a>
+                <a href="home.html" id="inicio"><img src="./images/logo_mini.png" alt="Logo" /></a>
             </div>
 
             <!-- Barra de pesquisa -->
@@ -24,13 +24,13 @@
                     <span class="input-group-text">
                         <img src="./images/icons/icon_search.svg" alt="Buscar" width="18" height="18" />
                     </span>
-                    <input type="text" class="form-control" placeholder="Pesquisar..." />
+                    <input type="text" class="form-control form-header" placeholder="Pesquisar..." />
                 </div>
             </div>
 
             <!-- Carrinho -->
             <div class="d-flex align-items-center gap-3">
-                <a href="" class="icon-btn text-menu">
+                <a href="carrinho.html" class="icon-btn text-menu">
                     <img src="./images/icons/icon_carrinho.svg" alt="Carrinho" width="22" height="22" />
                     Carrinho
                 </a>
@@ -57,7 +57,7 @@
                             <a class="nav-link" href="produtos.html">Catálogo</a>
                         </li>
                         <li class="nav-item text-menu">
-                            <a class="nav-link" href="">Empresas</a>
+                            <a class="nav-link" href="empresas.html">Empresas</a>
                         </li>
                         <li class="nav-item text-menu">
                             <a class="nav-link" href="sobre.html">Sobre</a>
@@ -87,59 +87,60 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="empresa" class="form-label">Empresa <span class="required">*</span></label>
-                                <input type="text" class="form-input" name="nome" required />
+                                <input type="text" class="form-control form-input" name="nome" required />
                             </div>
 
                             <div class="col-md-6">
                                 <label for="cnpj" class="form-label">CNPJ <span class="required">*</span></label>
-                                <input type="text" class="form-input" name="cnpj" required />
+                                <input type="text" class="form-control form-input" name="cnpj" required />
                             </div>
                         </div>
 
                         <!-- Dados de endereço: Estado, Cidade, Bairro, Número -->
                         <div class="row mb-3">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label for="estado" class="form-label">Estado</label>
-                                <input type="text" class="form-input" name="estado" required />
+                                <input type="text" class="form-control form-input" name="estado" required />
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <label for="cidade" class="form-label">Cidade</label>
-                                <input type="text" class="form-input" name="cidade" required />
+                                <input type="text" class="form-control form-input" name="cidade" required />
                             </div>
 
-                            <div class="col-md-3">
-                                <label for="cep" class="form-label">CEP</label><br>
-                                <input type="number" class="form-input" name="cep" required />
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="logradouro" class="form-label">Logradouro</label>
-                                <input type="text" class="form-input" name="logradouro" required />
-                            </div>
-
-                            <div class="col-md-2">
-                                <label for="numero" class="form-label">Número</label>
-                                <input type="number" class="form-input" name="numero" required />
+                            <div class="col-md-5">
+                                <label for="cep" class="form-label">CEP</label>
+                                <input type="number" class="form-control form-input" name="cep" required />
                             </div>
                         </div>
 
-                        <!-- ID, Telefone, Nome do contato -->
-                        <div class="row mb-4">
-                            <div class="col-md-3">
-                                <label for="id" class="form-label">ID</label>
-                                <input type="number" class="form-input" name="id" required />
+                            <div class="row mb-3">
+                                <div class="col-md-9">
+                                    <label for="logradouro" class="form-label">Logradouro</label>
+                                    <input type="text" class="form-control form-input" name="logradouro" required />
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="numero" class="form-label">Número</label>
+                                    <input type="number" class="form-control form-input" name="numero" required />
+                                </div>
                             </div>
 
-                            <div class="col-md-3">
+                        <!-- ID, Telefone, Nome do contato -->
+                        <div class="row mb-4">
+                            <div class="col-md-2">
+                                <label for="id" class="form-label">ID</label>
+                                <input type="number" class="form-control form-input" name="id" required />
+                            </div>
+
+                            <div class="col-md-4">
                                 <label for="telefone" class="form-label">Telefone <span
                                         class="required">*</span></label>
-                                <input type="number" class="form-input" name="telefone" required />
+                                <input type="number" class="form-control form-input" name="telefone" required />
                             </div>
 
                             <div class="col-md-6">
                                 <label for="nomeContato" class="form-label">Nome do Contato</label>
-                                <input type="text" class="form-input" id="nomeContato" name="nomeContato">
+                                <input type="text" class="form-control form-input" id="nomeContato" name="nomeContato">
                             </div>
 
                             <div class="divider"></div>
@@ -148,12 +149,12 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Email <span class="required">*</span></label>
-                                    <input type="email" class="form-input" name="email" required />
+                                    <input type="email" class="form-control form-input" name="email" required />
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="senha" class="form-label">Senha <span class="required">*</span></label>
-                                    <input type="password" class="form-input" name="senha" required />
+                                    <input type="password" class="form-control form-input" name="senha" required />
                                 </div>
                             </div>
                         </div>

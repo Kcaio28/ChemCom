@@ -64,25 +64,26 @@
 /*---------------------------------------------------------------------------*/
 
 /*Header*/
-header{
+header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #fff;
+
     z-index: 1050;
 }
 
-body{
-    padding-top: 160px;
+body {
+    padding-top: 130px;
 }
 
-.text-menu{
+.text-menu {
     font-size: 2.1vh;
 }
 
 /* NavBar superior */
-.top-bar{
+.top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -91,43 +92,43 @@ body{
 }
 
 /* Logo */
-.logo{
+.logo {
     flex-shrink: 0;
     margin-left: 70px;
 }
 
-.logo img{
+.logo img {
     height: 45px;
 }
 
 /* Barra de pesquisa */
-.search-bar{
+.search-bar {
     flex-grow: 1;
     max-width: 600px;
     margin: 0 auto;
 }
 
-.input-group-text{
-    border: 2px solid #00bf63;
+.input-group-text {
+    border: 1px solid #00bf63;
     border-right: none;
     background-color: #fff;
     color: #00bf63;
     border-radius: 8px 0 0 8px;
 }
 
-.form-control{
-    border: 2px solid #00bf63;
+.form-control {
+    border: 1px solid #00bf63;
     border-left: none;
     border-radius: 0 8px 8px 0;
 }
 
-.form-control:focus{
+.form-control:focus {
     box-shadow: none;
     border-color: #00bf63;
 }
 
 /* Ícones de Carrinho e Conta*/
-.icon-btn{
+.icon-btn {
     color: #00bf63;
     text-decoration: none;
     font-weight: 600;
@@ -137,48 +138,54 @@ body{
     white-space: nowrap;
 }
 
-.icon-btn:hover{
+.icon-btn:hover {
     color: #009b66;
 }
 
 /* Ícone hamburguer do menu inferior */
-.navbar-toggler{
+.navbar-toggler {
     border: none;
     padding: 5px 10px;
 }
 
-.navbar-toggler:focus{
+.navbar-toggler:focus {
     box-shadow: none;
 }
 
-.navbar-toggler-icon{
+.navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%2300bf63' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* Nav inferior */
-.menu-bar{
-    border-top: 2px solid #00bf63;
+.menu-bar {
+    border-top: 1px solid #00bf63;
     padding: 0;
 }
 
-.menu-bar .container-fluid{
+.menu-bar .container-fluid {
     padding-left: 30px;
     padding-right: 30px;
 }
 
-.navbar-nav{
+.navbar-nav {
     gap: 15px;
 }
 
-.nav-link{
+.nav-link {
+    margin: 2px;
     color: #00bf63;
     font-weight: 600;
     padding: 12px 15px;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s ease-in-out;
 }
 
-.nav-link:hover{
+.nav-link:hover {
+    border-bottom: 1px solid #00a555;
     color: #009b66;
 }
+
+
 /*---------------------------------------------------------------------------*/
 
 
