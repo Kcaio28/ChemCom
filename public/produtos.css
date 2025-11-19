@@ -171,19 +171,36 @@ body {
     gap: 15px;
 }
 
+/* Efeito da linha nos textos */
 .nav-link {
+    position: relative;
     margin: 2px;
     color: #00bf63;
     font-weight: 600;
     padding: 12px 15px;
-    border-bottom: 1px solid transparent;
-    transition: 0.2s ease-in-out;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.nav-link::after{
+    content: '';
+    position: absolute;
+    left: 15px;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: #00bf63;
+    transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-    border-bottom: 1px solid #00a555;
-    color: #009b66;
+    color: #00bf63;
 }
+
+.nav-link:hover::after{
+    width: calc(100% - 30px);
+}
+
 
 
 /*---------------------------------------------------------------------------*/
