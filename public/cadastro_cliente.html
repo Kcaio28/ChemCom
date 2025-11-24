@@ -2,52 +2,178 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="cadastro.css" />
 </head>
 
 <body>
+    <header>
+        <div class="container-fluid top-bar">
+            <!-- Logo minimalista -->
+            <div class="logo">
+                <a href="home.html" id="inicio"><img src="./images/logo_mini.png" alt="Logo" /></a>
+            </div>
 
-    <h2>Cadastro de Clientes</h2>
-    <form id="formCadastro">
-        <label>Nome Da Empresa:</label>
-        <input type="text" name="nome" required>
+            <!-- Barra de pesquisa -->
+            <div class="search-bar">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <img src="./images/icons/icon_search.svg" alt="Buscar" width="18" height="18" />
+                    </span>
+                    <input type="text" class="form-control form-header" placeholder="Pesquisar..." />
+                </div>
+            </div>
 
-        <label>CNPJ:</label>
-        <input type="text" name="cnpj" required>
+            <!-- Carrinho -->
+            <div class="d-flex align-items-center gap-3">
+                <a href="carrinho.html" class="icon-btn text-menu">
+                    <img src="./images/icons/icon_carrinho.svg" alt="Carrinho" width="22" height="22" />
+                    Carrinho
+                </a>
 
-        <label>Email:</label>
-        <input type="email" name="email" required>
+                <!-- Conta -->
+                <a href="login_cliente.html" class="icon-btn text-menu">
+                    <img src="./images/icons/icon_user.svg" alt="Usuário" width="22" height="22" />
+                    Conta
+                </a>
+            </div>
+        </div>
 
-        <label>Senha:</label>
-        <input type="password" name="senha" required>
+        <!-- Menu inferior -->
+        <nav class="navbar navbar-expand-lg menu-bar">
+            <div class="container-fluid">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#menuNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        <label>Telefone</label>
-        <input type="number" name="telefone" required>
+                <div class="collapse navbar-collapse" id="menuNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item text-menu">
+                            <a class="nav-link" href="catalogo.html">Catálogo</a>
+                        </li>
+                        <li class="nav-item text-menu">
+                            <a class="nav-link" href="empresas.html">Empresas</a>
+                        </li>
+                        <li class="nav-item text-menu">
+                            <a class="nav-link" href="sobre.html">Sobre</a>
+                        </li>
+                        <li class="nav-item text-menu">
+                            <a class="nav-link" href="contato.html">Contato</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-        <label>CEP:</label>
-        <input type="number" name="cep" required>
+    <div class="container-fluid cadastro-container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
 
-        <label>Estado</label>
-        <input type="text" name="estado" required>
+                <div class="cadastro-card">
+                    <div class="cadastro-header">
+                        <h1>Cadastre-se agora na ChemCom</h1>
+                    </div>
+                    <form id="formCadastro" class="formCadastro">
+                        <h2 class="section-title">Dados de Acesso</h2>
+                        <div class="divider"></div>
 
-        <label>Cidade</label>
-        <input type="text" name="cidade" required>
+                        <!-- Nome da empresa e CNPJ -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Empresa <span class="required">*</span></label>
+                                <input type="text" class="form-control form-input" name="nome" required />
+                            </div>
 
-        <label>Número</label>
-        <input type="number" name="numero" required>
+                            <div class="col-md-6">
+                                <label class="form-label">CNPJ <span class="required">*</span></label>
+                                <input type="text" class="form-control form-input" id="cnpj" name="cnpj" required />
+                            </div>
+                        </div>
 
-        <label>ID</label>
-        <input type="number" name="id" required>
+                        <!-- Dados de endereço: Estado, Cidade, Bairro, Número -->
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Estado</label>
+                                <input type="text" class="form-control form-input" name="estado" required />
+                            </div>
 
-        <label>Logradouro:</label>
-        <input type="text" name="logradouro" required>
+                            <div class="col-md-4">
+                                <label class="form-label">Cidade</label>
+                                <input type="text" class="form-control form-input" name="cidade" required />
+                            </div>
 
-        <button type="submit">Cadastrar</button>
-    </form>
+                            <div class="col-md-5">
+                                <label class="form-label">CEP</label>
+                                <input type="text" class="form-control form-input" id="cep" name="cep" required />
+                            </div>
+                        </div>
 
+                        <div class="row mb-3">
+                            <div class="col-md-9">
+                                <label class="form-label">Logradouro</label>
+                                <input type="text" class="form-control form-input" name="logradouro" required />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Número</label>
+                                <input type="number" class="form-control form-input" name="numero" required />
+                            </div>
+                        </div>
+
+                        <!-- ID, Telefone, Nome do contato -->
+                        <div class="row mb-4">
+
+                            <div class="col-md-4">
+                                <label class="form-label">Telefone <span class="required">*</span></label>
+                                <input type="text" class="form-control form-input" id="telefone" name="telefone"
+                                    required />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Nome do Contato</label>
+                                <input type="text" class="form-control form-input" id="nomeContato" name="nomeContato">
+                            </div>
+
+                            <div class="divider"></div>
+
+                            <!-- Email e senha -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Email <span class="required">*</span></label>
+                                    <input type="email" class="form-control form-input" name="email" required />
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Senha <span class="required">*</span></label>
+                                    <input type="password" class="form-control form-input" name="senha" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botão -->
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn-cadastrar">
+                                CADASTRAR
+                                <span class="arrow">→</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/imask@7.1.3/dist/imask.min.js"></script>
+    <script src="/public/js/mascaras.js"></script>
     <script src="/public/js/cadastro.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

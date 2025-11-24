@@ -1,6 +1,8 @@
 import { create, read, update, deleteRecord, comparePassword, hashPassword, getConnection } from '../config/database.js';
 
-const TABELA = 'empresa'; // nome correto da tabela
+const TABELA_empresa = 'empresa'; // nome correto da tabela_empresa
+const TABELA_adm = 'useradm';\
+
 
 class UsuarioModel {
 
@@ -11,10 +13,10 @@ class UsuarioModel {
             const connection = await getConnection();
 
             try {
-                const sql = `SELECT * FROM ${TABELA} ORDER BY id DESC LIMIT ? OFFSET ?`;
+                const sql = `SELECT * FROM ${TABELA_empresa} ORDER BY id DESC LIMIT ? OFFSET ?`;
                 const [empresas] = await connection.query(sql, [limite, offset]);
 
-                const [totalResult] = await connection.execute(`SELECT COUNT(*) as total FROM ${TABELA}`);
+                const [totalResult] = await connection.execute(`SELECT COUNT(*) as total FROM ${TABELA_empresa}`);
                 const total = totalResult[0].total;
 
                 return {
@@ -36,7 +38,7 @@ class UsuarioModel {
     // Buscar empresa por ID
     static async buscarPorId(id) {
         try {
-            const rows = await read(TABELA, `id = ${id}`);
+            const rows = await read(TABELA_empresa, `id = ${id}`);
             return rows[0] || null;
         } catch (error) {
             console.error('Erro ao buscar empresa por ID:', error);
@@ -49,7 +51,7 @@ class UsuarioModel {
         try {
             const connection = await getConnection();
             const [rows] = await connection.query(
-                `SELECT * FROM ${TABELA} WHERE email = ? LIMIT 1`,
+                `SELECT * FROM ${TABELA_empresa} WHERE email = ? LIMIT 1`,
                 [email]
             );
             connection.release();
@@ -59,6 +61,23 @@ class UsuarioModel {
             throw error;
         }
     }
+
+    // Buscar ADM por email
+    static async buscarADM(email) {
+        try {
+            const connection = await getConnection();
+            const [rows] = await connection.query(
+                `SELECT * FROM ${TABELA_adm} WHERE email = ? LIMIT 1`,
+                [email]
+            );
+            connection.release();
+            return rows[0] || null;
+        } catch (error) {
+            console.error('Erro ao buscar adm por email:', error);
+            throw error;
+        }
+    }
+
     // Criar nova empresa
     static async criar(dadosEmpresa) {
         try {
@@ -77,7 +96,7 @@ class UsuarioModel {
                 Nro: dadosEmpresa.numero
             };
 
-            return await create(TABELA, dadosCompletos);
+            return await create(TABELA_empresa, dadosCompletos);
         } catch (error) {
             console.error('Erro ao criar empresa:', error);
             throw error;
@@ -92,7 +111,7 @@ class UsuarioModel {
                 delete dadosEmpresa.senha;
             }
 
-            return await update(TABELA, dadosEmpresa, `id = ${id}`);
+            return await update(TABELA_empresa, dadosEmpresa, `id = ${id}`);
         } catch (error) {
             console.error('Erro ao atualizar empresa:', error);
             throw error;
@@ -102,7 +121,7 @@ class UsuarioModel {
     // Excluir empresa
     static async excluir(id) {
         try {
-            return await deleteRecord(TABELA, `id = ${id}`);
+            return await deleteRecord(TABELA_empresa, `id = ${id}`);
         } catch (error) {
             console.error('Erro ao excluir empresa:', error);
             throw error;
@@ -133,6 +152,36 @@ class UsuarioModel {
             }
 
             const { senha_hash, ...resto } = empresa;
+            return resto;
+        } catch (error) {
+            console.error('Erro ao verificar credenciais:', error);
+            throw error;
+        }
+    }
+
+    static async verificarADM(email, senha) {
+        try {
+            console.log("🔍 Verificando email:", email);
+
+            const adm = await this.buscarADM(email);
+
+            if (!adm) {
+                console.log("❌ EMAIL NÃO ENCONTRADO");
+                return null;
+            }
+
+            console.log("🔍 Hash encontrado no banco:", adm.senha_hash);
+
+            const senhaValida = await comparePassword(senha, adm.senha_hash);
+
+            console.log("🔍 Resultado da comparação:", senhaValida);
+
+            if (!senhaValida) {
+                console.log("❌ SENHA INCORRETA");
+                return null;
+            }
+
+            const { senha_hash, ...resto } = adm;
             return resto;
         } catch (error) {
             console.error('Erro ao verificar credenciais:', error);

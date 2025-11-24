@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/cadastro', async (req, res) => {
     try {
-        const { nome, cnpj, email, senha, cidade, estado, telefone, id, cep, numero, logradouro } = req.body;
+        const { nome, cnpj, email, senha, cidade, estado, telefone, cep, numero, logradouro } = req.body;
 
         const existe = await UsuarioModel.buscarPorEmail(email);
         if (existe) {
@@ -35,12 +35,28 @@ router.post('/login', async (req, res) => {
     try {
         const { email, senha } = req.body;
         const usuario = await UsuarioModel.verificarCredenciais(email, senha);
+        let adm = null;
 
         if (!usuario) {
+            adm = await UsuarioModel.verificarADM(email, senha);
+        }
+        if (!usuario && !adm) {
             return res.status(401).json({ mensagem: 'Email ou senha inválidos.' });
         }
-
-        res.json({ mensagem: 'Login bem-sucedido!', usuario });
+        if (usuario) {
+            return res.json({
+                mensagem: "Login bem-sucedido!",
+                tipo: "usuario",
+                dados: usuario
+            });
+        }
+        if (adm) {
+            return res.json({
+                mensagem: "Login bem-sucedido!",
+                tipo: "adm",
+                dados: adm
+            });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ mensagem: 'Erro ao realizar login.' });

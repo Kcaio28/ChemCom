@@ -1,29 +1,24 @@
 import { create, read, update, deleteRecord, getConnection } from '../config/database.js';
 
-// Model para operações com produtos
 class ProdutoModel {
-    // Listar todos os produtos (com paginação)
+
+    // Listar com paginação
     static async listarTodos(limite, offset) {
         try {
-
             const connection = await getConnection();
             try {
                 const sql = 'SELECT * FROM produtos ORDER BY id DESC LIMIT ? OFFSET ?';
-
                 const [produtos] = await connection.query(sql, [limite, offset]);
 
                 const [totalResult] = await connection.execute('SELECT COUNT(*) as total FROM produtos');
                 const total = totalResult[0].total;
 
-                const paginaAtual = (offset / limite) + 1;
-                const totalPaginas = Math.ceil(total / limite);
-
                 return {
                     produtos,
                     total,
-                    pagina: paginaAtual,
+                    pagina: offset / limite + 1,
                     limite,
-                    totalPaginas
+                    totalPaginas: Math.ceil(total / limite)
                 };
             } finally {
                 connection.release();
@@ -48,7 +43,13 @@ class ProdutoModel {
     // Criar novo produto
     static async criar(dadosProduto) {
         try {
-            return await create('produtos', dadosProduto);
+            console.log("📦 Dados recebidos para criar produto:", dadosProduto);
+            
+            const insertedId = await create('produtos', dadosProduto);
+
+            console.log("🆔 ID gerado:", insertedId);
+            
+            return insertedId;
         } catch (error) {
             console.error('Erro ao criar produto:', error);
             throw error;
@@ -75,7 +76,7 @@ class ProdutoModel {
         }
     }
 
-    // Buscar produtos por categoria
+    // Buscar por categoria
     static async buscarPorCategoria(categoria) {
         try {
             return await read('produtos', `categoria = '${categoria}'`);

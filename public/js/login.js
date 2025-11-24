@@ -11,8 +11,21 @@ document.getElementById("formLogin").addEventListener("submit", async (e) => {
 
     const resultado = await resposta.json();
     if (resposta.ok) {
-        alert("Login realizado com sucesso!");
-        localStorage.setItem("empresa", JSON.stringify(resultado.usuario));
+        localStorage.clear();
+        if (resultado.tipo === "usuario") {
+            localStorage.setItem("sessaoUsuario", JSON.stringify({
+                tipo: "usuario",
+                dados: resultado.dados
+            }));
+        }
+
+        if (resultado.tipo === "adm") {
+            localStorage.setItem("sessaoUsuario", JSON.stringify({
+                tipo: "adm",
+                dados: resultado.dados
+            }));
+        }
+
         window.location.href = "/home.html";
     } else {
         alert(resultado.mensagem);
