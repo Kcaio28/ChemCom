@@ -41,18 +41,33 @@ class ProdutoModel {
     }
 
     // Criar novo produto
-    static async criar(dadosProduto) {
-        try {
-            console.log("📦 Dados recebidos para criar produto:", dadosProduto);
-            
-            const insertedId = await create('produtos', dadosProduto);
+    static async criar({ nome, id_classificacao, descricao, preco, categoria, imagem1, imagem2, imagem3 }) {
+        const sql = `
+        INSERT INTO produto
+        (nome, id_classificacao, descricao, preco, categoria, imagem1, imagem2, imagem3)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
-            console.log("🆔 ID gerado:", insertedId);
-            
-            return insertedId;
-        } catch (error) {
-            console.error('Erro ao criar produto:', error);
-            throw error;
+        const params = [nome, id_classificacao, descricao, preco, categoria, imagem1, imagem2, imagem3];
+
+        const connection = await getConnection();
+
+        try {
+            const [result] = await connection.query(sql, params);
+
+            return {
+                id: result.insertId,
+                nome,
+                id_classificacao,
+                descricao,
+                preco,
+                categoria,
+                imagem1,
+                imagem2,
+                imagem3
+            };
+        } finally {
+            connection.release();
         }
     }
 

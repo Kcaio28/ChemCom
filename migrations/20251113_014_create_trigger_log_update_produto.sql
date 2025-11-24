@@ -11,7 +11,7 @@ before update on produto
 for each row
 begin
 	insert into log (acao, tabela_afetada, id_registro_afetado, descricao)
-    values ("Update", "Produto", old.id, comcat("Produto com id", old.id, "e nome", old.nome, "foi alterada sua descrição ou preço foram alterados:", old.preco, "e", old.descricao));
+    values ("Update", "Produto", old.id, concat("Produto com id", old.id, "e nome", old.nome, "foi alterada sua descrição ou preço foram alterados:", old.preco, "e", old.descricao));
 end //
 
 DELIMITER ;

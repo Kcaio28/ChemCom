@@ -11,7 +11,7 @@ after insert on lotes
 for each row
 begin
 	insert into log (acao, tabela_afetada, id_registro_afetado, descricao)
-    values ("Insert", "Lotes", NEW.id, comcat("Novo lote deproduto com id", NEW.id_produto));
+    values ("Insert", "Lotes", NEW.id, concat("Novo lote deproduto com id", NEW.id_produto));
 end //
 
 DELIMITER ;
