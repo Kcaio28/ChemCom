@@ -1,7 +1,7 @@
 import { create, read, update, deleteRecord, comparePassword, hashPassword, getConnection } from '../config/database.js';
 
 const TABELA_empresa = 'empresa'; // nome correto da tabela_empresa
-const TABELA_adm = 'useradm';
+const TABELA_adm = 'useradm';\
 
 
 class UsuarioModel {
