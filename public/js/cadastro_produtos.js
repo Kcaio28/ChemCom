@@ -3,7 +3,7 @@ document.getElementById("formCadastroProdutos").addEventListener("submit", async
 
     const formData = new FormData(e.target);
 
-    const resposta = await fetch("/produtoRotas/criar", {
+    const resposta = await fetch("/api/produtos/criar", {
         method: "POST",
         body: formData // IMPORTANTE: sem headers!
     });

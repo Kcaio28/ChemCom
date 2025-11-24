@@ -90,7 +90,6 @@ app.use('/api/produtos', produtoRotas);
 app.use('/api/criptografia', criptografiaRotas);
 app.use('/api/usuarios', usuarioRotas);
 app.use('/clienteRotas', clienteRotas);
-app.use('/produtoRotas', produtoRotas);
 
 // Rota raiz
 
