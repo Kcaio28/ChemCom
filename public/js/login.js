@@ -11,7 +11,7 @@ document.getElementById("formLogin").addEventListener("submit", async (e) => {
 
     const resultado = await resposta.json();
     if (resposta.ok) {
-
+        localStorage.clear();
         if (resultado.tipo === "usuario") {
             localStorage.setItem("sessaoUsuario", JSON.stringify({
                 tipo: "usuario",

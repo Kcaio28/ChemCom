@@ -12,6 +12,6 @@ document.getElementById("formCadastroProdutos").addEventListener("submit", async
     alert(resultado.mensagem);
 
     if (resposta.ok) {
-        window.location.href = "/produto.html";
+        window.location.href = "/produtos.html";
     }
 });
