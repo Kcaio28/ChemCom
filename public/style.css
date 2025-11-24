@@ -281,8 +281,10 @@ body {
 }
 
 .produto-card img {
-    height: 300px;
+    height: 330px;
     object-fit: contain;
+    padding: 8px;
+    margin-top: -20px;
 }
 
 .produto-card a {
