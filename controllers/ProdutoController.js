@@ -6,10 +6,10 @@ import { removerArquivoAntigo } from '../middlewares/uploadMiddleware.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Controller para operações com produtos
+// Controller para operações com produto
 class ProdutoController {
 
-    // GET /produtos - Listar todos os produtos (com paginação)
+    // GET /produto - Listar todos os produto (com paginação)
     static async listarTodos(req, res) {
         try {
            
@@ -46,7 +46,7 @@ class ProdutoController {
 
             res.status(200).json({
                 sucesso: true,
-                dados: resultado.produtos,
+                dados: resultado.produto,
                 paginacao: {
                     pagina: resultado.pagina, 
                     limite: resultado.limite, 
@@ -55,16 +55,16 @@ class ProdutoController {
                 }
             });
         } catch (error) {
-            console.error('Erro ao listar produtos:', error);
+            console.error('Erro ao listar produto:', error);
             res.status(500).json({
                 sucesso: false,
                 erro: 'Erro interno do servidor',
-                mensagem: 'Não foi possível listar os produtos'
+                mensagem: 'Não foi possível listar os produto'
             });
         }
     }
 
-    // GET /produtos/:id - Buscar produto por ID
+    // GET /produto/:id - Buscar produto por ID
     static async buscarPorId(req, res) {
         try {
             const { id } = req.params;
@@ -102,7 +102,7 @@ class ProdutoController {
         }
     }
 
-    // POST /produtos - Criar novo produto
+    // POST /produto - Criar novo produto
     static async criar(req, res) {
         try {
             const { nome, descricao, preco, categoria } = req.body;
@@ -182,7 +182,7 @@ class ProdutoController {
         }
     }
 
-    // PUT /produtos/:id - Atualizar produto
+    // PUT /produto/:id - Atualizar produto
     static async atualizar(req, res) {
         try {
             const { id } = req.params;
@@ -277,7 +277,7 @@ class ProdutoController {
         }
     }
 
-    // DELETE /produtos/:id - Excluir produto
+    // DELETE /produto/:id - Excluir produto
     static async excluir(req, res) {
         try {
             const { id } = req.params;
@@ -325,7 +325,7 @@ class ProdutoController {
         }
     }
 
-    // POST /produtos/upload - Upload de imagem para produto
+    // POST /produto/upload - Upload de imagem para produto
     static async uploadImagem(req, res) {
         try {
             const { produto_id } = req.body;

@@ -7,14 +7,14 @@ class ProdutoModel {
         try {
             const connection = await getConnection();
             try {
-                const sql = 'SELECT * FROM produtos ORDER BY id DESC LIMIT ? OFFSET ?';
-                const [produtos] = await connection.query(sql, [limite, offset]);
+                const sql = 'SELECT * FROM produto ORDER BY id DESC LIMIT ? OFFSET ?';
+                const [produto] = await connection.query(sql, [limite, offset]);
 
-                const [totalResult] = await connection.execute('SELECT COUNT(*) as total FROM produtos');
+                const [totalResult] = await connection.execute('SELECT COUNT(*) as total FROM produto');
                 const total = totalResult[0].total;
 
                 return {
-                    produtos,
+                    produto,
                     total,
                     pagina: offset / limite + 1,
                     limite,
@@ -24,7 +24,7 @@ class ProdutoModel {
                 connection.release();
             }
         } catch (error) {
-            console.error('Erro ao listar produtos:', error);
+            console.error('Erro ao listar produto:', error);
             throw error;
         }
     }
@@ -32,7 +32,7 @@ class ProdutoModel {
     // Buscar produto por ID
     static async buscarPorId(id) {
         try {
-            const rows = await read('produtos', `id = ${id}`);
+            const rows = await read('produto', `id = ${id}`);
             return rows[0] || null;
         } catch (error) {
             console.error('Erro ao buscar produto por ID:', error);
@@ -41,25 +41,40 @@ class ProdutoModel {
     }
 
     // Criar novo produto
-    static async criar(dadosProduto) {
-        try {
-            console.log("📦 Dados recebidos para criar produto:", dadosProduto);
-            
-            const insertedId = await create('produtos', dadosProduto);
+    static async criar({ nome, id_classificacao, descricao, preco, categoria, imagem1, imagem2, imagem3 }) {
+        const sql = `
+        INSERT INTO produto
+        (nome, id_classificacao, descricao, preco, categoria, imagem1, imagem2, imagem3)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
-            console.log("🆔 ID gerado:", insertedId);
-            
-            return insertedId;
-        } catch (error) {
-            console.error('Erro ao criar produto:', error);
-            throw error;
+        const params = [nome, id_classificacao, descricao, preco, categoria, imagem1, imagem2, imagem3];
+
+        const connection = await getConnection();
+
+        try {
+            const [result] = await connection.query(sql, params);
+
+            return {
+                id: result.insertId,
+                nome,
+                id_classificacao,
+                descricao,
+                preco,
+                categoria,
+                imagem1,
+                imagem2,
+                imagem3
+            };
+        } finally {
+            connection.release();
         }
     }
 
     // Atualizar produto
     static async atualizar(id, dadosProduto) {
         try {
-            return await update('produtos', dadosProduto, `id = ${id}`);
+            return await update('produto', dadosProduto, `id = ${id}`);
         } catch (error) {
             console.error('Erro ao atualizar produto:', error);
             throw error;
@@ -69,7 +84,7 @@ class ProdutoModel {
     // Excluir produto
     static async excluir(id) {
         try {
-            return await deleteRecord('produtos', `id = ${id}`);
+            return await deleteRecord('produto', `id = ${id}`);
         } catch (error) {
             console.error('Erro ao excluir produto:', error);
             throw error;
@@ -79,9 +94,9 @@ class ProdutoModel {
     // Buscar por categoria
     static async buscarPorCategoria(categoria) {
         try {
-            return await read('produtos', `categoria = '${categoria}'`);
+            return await read('produto', `categoria = '${categoria}'`);
         } catch (error) {
-            console.error('Erro ao buscar produtos por categoria:', error);
+            console.error('Erro ao buscar produto por categoria:', error);
             throw error;
         }
     }

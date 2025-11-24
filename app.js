@@ -98,32 +98,6 @@ app.get("/", (req, res) => {
 });
 
 
-// Rota raiz
-// app.get('/', (req, res) => {
-//     res.json({
-//         sucesso: true,
-//         mensagem: 'API de Produtos - Sistema de Gestão',
-//         versao: '1.0.0',
-//         rotas: {
-//             autenticacao: '/api/auth',
-//             produtos: '/api/produtos',
-//             criptografia: '/api/criptografia'
-//         },
-//         documentacao: {
-//             login: 'POST /api/auth/login',
-//             registrar: 'POST /api/auth/registrar',
-//             perfil: 'GET /api/auth/perfil',
-//             listarProdutos: 'GET /api/produtos',
-//             buscarProduto: 'GET /api/produtos/:id',
-//             criarProduto: 'POST /api/produtos',
-//             atualizarProduto: 'PUT /api/produtos/:id',
-//             excluirProduto: 'DELETE /api/produtos/:id',
-//             infoCriptografia: 'GET /api/criptografia/info',
-//             cadastrarUsuario: 'POST /api/criptografia/cadastrar-usuario'
-//         }
-//     });
-// });
-
 // Middleware para tratar rotas não encontradas
 app.use('*', (req, res) => {
     res.status(404).json({

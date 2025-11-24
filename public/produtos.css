@@ -76,6 +76,7 @@ header {
 
 body {
     padding-top: 130px;
+    background-color: #E9FAF2;
 }
 
 .text-menu {
@@ -222,7 +223,6 @@ body {
     position: sticky;
     top: 150px;
     padding: 20px 15px;
-    background-color: #fff;
     border-right: 3px solid #00bf63;
     min-height: 300px;
 }
@@ -274,7 +274,7 @@ body {
 }
 
 .produto-card{
-    border: 3px solid #00bf63;
+    border: 1px solid #00bf63;
     border-radius: 20px;
     transition: all 0.3s ease;
     overflow: hidden;
@@ -296,7 +296,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 220px;
-    border-bottom: 2px solid #00bf63;
+    border-bottom: 1px solid #00bf63;
 }
 
 .card-img-wrapper img{

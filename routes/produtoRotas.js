@@ -29,6 +29,48 @@ router.post(
   handleUploadError,
   ProdutoController.uploadImagem
 );
+
+router.post(
+  "/criar",
+  uploadImagens.fields([
+    { name: "imagem1", maxCount: 1 },
+    { name: "imagem2", maxCount: 1 },
+    { name: "imagem3", maxCount: 1 }
+  ]),
+  handleUploadError,
+  async (req, res) => {
+    try {
+      const { nome, descricao, preco, categoria, id_classificacao } = req.body;
+
+      const imagens = {
+        imagem1: req.files.imagem1?.[0]?.filename || null,
+        imagem2: req.files.imagem2?.[0]?.filename || null,
+        imagem3: req.files.imagem3?.[0]?.filename || null
+      };
+
+      const produto = await ProdutoModel.criar({
+        nome,
+        descricao,
+        preco,
+        categoria,
+        id_classificacao,
+        ...imagens
+      });
+
+      return res.status(201).json({
+        mensagem: "Produto criado com sucesso!",
+        produto
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        mensagem: "Erro ao criar produto."
+      });
+    }
+  }
+);
+
+
 router.put(
   "/:id",
   authMiddleware,
@@ -53,42 +95,5 @@ router.options("/upload", (req, res) => {
   res.status(200).send();
 });
 
-router.options("/:id", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  const id = parseInt(req.params.id)
-  fs.readFile("./public/produto.html", "utf8", (erro, produto) => {
-    if (erro) {
-      console.error("Erro ao ler HTML:", erro);
-      res.status(500).send("Erro ao carregar página.");
-      return;
-    }
-
-    const produtos = ProdutoModel.buscarPorId()
-
-    let paginaFinal = null
-
-    try {
-        paginaFinal = produto
-        paginaFinal = paginaFinal.replaceAll('[nome]', produto.nome)
-        paginaFinal = paginaFinal.replaceAll('[descricao]', produto.descricao)
-        paginaFinal = paginaFinal.replaceAll('[preco]', produto.preco.toFixed(2))
-        paginaFinal = paginaFinal.replaceAll('imagens[0]', produto.imagem1)
-        paginaFinal = paginaFinal.replaceAll('imagens[1]', produto.imagem2)
-        paginaFinal = paginaFinal.replaceAll('imagens[2]', produto.imagem3)
-        paginaFinal = paginaFinal.replaceAll('[categoria]', produto.categoria)
-    } catch (error) {
-
-    }
-
-    if (!paginaFinal) {
-        return;
-    }
-    res.status(200).send(paginaFinal)
-
-  });
-  res.status(200).send();
-});
 
 export default router;
