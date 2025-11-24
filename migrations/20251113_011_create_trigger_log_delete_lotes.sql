@@ -11,7 +11,7 @@ before delete on lotes
 for each row
 begin
 	insert into log (acao, tabela_afetada, id_registro_afetado, descricao)
-    values ("Insert", "Lotes", old.id, comcat("Lote de produto com id", old.id_produto, "foi excluído."));
+    values ("Insert", "Lotes", old.id, concat("Lote de produto com id", old.id_produto, "foi excluído."));
 end //
 
 DELIMITER ;
