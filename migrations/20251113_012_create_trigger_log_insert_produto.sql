@@ -11,7 +11,7 @@ after insert on produto
 for each row
 begin
 	insert into log (acao, tabela_afetada, id_registro_afetado, descricao)
-    values ("Insert", "Produto", NEW.id, comcat("Novo produto", NEW.nome));
+    values ("Insert", "Produto", NEW.id, concat("Novo produto", NEW.nome));
 end //
 
 DELIMITER ;

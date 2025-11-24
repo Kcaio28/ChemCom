@@ -272,7 +272,7 @@ body {
 
 
 .produto-card {
-    width: 360px;
+    width: 350px;
     background: #1c5e3a;
     color: white;
     border-radius: 5px;
@@ -281,8 +281,10 @@ body {
 }
 
 .produto-card img {
-    height: 280px;
+    height: 330px;
     object-fit: contain;
+    padding: 8px;
+    margin-top: -20px;
 }
 
 .produto-card a {

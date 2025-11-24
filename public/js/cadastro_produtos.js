@@ -3,7 +3,7 @@ document.getElementById("formCadastroProdutos").addEventListener("submit", async
 
     const formData = new FormData(e.target);
 
-    const resposta = await fetch("/api/produtos", {
+    const resposta = await fetch("/produtoRotas/criar", {
         method: "POST",
         body: formData // IMPORTANTE: sem headers!
     });
@@ -12,6 +12,6 @@ document.getElementById("formCadastroProdutos").addEventListener("submit", async
     alert(resultado.mensagem);
 
     if (resposta.ok) {
-        window.location.href = "/produtos.html";
+        window.location.href = "/catalogo.html";
     }
 });
