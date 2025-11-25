@@ -7,8 +7,8 @@
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     height: 100vh;
-    display: flex;
-    overflow: hidden;
+    /* display: flex; */
+    /* overflow: hidden; */
     padding-top: 110px;
 
     background-color: #00bf6311;
@@ -42,25 +42,6 @@ body {
         padding-left: 15px;
         padding-right: 15px;
     }
-
-    .filtros-sidebar {
-        margin-bottom: 30px;
-        padding-right: 0;
-    }
-
-    .filtros-container {
-        position: relative;
-        top: 0;
-        border-right: none;
-        border-bottom: 3px solid #e0e0e0;
-        padding: 20px;
-    }
-
-    .filtro-group {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
 }
 
 @media(max-width: 768px) {
@@ -78,6 +59,10 @@ body {
     }
 }
 
+body {
+    padding-top: 130px;
+}
+
 /*---------------------------------------------------------------------------*/
 
 /*Header*/
@@ -89,10 +74,6 @@ header {
     background-color: #fff;
 
     z-index: 1050;
-}
-
-body {
-    padding-top: 130px;
 }
 
 .text-menu {
@@ -126,17 +107,18 @@ body {
 }
 
 .input-group-text {
-    border: 1px solid #00bf63;
     border-right: none;
-    background-color: #fff;
+    background-color: #bbbbbb3a;
     color: #00bf63;
     border-radius: 8px 0 0 8px;
+    border: none;
 }
 
 .form-control {
-    border: 1px solid #00bf63;
     border-left: none;
     border-radius: 0 8px 8px 0;
+    background-color: #bbbbbb3a;
+    border: none;
 }
 
 .form-control:focus {
@@ -199,7 +181,7 @@ body {
     display: inline-block;
 }
 
-.nav-link::after {
+.nav-link::after{
     content: '';
     position: absolute;
     left: 15px;
@@ -214,14 +196,19 @@ body {
     color: #00bf63;
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after{
     width: calc(100% - 30px);
 }
 
 
 
+
 /*-------------------------------------------------------------------------------------------------------------------------------------------*/
 
+/* Div pai */
+.login-div{
+    display: flex;
+}
 
 /* Lado esquerdo da página (imagem) */
 .login-image {
@@ -482,8 +469,16 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 2fr 3fr;
-    gap: 60px;
+    grid-template-columns: 250px auto 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.footer-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .footer-logo img {
@@ -495,6 +490,11 @@ body {
     width: 2px;
     background-color: rgba(51, 255, 0, 0.404);
     height: 100%;
+}
+
+.footer-content-wrapper{
+    display: flex;
+    gap: 120px;
 }
 
 .footer-section h3 {
