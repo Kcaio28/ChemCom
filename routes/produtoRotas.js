@@ -70,6 +70,7 @@ router.post(
   }
 );
 
+router.post("/deletar", ProdutoController.excluir);
 
 router.put(
   "/:id",
