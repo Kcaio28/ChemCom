@@ -7,7 +7,16 @@ class ProdutoModel {
         try {
             const connection = await getConnection();
             try {
-                const sql = 'SELECT * FROM produto ORDER BY id DESC LIMIT ? OFFSET ?';
+                const sql = `
+                SELECT 
+                    p.*,
+                    c.nome AS classificacao_nome
+                FROM produto p
+                JOIN classificacao_risco c 
+                    ON p.id_classificacao = c.id
+                ORDER BY p.id DESC
+                LIMIT ? OFFSET ?
+            `;
                 const [produto] = await connection.query(sql, [limite, offset]);
 
                 const [totalResult] = await connection.execute('SELECT COUNT(*) as total FROM produto');

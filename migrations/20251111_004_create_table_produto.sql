@@ -5,7 +5,7 @@
 use chemcom;
 
 create table produto(
-	id int,
+	id int auto_increment,
     nome varchar(100),
     id_classificacao int,
     preco decimal(10,2),
