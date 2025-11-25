@@ -5,7 +5,7 @@
 use chemcom;
 
 create table empresa (
-	id int unique,
+	id int auto_increment,
     CNPJ char(13) not null,
     nome varchar(50),
     Telefone varchar(11),
