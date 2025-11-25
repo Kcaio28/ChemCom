@@ -105,14 +105,14 @@
       <form class="form-cartao">
 
         <label>Titular do Cartão:</label>
-        <input type="text">
+        <input type="text" required>
 
         <label>Número do Cartão:</label>
-        <input type="text">
+        <input type="text" required>
 
         <label>Data de Validade:</label>
         <div class="validade">
-          <select>
+          <select required>
             <option>Mês</option>
             <option>01</option>
             <option>02</option>
@@ -121,7 +121,7 @@
 
           <span>/</span>
 
-          <select>
+          <select required>
             <option>Ano</option>
             <option>2025</option>
             <option>2026</option>
@@ -130,10 +130,10 @@
         </div>
 
         <label>Código de Segurança:</label>
-        <input type="text">
+        <input type="text" required>
 
         <label>Parcelas:</label>
-        <select>
+        <select required>
           <option>1X</option>
           <option>2X</option>
           <option>3X</option>
