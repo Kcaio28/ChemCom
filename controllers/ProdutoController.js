@@ -1,5 +1,6 @@
 import ProdutoModel from '../models/ProdutoModel.js';
 import { fileURLToPath } from 'url';
+import fs from "fs/promises";
 import path from 'path';
 import { removerArquivoAntigo } from '../middlewares/uploadMiddleware.js';
 
@@ -12,7 +13,7 @@ class ProdutoController {
     // GET /produto - Listar todos os produto (com paginação)
     static async listarTodos(req, res) {
         try {
-           
+
             let pagina = parseInt(req.query.pagina) || 1;
             let limite = parseInt(req.query.limite) || 10;
 
@@ -42,16 +43,16 @@ class ProdutoController {
 
             const offset = (pagina - 1) * limite;
 
-            const resultado = await ProdutoModel.listarTodos(limite, offset); 
+            const resultado = await ProdutoModel.listarTodos(limite, offset);
 
             res.status(200).json({
                 sucesso: true,
                 dados: resultado.produto,
                 paginacao: {
-                    pagina: resultado.pagina, 
-                    limite: resultado.limite, 
-                    total: resultado.total,   
-                    totalPaginas: resultado.totalPaginas 
+                    pagina: resultado.pagina,
+                    limite: resultado.limite,
+                    total: resultado.total,
+                    totalPaginas: resultado.totalPaginas
                 }
             });
         } catch (error) {
@@ -277,53 +278,63 @@ class ProdutoController {
         }
     }
 
-    // DELETE /produto/:id - Excluir produto
+
     static async excluir(req, res) {
         try {
             const { id } = req.params;
 
-            // Validação do ID
+            console.log("ID recebido:", id);
+
             if (!id || isNaN(id)) {
                 return res.status(400).json({
                     sucesso: false,
-                    erro: 'ID inválido',
-                    mensagem: 'O ID deve ser um número válido'
+                    mensagem: "ID inválido"
                 });
             }
 
-            // Verificar se o produto existe
-            const produtoExistente = await ProdutoModel.buscarPorId(id);
-            if (!produtoExistente) {
+            const produto = await ProdutoModel.buscarPorId(id);
+
+            if (!produto) {
                 return res.status(404).json({
                     sucesso: false,
-                    erro: 'Produto não encontrado',
-                    mensagem: `Produto com ID ${id} não foi encontrado`
+                    mensagem: "Produto não encontrado."
                 });
             }
 
-            // Remover imagem do produto se existir
-            if (produtoExistente.imagem) {
-                await removerArquivoAntigo(produtoExistente.imagem, 'imagem');
+            // Campos das imagens
+            const camposImagens = ["imagem1", "imagem2", "imagem3"];
+
+            for (const campo of camposImagens) {
+                const nomeArquivo = produto[campo];
+
+                if (nomeArquivo) {
+                    const caminho = path.join(process.cwd(), "uploads", "imagens", nomeArquivo);
+
+                    try {
+                        await fs.unlink(caminho);
+                        console.log("Imagem deletada:", caminho);
+                    } catch (err) {
+                        console.log("Erro ao deletar imagem:", err.message);
+                    }
+                }
             }
 
-            const resultado = await ProdutoModel.excluir(id);
+            await ProdutoModel.excluir(id);
 
-            res.status(200).json({
+            return res.json({
                 sucesso: true,
-                mensagem: 'Produto excluído com sucesso',
-                dados: {
-                    linhasAfetadas: resultado || 1
-                }
+                mensagem: "Produto e imagens deletados com sucesso!"
             });
-        } catch (error) {
-            console.error('Erro ao excluir produto:', error);
-            res.status(500).json({
+
+        } catch (erro) {
+            console.error(erro);
+            return res.status(500).json({
                 sucesso: false,
-                erro: 'Erro interno do servidor',
-                mensagem: 'Não foi possível excluir o produto'
+                mensagem: "Erro ao excluir produto."
             });
         }
     }
+
 
     // POST /produto/upload - Upload de imagem para produto
     static async uploadImagem(req, res) {

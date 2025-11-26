@@ -1,17 +1,16 @@
 document.getElementById("formDeletarProdutos").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
+    const id = document.querySelector("input[name='id']").value;
 
-    const resposta = await fetch("/api/produtos/deletar", {
-        method: "POST",
-        body: formData // IMPORTANTE: sem headers!
+    const resposta = await fetch(`/api/produtos/${id}`, {
+        method: "DELETE"
     });
 
     const resultado = await resposta.json();
     alert(resultado.mensagem);
 
-    if (resposta.ok) {
+    if (resultado.sucesso) {
         window.location.href = "/catalogo.html";
     }
 });

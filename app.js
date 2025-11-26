@@ -13,7 +13,7 @@ import usuarioRotas from './routes/usuarioRotas.js';
 import clienteRotas from './routes/clienteRotas.js';
 
 // Importar middlewares
-import { logMiddleware } from './middlewares/logMiddleware.js';
+// import { logMiddleware } from './middlewares/logMiddleware.js';
 import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 // Carregar variáveis do arquivo .env
@@ -80,7 +80,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Middleware para log de requisições (salva no banco de dados)
-app.use(logMiddleware);
+// app.use(logMiddleware);
 
 // Rotas da API
 app.use('/api/auth', authRotas);

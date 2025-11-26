@@ -70,7 +70,7 @@ router.post(
   }
 );
 
-router.post("/deletar", ProdutoController.excluir);
+router.delete("/:id", ProdutoController.excluir);
 
 router.put(
   "/:id",
@@ -79,7 +79,7 @@ router.put(
   handleUploadError,
   ProdutoController.atualizar
 );
-router.delete("/:id", authMiddleware, ProdutoController.excluir);
+// router.delete("/:id", authMiddleware, ProdutoController.excluir);
 
 // Rotas OPTIONS para CORS (preflight requests)
 router.options("/", (req, res) => {
