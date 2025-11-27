@@ -125,6 +125,10 @@
                         <h5>Imagem do Produto</h5>
                         <input type="file" name="imagem1" accept="image/*" required>
                     </div>
+        <label>Imagem do Produto:</label>
+        <input type="file" name="imagem1" accept="image/*">
+        <input type="file" name="imagem2" accept="image/*">
+        <input type="file" name="imagem3" accept="image/*">
 
                     <button type="submit" class="botaoFormAdm">CADASTRAR</button>
                 </form>
@@ -216,6 +220,76 @@
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
 
+    <form id="formAtualizarProdutos" enctype="multipart/form-data" method="POST">
+
+        <label>Nome:</label>
+        <input type="text" name="nome">
+
+        <label>Descrição:</label>
+        <textarea name="descricao"></textarea>
+
+        <label>Preço:</label>
+        <input type="number" name="preco">
+
+        <label for="categoria">Categoria:</label>
+        <select id="categoria_UP" name="categoria">
+            <option value="">Selecione...</option>
+            <option value="Ácido">Ácido</option>
+            <option value="Base">Base</option>
+            <option value="Sal">Sal</option>
+            <option value="Solvente">Solvente</option>
+            <option value="Polímero">Polímero</option>
+            <option value="Agricultura">Agricultura</option>
+            <option value="Farmacêuticos">Farmacêuticos</option>
+            <option value="Cosméticos">Cosméticos</option>
+            <option value="Reagente">Reagente</option>
+        </select>
+
+        <label for="classificacao">Classificação:</label>
+        <select id="classificacao_UP" name="id_classificacao">
+            <option value="">Selecione...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+
+        <label>Imagens do Produto:</label>
+        <input type="file" name="imagem1" accept="image/*">
+        <input type="file" name="imagem2" accept="image/*">
+        <input type="file" name="imagem3" accept="image/*">
+
+        <button type="submit">ATUALIZAR</button>
+    </form>
+
+    <form id="formLotes">
+        <h3>Cadastrar Novo Lote</h3>
+
+        <label>Produto:</label>
+        <select name="id_produto" id="id_produto" required></select>
+
+        <label>Data de Fabricação:</label>
+        <input type="date" name="data_fab" required>
+
+        <label>Data de Validade:</label>
+        <input type="date" name="data_validade" required>
+
+        <label>Quantidade Inicial:</label>
+        <input type="number" name="qtd_inicial" min="1" required>
+
+        <button type="submit">Salvar Lote</button>
+    </form>
+
+    <form id="formDeletarLote">
+        <h3>Deletar Lote</h3>
+
+        <label>Lote:</label>
+        <input type="number" name="id" required>
+
+        <button type="submit">Deletar Lote</button>
+    </form>
+
+    <script src="/js/lotes.js"></script>
+    <script src="/js/atualizar_produtos.js"></script>
     <script src="/js/cadastro_produtos.js"></script>
     <script src="/js/deletar_produtos.js"></script>
 </body>
