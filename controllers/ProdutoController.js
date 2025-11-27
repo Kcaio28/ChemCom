@@ -184,96 +184,69 @@ class ProdutoController {
     }
 
     // PUT /produto/:id - Atualizar produto
+
     static async atualizar(req, res) {
         try {
             const { id } = req.params;
-            const { nome, descricao, preco, categoria } = req.body;
 
-            // Validação do ID
             if (!id || isNaN(id)) {
-                return res.status(400).json({
-                    sucesso: false,
-                    erro: 'ID inválido',
-                    mensagem: 'O ID deve ser um número válido'
-                });
+                return res.status(400).json({ sucesso: false, mensagem: "ID inválido." });
             }
 
-            // Verificar se o produto existe
             const produtoExistente = await ProdutoModel.buscarPorId(id);
+
             if (!produtoExistente) {
-                return res.status(404).json({
-                    sucesso: false,
-                    erro: 'Produto não encontrado',
-                    mensagem: `Produto com ID ${id} não foi encontrado`
-                });
+                return res.status(404).json({ sucesso: false, mensagem: "Produto não encontrado." });
             }
 
-            // Preparar dados para atualização
-            const dadosAtualizacao = {};
+            // Campos que podem ser atualizados
+            const dados = {
+                nome: req.body.nome || produtoExistente.nome,
+                descricao: req.body.descricao || produtoExistente.descricao,
+                preco: req.body.preco || produtoExistente.preco,
+                categoria: req.body.categoria || produtoExistente.categoria,
+                id_classificacao: req.body.id_classificacao || produtoExistente.id_classificacao
+            };
 
-            if (nome !== undefined) {
-                if (nome.trim() === '') {
-                    return res.status(400).json({
-                        sucesso: false,
-                        erro: 'Nome inválido',
-                        mensagem: 'O nome não pode estar vazio'
-                    });
+            const novasImagens = {};
+
+            const camposImagens = ["imagem1", "imagem2", "imagem3"];
+
+            for (const campo of camposImagens) {
+                if (req.files[campo]?.length) {
+
+                    // Deletar imagem antiga
+                    const antiga = produtoExistente[campo];
+                    if (antiga) {
+                        const caminhoAntigo = path.join(process.cwd(), "uploads", "imagens", antiga);
+                        try {
+                            await fs.unlink(caminhoAntigo);
+                            console.log("Imagem antiga deletada:", caminhoAntigo);
+                        } catch (err) {
+                            console.log("Erro ao deletar imagem antiga:", err.message);
+                        }
+                    }
+
+                    // Salvar nova imagem
+                    novasImagens[campo] = req.files[campo][0].filename;
+
+                } else {
+                    novasImagens[campo] = produtoExistente[campo];
                 }
-                dadosAtualizacao.nome = nome.trim();
             }
 
-            if (preco !== undefined) {
-                if (isNaN(preco) || preco <= 0) {
-                    return res.status(400).json({
-                        sucesso: false,
-                        erro: 'Preço inválido',
-                        mensagem: 'O preço deve ser um número maior que zero'
-                    });
-                }
-                dadosAtualizacao.preco = parseFloat(preco);
-            }
+            await ProdutoModel.atualizar(id, { ...dados, ...novasImagens });
 
-            if (descricao !== undefined) {
-                dadosAtualizacao.descricao = descricao ? descricao.trim() : null;
-            }
-
-            if (categoria !== undefined) {
-                dadosAtualizacao.categoria = categoria ? categoria.trim() : 'Geral';
-            }
-
-            // Adicionar nova imagem se foi enviada
-            if (req.file) {
-                // Remover imagem antiga se existir
-                if (produtoExistente.imagem) {
-                    await removerArquivoAntigo(produtoExistente.imagem, 'imagem');
-                }
-                dadosAtualizacao.imagem = req.file.filename;
-            }
-
-            // Verificar se há dados para atualizar
-            if (Object.keys(dadosAtualizacao).length === 0) {
-                return res.status(400).json({
-                    sucesso: false,
-                    erro: 'Nenhum dado para atualizar',
-                    mensagem: 'Forneça pelo menos um campo para atualizar'
-                });
-            }
-
-            const resultado = await ProdutoModel.atualizar(id, dadosAtualizacao);
-
-            res.status(200).json({
+            return res.json({
                 sucesso: true,
-                mensagem: 'Produto atualizado com sucesso',
-                dados: {
-                    linhasAfetadas: resultado.affectedRows || 1
-                }
+                mensagem: "Produto atualizado com sucesso!"
             });
-        } catch (error) {
-            console.error('Erro ao atualizar produto:', error);
-            res.status(500).json({
+
+        } catch (erro) {
+            console.error(erro);
+            return res.status(500).json({
                 sucesso: false,
-                erro: 'Erro interno do servidor',
-                mensagem: 'Não foi possível atualizar o produto'
+                mensagem: "Erro ao atualizar produto."
             });
         }
     }

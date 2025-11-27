@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <h5 class="produto-nome">${prod.nome}</h5>
                   <p class="produto-empresa">Classificação: ${prod.classificacao_nome}</p>
                   <p class="produto-preco">Preço: R$ ${Number(prod.preco).toFixed(2)}</p>
-                  <a href=""><button class="btn btn-comprar">Comprar</button></a>
+                  <a href="/produto.html"><button class="btn btn-comprar">Comprar</button></a>
                 </div>
               </div>
             `;

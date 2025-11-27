@@ -70,6 +70,18 @@ router.post(
   }
 );
 
+router.post(
+  "/update/:id",
+  uploadImagens.fields([
+    { name: "imagem1", maxCount: 1 },
+    { name: "imagem2", maxCount: 1 },
+    { name: "imagem3", maxCount: 1 }
+  ]),
+  handleUploadError,
+  ProdutoController.atualizar
+);
+
+
 router.delete("/:id", ProdutoController.excluir);
 
 router.put(
