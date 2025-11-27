@@ -5,11 +5,12 @@
 use chemcom;
 
 create table lotes (
-	id int,
+	id int auto_increment,
     id_produto int,
     data_fab date,
     data_validade date,
     qtd_inicial int,
+    qtd_atual int,
     
     primary key (id),
     foreign key (id_produto) references produto(id)
