@@ -173,8 +173,85 @@ header {
 
 /*----------------------------------------------------------------------------------------*/
 /* Principal da página */
-/* Detalhes do produto */
+/* Coluna slider de fotos */
+.list-group-item.active{
+    background-color: #00bf63;
+    border-color: #00bf63;
+}
 
+/* Setas slider */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+/* Detalhes do produto */
+.detalhes-produto-section{
+    margin-bottom: 40px;
+}
+
+.info-row{
+    display: flex;
+    align-items: flex-start;
+    padding: 15px 0;
+    gap: 20px;
+}
+
+.info-label{
+    color: #00bf63;
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-width: 180px;
+    flex-shrink: 0;
+}
+
+.info-value{
+    color: #000;
+    font-size: 1rem;
+    font-weight: 400;
+    flex: 1;
+}
+
+.info-divider{
+    border: none;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 0;
+}
+
+/* Lista de aplicações */
+.aplicacoes-list{
+    margin: 0;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.aplicacoes-list li{
+    margin-bottom: 8px;
+    color: #000;
+}
+
+/*  PDF */
+.pdf-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #72C6EF;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.pdf-link:hover{
+    color: #48b3e9;
+    transform: translateX(3px);
+}
+
+.pdf-icon{
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
 
 
 
