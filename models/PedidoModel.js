@@ -240,4 +240,4 @@ class PedidoModel {
   }
 }
 
-export default UsuarioModel;
+export default PedidoModel;

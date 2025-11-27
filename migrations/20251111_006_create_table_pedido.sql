@@ -5,7 +5,7 @@
 use chemcom;
 
 create table pedido(
-	nro_pedido int,
+	nro_pedido int auto_increment,
     id_cliente int,
     valor_total decimal(10,2),
     data_pedido datetime,

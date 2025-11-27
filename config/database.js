@@ -121,5 +121,6 @@ export {
     deleteRecord, 
     comparePassword, 
     hashPassword,
-    getConnection
+    getConnection,
+    pool
 };
