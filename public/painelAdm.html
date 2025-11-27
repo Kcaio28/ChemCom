@@ -29,32 +29,17 @@
                 </div>
             </div>
 
-            <!-- botão logar -->
-            <div class="d-flex align-items-center gap-3" id="divLogin">
-                <a href="login_cliente.html" class="icon-btn text-menu btn-saiba-transporte">
-                    Entrar
-                </a>
-            </div>
-
             <!-- Carrinho -->
-            <div class="d-none align-items-center gap-3" id="divCarrinho">
+            <div class="d-flex align-items-center gap-3">
                 <a href="carrinho.html" class="icon-btn text-menu">
                     <img src="./images/icons/icon_carrinho.svg" alt="Carrinho" width="22" height="22" />
                     Carrinho
                 </a>
+
                 <!-- Conta -->
-                <a href="#" class="icon-btn text-menu">
+                <a href="login_cliente.html" class="icon-btn text-menu">
                     <img src="./images/icons/icon_user.svg" alt="Usuário" width="22" height="22" />
                     Conta
-                </a>
-            </div>
-
-            <!-- ADM -->
-            <div class="d-none align-items-center gap-3" id="painelAdm">
-                <!-- Conta -->
-                <a href="painelAdm.html" class="icon-btn text-menu">
-                    <img src="./images/icons/icon_user.svg" alt="Usuário" width="22" height="22" />
-                    ADM
                 </a>
             </div>
         </div>
@@ -92,7 +77,7 @@
             <div class="col-auto">
                 <form class="formAdm" id="formCadastroProdutos" enctype="multipart/form-data" method="POST">
 
-                    <h1 class="mt-4">Cadastro de Produtos</h1>
+                    <h1 class="mt-4">Cadastrar Produtos</h1>
 
                     <div class="textoEmCimaInpAdm">
                         <h5>Nome</h5>
@@ -149,6 +134,63 @@
             </div>
 
             <div class="col-auto">
+                <form class="formAdm" id="formAtualizarProdutos" enctype="multipart/form-data" method="POST">
+
+                    <h1 class="mt-4">Atualizar Produto</h1>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Nome</h5>
+                        <input type="text" name="nome">
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Descrição</h5>
+                        <textarea name="descricao"></textarea>
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Preço</h5>
+                        <input type="number" name="preco">
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5 for="categoria">Categoria</h5>
+                        <select id="categoria_UP" name="categoria">
+                            <option value="">Selecione...</option>
+                            <option value="Ácido">Ácido</option>
+                            <option value="Base">Base</option>
+                            <option value="Sal">Sal</option>
+                            <option value="Solvente">Solvente</option>
+                            <option value="Polímero">Polímero</option>
+                            <option value="Agricultura">Agricultura</option>
+                            <option value="Farmacêuticos">Farmacêuticos</option>
+                            <option value="Cosméticos">Cosméticos</option>
+                            <option value="Reagente">Reagente</option>
+                        </select>
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5 for="classificacao">Classificação</h5>
+                        <select id="classificacao_UP" name="id_classificacao">
+                            <option value="">Selecione...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Imagens do Produto</h5>
+                        <input type="file" name="imagem1" accept="image/*">
+                        <input type="file" name="imagem2" accept="image/*">
+                        <input type="file" name="imagem3" accept="image/*">
+                    </div>
+
+                    <button type="submit" class="botaoFormAdm">ATUALIZAR</button>
+                </form>
+            </div>
+
+            <div class="col-auto">
                 <form class="formAdm" id="formDeletarProdutos" enctype="multipart/form-data">
                     <h1 class="mt-4">Deletar Produto</h1>
 
@@ -159,6 +201,53 @@
 
                     <button type="submit" class="botaoFormAdm">DELETAR</button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+            <div class="col-auto">
+                <form class="formAdm" id="formLotes">
+                    <h1 class="mt-4">Cadastrar Novo Lote</h1>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Produto</h5>
+                        <select name="id_produto" id="id_produto" required></select>
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Data de Fabricação:</h5>
+                        <input type="date" name="data_fab" required>
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Data de Validade:</h5>
+                        <input type="date" name="data_validade" required>
+                    </div>
+
+                    <div class="textoEmCimaInpAdm">
+                        <h5>Quantidade Inicial:</h5>
+                        <input type="number" name="qtd_inicial" min="1" required>
+                    </div>
+
+                    <button type="submit" class="botaoFormAdm">Salvar Lote</button>
+                </form>
+
+            </div>
+
+            <div class="col-auto">
+                <form class="formAdm" id="formDeletarLote">
+                    <h1 class="mt-4">Deletar Lote</h1>
+
+                    <div class="textoEmCimaInpAdm">
+                    <h5>Lote</h5>
+                    <input type="number" name="id" required>
+                    </div>
+
+                    <button type="submit" class="botaoFormAdm">Deletar Lote</button>
+                </form>
+
             </div>
         </div>
     </div>
@@ -234,73 +323,7 @@
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
 
-    <form id="formAtualizarProdutos" enctype="multipart/form-data" method="POST">
 
-        <label>Nome:</label>
-        <input type="text" name="nome">
-
-        <label>Descrição:</label>
-        <textarea name="descricao"></textarea>
-
-        <label>Preço:</label>
-        <input type="number" name="preco">
-
-        <label for="categoria">Categoria:</label>
-        <select id="categoria_UP" name="categoria">
-            <option value="">Selecione...</option>
-            <option value="Ácido">Ácido</option>
-            <option value="Base">Base</option>
-            <option value="Sal">Sal</option>
-            <option value="Solvente">Solvente</option>
-            <option value="Polímero">Polímero</option>
-            <option value="Agricultura">Agricultura</option>
-            <option value="Farmacêuticos">Farmacêuticos</option>
-            <option value="Cosméticos">Cosméticos</option>
-            <option value="Reagente">Reagente</option>
-        </select>
-
-        <label for="classificacao">Classificação:</label>
-        <select id="classificacao_UP" name="id_classificacao">
-            <option value="">Selecione...</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
-
-        <label>Imagens do Produto:</label>
-        <input type="file" name="imagem1" accept="image/*">
-        <input type="file" name="imagem2" accept="image/*">
-        <input type="file" name="imagem3" accept="image/*">
-
-        <button type="submit">ATUALIZAR</button>
-    </form>
-
-    <form id="formLotes">
-        <h3>Cadastrar Novo Lote</h3>
-
-        <label>Produto:</label>
-        <select name="id_produto" id="id_produto" required></select>
-
-        <label>Data de Fabricação:</label>
-        <input type="date" name="data_fab" required>
-
-        <label>Data de Validade:</label>
-        <input type="date" name="data_validade" required>
-
-        <label>Quantidade Inicial:</label>
-        <input type="number" name="qtd_inicial" min="1" required>
-
-        <button type="submit">Salvar Lote</button>
-    </form>
-
-    <form id="formDeletarLote">
-        <h3>Deletar Lote</h3>
-
-        <label>Lote:</label>
-        <input type="number" name="id" required>
-
-        <button type="submit">Deletar Lote</button>
-    </form>
 
     <script src="/js/lotes.js"></script>
     <script src="/js/atualizar_produtos.js"></script>
