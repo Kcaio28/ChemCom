@@ -1460,49 +1460,56 @@ select {
 /*--------------------------------------*/
 /*-----------------paineladm--------------------*/
 
+/* FORMULÁRIOS RESPONSIVOS */
 .formAdm {
-    margin-top: 100px;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: #1c5e3a;
-    width: 540px;
-    height: auto;
+    width: 100%;
+    max-width: 540px;
+    padding: 25px;
     color: white;
     border-radius: 10px;
     box-shadow: 1px 1px 20px #01241a;
     backdrop-filter: blur(4px);
 }
 
+/* Container dos inputs */
 .textoEmCimaInpAdm {
-    margin-top: 1vw;
-    width: 420px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 420px;
 }
 
-.textoEmCimaInpAdm input {
-    width: 420px;
+/* Inputs */
+.textoEmCimaInpAdm input,
+.textoEmCimaInpAdm textarea,
+.textoEmCimaInpAdm select {
+    width: 100%;
     border: none;
     border-radius: 5px;
-    padding: .4vw;
+    padding: 10px;
 }
 
+/* Textarea adaptável */
 .textoEmCimaInpAdm textarea {
-    width: 420px;
-    height: 180px;
-    border: none;
-    border-radius: 5px;
-    padding: .4vw;
+    min-height: 160px;
+    resize: vertical;
 }
 
+/* Botões */
 .botaoFormAdm {
     margin-top: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     border: none;
     background-color: #00bf63cc;
     backdrop-filter: blur(4px);
     box-shadow: 1px 1px 10px #00000066;
     color: #ffffff;
-    width: 240px;
+    width: 60%;
+    max-width: 240px;
     height: 50px;
     border-radius: 5px;
     transition: 0.3s;
@@ -1515,67 +1522,24 @@ select {
     color: #fff;
 }
 
-@media (max-width:800px) {
-
-    .formAdm {
-        width: 620px;
-        height: 720px;
-    }
-
-    .textoEmCimaInpAdm {
-        margin-top: 10px;
-        width: 470px;
-    }
-
-    .textoEmCimaInpAdm input {
-        padding: 10px;
-        width: 470px;
-    }
-
-}
-
-
-@media (max-width:530px) {
-
-    .formContatoAdm {
-        width: 420px;
-        height: 720px;
-    }
-
-    .textoEmCimaInpAdm {
-        margin-top: 10px;
-        width: 370px;
-    }
-
-    .textoEmCimaInpAdm input {
-        padding: 10px;
-        width: 370px;
+/* GRID DOS FORMULÁRIOS (MUITO IMPORTANTE!) */
+@media (max-width: 992px) {
+    .row.justify-content-center .col-auto {
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 }
 
-@media (max-width:400px) {
-
+/* Em telas menores, espaça os forms melhor */
+@media (max-width: 768px) {
     .formAdm {
-        width: 350px;
-        height: 620px;
+        max-width: 95%;
+        padding: 20px;
     }
 
     .textoEmCimaInpAdm {
-        margin-top: 10px;
-        width: 270px;
-    }
-
-    .textoEmCimaInpAdm input {
-        padding: 5px;
-        width: 270px;
-    }
-
-
-    h5 {
-        font-size: 15px;
-    }
-
-    .botaoFormAdm {
-        bottom: 30px;
+        max-width: 100%;
+        margin-top: 15px;
     }
 }
