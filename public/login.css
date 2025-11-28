@@ -412,6 +412,8 @@ header {
 .feedback-section {
     background-color: #f5f5f5;
     padding: 50px 20px;
+
+    margin-top: 170px;
 }
 
 .feedback-container {
@@ -482,7 +484,7 @@ header {
 }
 
 .footer-logo img {
-    max-width: 180px;
+    max-width: 280px;
     height: auto;
 }
 
