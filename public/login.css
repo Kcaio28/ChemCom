@@ -141,6 +141,30 @@ header {
     color: #009b66;
 }
 
+
+.text-menu {
+    font-size: 2.1vh;
+}
+
+.btn-saiba-transporte {
+    display: inline-block;
+    background: #00bf63;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn-saiba-transporte:hover {
+    background-color: #009b66;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 191, 99, 0.4);
+    color: #fff;
+}
+
 /* Ícone hamburguer do menu inferior */
 .navbar-toggler {
     border: none;
