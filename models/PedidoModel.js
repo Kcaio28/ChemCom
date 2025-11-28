@@ -8,40 +8,46 @@ import {
   getConnection,
 } from "../config/database.js";
 
-const TABELA = "Pedido"; // nome correto da tabela
+const TABELA = "pedido"; // nome correto da tabela
 
 class PedidoModel {
   static async listarMeusPedidos(id_cliente) {
-  const connection = await getConnection();
-  
-  try {
+    const connection = await getConnection();
+    
+    try {
+      if (!id_cliente) {
+        throw new Error('ID do cliente não fornecido');
+      }
 
-    const query = `
-      SELECT 
-        p.nro_pedido,
-        DATE_FORMAT(p.data_pedido, '%Y-%m-%d %H:%i:%s') AS data_pedido,
-        p.status,
-        p.valor_total,
-        COALESCE(
-          (SELECT SUM(ip.qtd)
-           FROM itensPedidos ip
-           WHERE ip.nro_pedido = p.nro_pedido), 0
-        ) AS quantidade_itens
-      FROM ${TABELA} p
-      WHERE p.id_cliente = ?
-        AND p.status != 'NO CARRINHO'
-      ORDER BY p.data_pedido DESC
-    `;
+      const query = `
+        SELECT 
+          p.nro_pedido,
+          DATE_FORMAT(p.data_pedido, '%Y-%m-%d %H:%i:%s') AS data_pedido,
+          p.status,
+          p.valor_total,
+          COALESCE(
+            (SELECT SUM(ip.qtd)
+             FROM itensPedidos ip
+             WHERE ip.nro_pedido = p.nro_pedido), 0
+          ) AS quantidade_itens
+        FROM ${TABELA} p
+        WHERE p.id_cliente = ?
+          AND p.status != 'NO CARRINHO'
+        ORDER BY p.data_pedido DESC
+      `;
 
-    const [pedidos] = await connection.query(query, [id_cliente]);
+      const [pedidos] = await connection.query(query, [id_cliente]);
 
-    return {
-      pedidos
-    };
+      return {
+        pedidos: pedidos || []
+      };
 
-  } finally {
-    connection.release();
-  }
+    } catch (error) {
+      console.error("Erro em listarMeusPedidos:", error);
+      throw error;
+    } finally {
+      connection.release();
+    }
   }
 
   static async listarTodosPedidos(filtros = {}, pagina = 1, limite = 10) {
@@ -74,7 +80,7 @@ class PedidoModel {
 
     // Contar total de registros
     const [totalResult] = await connection.query(
-      `SELECT COUNT(*) as total FROM ${TABELA} p INNER JOIN usuario u ON u.id = p.id_cliente ${where}`,
+      `SELECT COUNT(*) as total FROM ${TABELA} p INNER JOIN empresa u ON u.id = p.id_cliente ${where}`,
       params
     );
     const total = totalResult[0].total;
@@ -97,7 +103,7 @@ class PedidoModel {
            WHERE ip.nro_pedido = p.nro_pedido), 0
         ) AS quantidade_itens
       FROM ${TABELA} p
-      INNER JOIN usuario u ON u.id = p.id_cliente
+      INNER JOIN empresa u ON u.id = p.id_cliente
       ${where}
       ORDER BY p.data_pedido DESC
       LIMIT ? OFFSET ?
@@ -143,7 +149,7 @@ class PedidoModel {
           u.email AS email_cliente,
           u.id AS id_cliente
         FROM ${TABELA} p
-        INNER JOIN usuario u ON u.id = p.id_cliente
+        INNER JOIN empresa u ON u.id = p.id_cliente
         WHERE p.nro_pedido = ?
       `;
 

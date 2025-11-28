@@ -10,7 +10,7 @@ if (!id) {
 // Buscar dados do produto
 async function carregarProduto() {
     try {
-        const resp = await fetch(`http://localhost:3000/api/produtos/${id}`);
+        const resp = await fetch(`/api/produtos/${id}`);
         const json = await resp.json();
 
         if (!json.sucesso) {
@@ -61,7 +61,7 @@ function salvarCarrinho(carrinho) {
 
 document.getElementById("botaoAdicionarAoCarrinho").addEventListener("click", async () => {
 
-    const resp = await fetch(`http://localhost:3000/api/produtos/${id}`);
+    const resp = await fetch(`/api/produtos/${id}`);
     const json = await resp.json();
     const prod = json.dados;
 

@@ -42,8 +42,9 @@ class ProdutoController {
             }
 
             const offset = (pagina - 1) * limite;
+            const categoria = req.query.categoria || null;
 
-            const resultado = await ProdutoModel.listarTodos(limite, offset);
+            const resultado = await ProdutoModel.listarTodos(limite, offset, categoria);
 
             res.status(200).json({
                 sucesso: true,
@@ -61,6 +62,24 @@ class ProdutoController {
                 sucesso: false,
                 erro: 'Erro interno do servidor',
                 mensagem: 'Não foi possível listar os produto'
+            });
+        }
+    }
+
+    // GET /produto/categorias - Listar todas as categorias
+    static async listarCategorias(req, res) {
+        try {
+            const categorias = await ProdutoModel.listarCategorias();
+            res.status(200).json({
+                sucesso: true,
+                categorias: categorias
+            });
+        } catch (error) {
+            console.error('Erro ao listar categorias:', error);
+            res.status(500).json({
+                sucesso: false,
+                erro: 'Erro interno do servidor',
+                mensagem: 'Não foi possível listar as categorias'
             });
         }
     }

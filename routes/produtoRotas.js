@@ -11,6 +11,7 @@ import fs from "fs";
 const router = express.Router();
 
 // Rotas públicas (não precisam de autenticação)
+router.get("/categorias", ProdutoController.listarCategorias);
 router.get("/", ProdutoController.listarTodos);
 router.get("/:id", ProdutoController.buscarPorId);
 

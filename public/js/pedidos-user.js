@@ -42,29 +42,38 @@ class GerenciadorMeusPedidos {
       }
 
       const token = localStorage.getItem('token');
+      if (!token) {
+        this.mostrarErro('Você precisa estar logado para ver seus pedidos. Redirecionando para login...');
+        setTimeout(() => {
+          window.location.href = '/login_cliente.html';
+        }, 2000);
+        return;
+      }
+
       const response = await fetch(`/api/pedidos/meus-pedidos`, {
         method: 'GET',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': token ? `Bearer ${token}` : ''
+          'Authorization': `Bearer ${token}`
         }
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao carregar pedidos');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.erro || `Erro ${response.status}: ${response.statusText}`);
       }
 
       const data = await response.json();
       
       if (data.sucesso) {
-        this.renderizarPedidos(data.pedidos);
+        this.renderizarPedidos(data.pedidos || []);
       } else {
-        this.mostrarErro('Erro ao carregar pedidos');
+        this.mostrarErro(data.erro || 'Erro ao carregar pedidos');
       }
     } catch (error) {
-      console.error('Erro:', error);
-      this.mostrarErro('Erro ao carregar pedidos');
+      console.error('Erro ao carregar pedidos:', error);
+      this.mostrarErro(error.message || 'Erro ao carregar pedidos. Verifique se você está logado.');
     }
   }
 
@@ -165,25 +174,34 @@ class GerenciadorMeusPedidos {
   async verDetalhes(nro_pedido) {
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Você precisa estar logado para ver os detalhes do pedido.');
+        window.location.href = '/login_cliente.html';
+        return;
+      }
+
       const response = await fetch(`/api/pedidos/detalhes/${nro_pedido}`, {
         headers: {
-          'Authorization': token ? `Bearer ${token}` : ''
+          'Authorization': `Bearer ${token}`
         },
         credentials: 'include'
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao carregar detalhes');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.erro || 'Erro ao carregar detalhes');
       }
 
       const data = await response.json();
       
       if (data.sucesso) {
         this.mostrarModalDetalhes(data.pedido);
+      } else {
+        alert(data.erro || 'Erro ao carregar detalhes do pedido');
       }
     } catch (error) {
-      console.error('Erro:', error);
-      alert('Erro ao carregar detalhes do pedido');
+      console.error('Erro ao carregar detalhes:', error);
+      alert(error.message || 'Erro ao carregar detalhes do pedido');
     }
   }
 
