@@ -176,6 +176,13 @@ header {
     flex-shrink: 0;
 }
 
+.btn-pedidos{
+    background-color: #00bf63;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+}
+
 /* Ícone hamburguer do menu inferior */
 .navbar-toggler {
     border: none;
