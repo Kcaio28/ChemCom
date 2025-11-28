@@ -30,17 +30,51 @@
                 </div>
             </div>
 
+            <!-- botão logar -->
+            <div class="d-flex align-items-center gap-3" id="divLogin">
+                <a href="login_cliente.html" class="icon-btn text-menu btn-saiba-transporte">
+                    Entrar
+                </a>
+            </div>
+
             <!-- Carrinho -->
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-none align-items-center gap-3" id="divCarrinho">
                 <a href="carrinho.html" class="icon-btn text-menu">
                     <img src="./images/icons/icon_carrinho.svg" alt="Carrinho" width="22" height="22" />
                     Carrinho
                 </a>
 
-                <!-- Conta -->
-                <a href="login_cliente.html" class="icon-btn text-menu">
+                <!-- Conta com Dropdown -->
+                <div class="conta-dropdown-wrapper">
+                    <a href="#" class="icon-btn text-menu" id="btnConta">
+                        <img src="./images/icons/icon_user.svg" alt="Usuário" width="22" height="22" />
+                        Conta
+                    </a>
+
+                    <!-- Dropdown de logout -->
+                    <div class="conta-dropdown" id="contaDropdown">
+                        <div class="dropdown-header">
+                            <img src="./images/icons/icon_user.svg" alt="Usuário" width="30" height="30" />
+                            <span class="user-name" id="userName">Nome do Usuário</span>
+                        </div>
+                        <button class="btn-sair" id="btnSair">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path
+                                    d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+                                <path
+                                    d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+                            </svg>
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADM -->
+            <div class="d-none align-items-center gap-3" id="painelAdm">
+                <a href="painelAdm.html" class="icon-btn text-menu">
                     <img src="./images/icons/icon_user.svg" alt="Usuário" width="22" height="22" />
-                    Conta
+                    ADM
                 </a>
             </div>
         </div>
@@ -142,9 +176,9 @@
                 <div class="footer-section">
                     <h3>Empresas</h3>
                     <ul>
-                        <li><a href="">Braskem</a></li>
-                        <li><a href="">Unipar</a></li>
-                        <li><a href="">Bayer</a></li>
+                        <li><a href="https://www.braskem.com.br/" target="_blank">Braskem</a></li>
+                        <li><a href="https://unipar.com/" target="_blank">Unipar</a></li>
+                        <li><a href="https://www.bayer.com.br/pt/" target="_blank">Bayer</a></li>
                     </ul>
                 </div>
 

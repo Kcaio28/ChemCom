@@ -80,6 +80,102 @@ header {
     color: #009b66;
 }
 
+/* Container do dropdown */
+.conta-dropdown-wrapper {
+    position: relative;
+}
+
+/* Dropdown de conta */
+.conta-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    background-color: #fff;
+    border: 2px solid #00bf63;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 191, 99, 0.2);
+    padding: 20px;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1100;
+}
+
+/* Dropdown visível */
+.conta-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Setinha do dropdown */
+.conta-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #00bf63;
+}
+
+/* Header do dropdown */
+.dropdown-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.dropdown-header img {
+    padding: 8px;
+    background-color: #f0f9f5;
+    border-radius: 50%;
+}
+
+.user-name {
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Botão Sair */
+.btn-sair {
+    width: 100%;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-sair:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.btn-sair svg {
+    flex-shrink: 0;
+}
+
 /* Ícone hamburguer do menu inferior */
 .navbar-toggler {
     border: none;
@@ -137,6 +233,44 @@ header {
 
 .nav-link:hover::after{
     width: calc(100% - 30px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .conta-dropdown {
+        right: -10px;
+        min-width: 200px;
+    }
+}
+
+/* Responsividade */
+@media(max-width: 992px){
+    .top-bar{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 10px 15px;
+    }
+
+    .logo{
+        order: 1;
+    }
+
+    .d-flex{
+        order: 2;
+    }
+
+    .search-bar{
+        order: 3;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .menu-bar .container-fluid{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
 /*----------------------------------------------------------------------------------------*/
@@ -1240,9 +1374,10 @@ select {
 */
 /* Seção de Feedback */
 .feedback-section {
-    margin-top: 50px;
     background-color: #f5f5f5;
     padding: 50px 20px;
+
+    margin-top: 170px;
 }
 
 .feedback-container {
@@ -1313,7 +1448,7 @@ select {
 }
 
 .footer-logo img {
-    max-width: 180px;
+    max-width: 280px;
     height: auto;
 }
 
@@ -1460,7 +1595,11 @@ select {
 /*--------------------------------------*/
 /*-----------------paineladm--------------------*/
 
-/* FORMULÁRIOS RESPONSIVOS */
+.textAdm {
+    color: #00bf63;
+    text-align: center;
+}
+
 .formAdm {
     margin-top: 60px;
     display: flex;
@@ -1476,14 +1615,12 @@ select {
     backdrop-filter: blur(4px);
 }
 
-/* Container dos inputs */
 .textoEmCimaInpAdm {
     margin-top: 20px;
     width: 100%;
     max-width: 420px;
 }
 
-/* Inputs */
 .textoEmCimaInpAdm input,
 .textoEmCimaInpAdm textarea,
 .textoEmCimaInpAdm select {
@@ -1493,13 +1630,11 @@ select {
     padding: 10px;
 }
 
-/* Textarea adaptável */
 .textoEmCimaInpAdm textarea {
     min-height: 160px;
     resize: vertical;
 }
 
-/* Botões */
 .botaoFormAdm {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -1522,7 +1657,6 @@ select {
     color: #fff;
 }
 
-/* GRID DOS FORMULÁRIOS (MUITO IMPORTANTE!) */
 @media (max-width: 992px) {
     .row.justify-content-center .col-auto {
         width: 100%;
@@ -1531,7 +1665,6 @@ select {
     }
 }
 
-/* Em telas menores, espaça os forms melhor */
 @media (max-width: 768px) {
     .formAdm {
         max-width: 95%;
