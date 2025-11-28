@@ -1,0 +1,12 @@
+Mateus de Souza Fugikawa
+Caio Carneiro Ferrer Moraes
+Gabriel Dezerto Reina
+Murilo Almeida Merola da Silva
+
+Para a empresa se cadastrar no site é necessário: Nome da Empresa, CNPJ, Telefone, Email e Senha.
+Para se logar no site é necessário: email e senha. O administrador possui o próprio login, Email: chemcom@gmail.com; Senha: 12345.
+Para cadastrar um produto é necessário: Nome, Descrição, Preço, Categoria, Classificação e Imagens do produto.
+Para atualizar um produto é necessário: Nome, Descrição, Preço, Categoria, Classificação e Imagens do produto.
+Para deletar um produto é necessário: ID do Produto.
+Para cadastrar um lote é necessário: Produto, Data de Fabricação, Data de Validade e Quantidade Inicial.
+Para deletar um lote é necessário: ID do Lote.
