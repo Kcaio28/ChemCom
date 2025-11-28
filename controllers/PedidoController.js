@@ -1,39 +1,142 @@
-import {pool} from "../config/database.js";
+import { pool } from "../config/database.js";
 import PedidoModel from "../models/PedidoModel.js";
 
 export const PedidoController = {
-  async listarPedidosPorCliente(req, res) {
+  async meusPedidos(req, res) {
     try {
+      // Verificar autenticação
+      if (!req.user || !req.user.id) {
+        console.log("Erro de autenticação - req.user:", req.user);
+        return res.status(401).json({ 
+          sucesso: false,
+          erro: "Usuário não autenticado" 
+        });
+      }
+
       const id_cliente = req.user.id;
-      const pedidos = await PedidoModel.listarPedidosPorCliente(id_cliente);
-      return res.json(pedidos);
+      console.log("Buscando pedidos para cliente ID:", id_cliente);
+      
+      const resultado = await PedidoModel.listarMeusPedidos(id_cliente);
+      console.log("Pedidos encontrados:", resultado.pedidos?.length || 0);
+
+      return res.json({
+        sucesso: true,
+        pedidos: resultado.pedidos || []
+      });
     } catch (err) {
-      return res.status(500).json({ erro: err.message });
+      console.error("Erro em meusPedidos:", err);
+      console.error("Stack trace:", err.stack);
+      return res.status(500).json({ 
+        sucesso: false,
+        erro: err.message || "Erro ao listar pedidos"
+      });
+    }
+  },
+
+  /**
+   * ADMIN - Listar todos os pedidos
+   * GET /api/pedidos/admin/todos-pedidos
+   */
+  async todosPedidos(req, res) {
+    try {
+      const {
+        pagina = 1,
+        limite = 10,
+        status,
+        data_inicio,
+        data_fim,
+        cliente,
+      } = req.query;
+
+      // Validar se é admin
+      if (!req.user || req.user.tipo !== 'admin') {
+        return res.status(403).json({ 
+          erro: "Acesso restrito a administradores" 
+        });
+      }
+
+      const resultado = await PedidoModel.listarTodosPedidos(
+        {
+          status,
+          data_inicio,
+          data_fim,
+          cliente,
+        },
+        parseInt(pagina),
+        parseInt(limite)
+      );
+
+      return res.json({
+        sucesso: true,
+        pedidos: resultado.pedidos,
+        paginacao: resultado.paginacao
+      });
+    } catch (err) {
+      console.error("Erro em todosPedidos:", err);
+      return res.status(500).json({ 
+        sucesso: false,
+        erro: err.message 
+      });
+    }
+  },
+
+  /**
+   * Detalhar pedido específico
+   * GET /api/pedidos/detalhes/:nro_pedido
+   */
+  async detalharPedido(req, res) {
+    try {
+      const { nro_pedido, id } = req.params;
+      // Se vier como :id, usar como nro_pedido também
+      const pedidoId = nro_pedido || id;
+      const id_cliente = req.user ? req.user.id : null;
+      const isAdmin = req.user && req.user.tipo === 'admin';
+
+      if (!pedidoId) {
+        return res.status(400).json({ 
+          erro: "Número do pedido não informado" 
+        });
+      }
+
+      const pedido = await PedidoModel.detalharPedido(
+        parseInt(pedidoId),
+        isAdmin,
+        id_cliente
+      );
+
+      return res.json({
+        sucesso: true,
+        pedido
+      });
+    } catch (err) {
+      console.error("Erro em detalharPedido:", err);
+      
+      // Se for erro de acesso negado, retornar 403
+      if (err.message.includes('não encontrado') || err.message.includes('negado')) {
+        return res.status(403).json({ 
+          sucesso: false,
+          erro: 'Acesso negado ou pedido não encontrado' 
+        });
+      }
+
+      return res.status(500).json({ 
+        sucesso: false,
+        erro: err.message 
+      });
     }
   },
   async listarCarrinho(req, res) {
     try {
-      const id_cliente = req.user.id;
-      const carrinho = await PedidoModel.listarCarrinho(id_cliente);
+      const userId = req.user && req.user.id;
+      if (!userId) return res.status(401).json({ error: "Não autenticado" });
+
+      const carrinho = await PedidoModel.listarCarrinho(userId);
+
+      // Retornar os números formatados como números (não string), frontend fará formatação
       res.json(carrinho);
     } catch (err) {
-      res.status(500).json({ erro: err.message });
-    }
-  },
-  async adicionarItem(req, res) {
-    try {
-      const id_cliente = req.user.id;
-      const { id_produto, id_lote, qtd } = req.body;
-
-      const resposta = await PedidoModel.adicionarItem(
-        id_cliente,
-        id_produto,
-        id_lote,
-        qtd
-      );
-      return res.json(resposta);
-    } catch (err) {
-      res.json({ erro: err.message });
+      console.error("Erro GET /carrinho", err);
+      res.status(500).json({ error: "Erro ao buscar carrinho" });
     }
   },
   async removerItem(req, res) {
@@ -56,6 +159,63 @@ export const PedidoController = {
       res.status(500).json({ erro: err.message });
     }
   },
+  async listarPedidoPorCliente(req, res) {
+    try {
+      const id_cliente = req.user.id;
+
+      if (!id_cliente) {
+        return res.status(401).json({ 
+          erro: "Usuário não autenticado" 
+        });
+      }
+
+      const resultado = await PedidoModel.listarMeusPedidos(id_cliente);
+
+      return res.json({
+        sucesso: true,
+        pedidos: resultado.pedidos
+      });
+    } catch (err) {
+      console.error("Erro em listarPedidoPorCliente:", err);
+      return res.status(500).json({ 
+        sucesso: false,
+        erro: err.message 
+      });
+    }
+  },
+  async adicionarItem(req, res) {
+    try {
+      const id_cliente = req.user.id;
+      const { id_produto, id_lote, qtd } = req.body;
+
+      if (!id_cliente) {
+        return res.status(401).json({ 
+          erro: "Usuário não autenticado" 
+        });
+      }
+
+      if (!id_produto || !id_lote || !qtd) {
+        return res.status(400).json({ 
+          erro: "Dados incompletos. Necessário: id_produto, id_lote, qtd" 
+        });
+      }
+
+      const resultado = await PedidoModel.adicionarItem(
+        id_cliente,
+        id_produto,
+        id_lote,
+        qtd
+      );
+
+      return res.json(resultado);
+    } catch (err) {
+      console.error("Erro em adicionarItem:", err);
+      return res.status(500).json({ 
+        sucesso: false,
+        erro: err.message 
+      });
+    }
+  },
 };
 
 export const finalizarCompra = async (req, res) => {
@@ -64,7 +224,7 @@ export const finalizarCompra = async (req, res) => {
   if (!id_cliente || !itens || itens.length === 0) {
     return res.status(400).json({
       sucesso: false,
-      mensagem: "Dados inválidos"
+      mensagem: "Dados inválidos",
     });
   }
 
@@ -74,8 +234,9 @@ export const finalizarCompra = async (req, res) => {
     await conn.beginTransaction();
 
     // 1 - Calcular valor total
-    const valor_total = itens.reduce((total, item) =>
-      total + (Number(item.preco) * Number(item.qtd)), 0
+    const valor_total = itens.reduce(
+      (total, item) => total + Number(item.preco) * Number(item.qtd),
+      0
     );
 
     // 2 - Criar pedido
@@ -145,18 +306,16 @@ export const finalizarCompra = async (req, res) => {
     res.json({
       sucesso: true,
       mensagem: "Compra finalizada com sucesso!",
-      pedido: nro_pedido
+      pedido: nro_pedido,
     });
-
   } catch (err) {
     await conn.rollback();
     console.error(err);
 
     res.status(500).json({
       sucesso: false,
-      erro: err.message
+      erro: err.message,
     });
-
   } finally {
     conn.release();
   }

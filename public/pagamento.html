@@ -177,14 +177,14 @@
       <hr class="divisor-pagamento">
 
       <ul>
-        <li><span>Subtotal</span> <strong>R$697,07</strong></li>
-        <li><span>Descontos</span> <strong>R$697,07</strong></li>
-        <li><span>Frete</span> <strong>R$697,07</strong></li>
+        <li><span>Subtotal</span> <strong id="totalCompra">R$697,07</strong></li>
+        <li><span>Descontos</span> <strong>R$0,00</strong></li>
+        <li><span>Frete</span> <strong>R$0,00</strong></li>
       </ul>
 
       <div class="total-pagamento">
         <span>Total</span>
-        <strong>R$697,07</strong>
+        <strong id="totalCompra1">R$697,07</strong>
       </div>
 
       <button onclick="finalizarCompra()" type="submit" class="btn-finalizar-pagamento">Finalizar Compra</button>
@@ -273,6 +273,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
     integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
     crossorigin="anonymous"></script>
+    <script src="js/carrinho.js"></script>
+  
 </body>
 
 </html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meus Pedidos</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    /* Filtro */
+    .filtros {
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    /* Cards */
+    .card-pedido {
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 4px #0001;
+    }
+
+    .pedido-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .pedido-status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+
+    .status-pendente { background: #d8a500; }
+    .status-concluido { background: #28a745; }
+    .status-cancelado { background: #dc3545; }
+    .status-no\ carrinho { background: #6c757d; }
+
+    .pedido-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-detalhes {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Paginação */
+    #paginacao {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn-pag {
+      padding: 8px 12px;
+      margin: 3px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .btn-pag.active {
+      background: #007bff;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .btn-pag:disabled {
+      background: #eee;
+      cursor: not-allowed;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0007;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      width: 600px;
+      max-width: 95%;
+      border-radius: 8px;
+      padding: 20px;
+      animation: fadeIn .3s;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn-fechar {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .tabela-itens {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .tabela-itens th, .tabela-itens td {
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .alert-erro {
+      background: #ffc2c2;
+      padding: 15px;
+      border-radius: 8px;
+      color: #b30000;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Meus Pedidos</h1>
+
+  <!-- Filtro -->
+  <div class="filtros">
+    <label for="filtroStatus">Filtrar por status:</label>
+    <select id="filtroStatus">
+      <option value="">Todos</option>
+      <option value="PENDENTE">Pendente</option>
+      <option value="CONCLUIDO">Concluído</option>
+      <option value="CANCELADO">Cancelado</option>
+      <option value="NO CARRINHO">Carrinho</option>
+    </select>
+  </div>
+
+  <!-- Lista de pedidos -->
+  <div id="listaPedidos"></div>
+
+  <!-- Paginação -->
+  <div id="paginacao"></div>
+
+  <!-- Importar seu JS -->
+  <script src="js/pedidos-user.js"></script>
+
+</body>
+</html>

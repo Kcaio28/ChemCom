@@ -20,14 +20,20 @@ function atualizarVisibilidadeBotoes() {
     console.log("Sessão carregada:", sessao);
 
     if (sessao) {
-        divLogin.classList.add("d-none")
-        divLogin.classList.remove("d-flex");
-        divCarrinho.classList.remove("d-none")
-        divCarrinho.classList.add("d-flex");
-    }
-    if (sessao.tipo === "adm") {
-        const painelAdm = document.getElementById("painelAdm")
-        painelAdm.classList.remove("d-none")
+        if (divLogin) {
+            divLogin.classList.add("d-none");
+            divLogin.classList.remove("d-flex");
+        }
+        if (divCarrinho) {
+            divCarrinho.classList.remove("d-none");
+            divCarrinho.classList.add("d-flex");
+        }
+        if (sessao.tipo === "adm") {
+            const painelAdm = document.getElementById("painelAdm");
+            if (painelAdm) {
+                painelAdm.classList.remove("d-none");
+            }
+        }
     }
 }
 

@@ -13,6 +13,7 @@ import usuarioRotas from './routes/usuarioRotas.js';
 import clienteRotas from './routes/clienteRotas.js';
 import loteRoutes from "./routes/lotesRotas.js";
 import pedidoRoutes from "./routes/pedidoRotas.js";
+import carrinhoRoutes from "./routes/carrinhoRota.js";
 
 // Importar middlewares
 // import { logMiddleware } from './middlewares/logMiddleware.js';
@@ -86,6 +87,7 @@ app.use('/api/usuarios', usuarioRotas);
 app.use('/clienteRotas', clienteRotas);
 app.use("/api/lotes", loteRoutes);
 app.use("/api/pedidos", pedidoRoutes);
+app.use("/api/carrinho", carrinhoRoutes);
 
 // Rota raiz
 app.get("/", (req, res) => {

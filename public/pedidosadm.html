@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Pedidos - Admin</title>
+
+    <!-- Estilos básicos (opcional, pode substituir pelo seu CSS) -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .filtros-avancados {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filtros-avancados input,
+        .filtros-avancados select,
+        .filtros-avancados button {
+            padding: 8px;
+        }
+
+        table {
+            width: 100%;
+            background: #fff;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: #222;
+            color: #fff;
+        }
+
+        td, th {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .btn-acao {
+            background: #3498db;
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .status-pendente { background: #f1c40f; color: #000; }
+        .status-concluido { background: #2ecc71; }
+        .status-cancelado { background: #e74c3c; }
+        .status-no\ carrinho { background: #7f8c8d; }
+
+        .paginacao {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-pag {
+            padding: 8px 12px;
+            margin: 3px;
+            border: 1px solid #555;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .btn-pag.active {
+            background: #555;
+            color: #fff;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            width: 700px;
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-fechar {
+            background: transparent;
+            border: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<section class="container-admin-pedidos">
+    <h1>Gestão de Pedidos</h1>
+
+    <!-- FILTROS AVANÇADOS -->
+    <div class="filtros-avancados">
+        <input type="date" id="dataInicio">
+        <input type="date" id="dataFim">
+
+        <select id="filtroStatus">
+            <option value="">Todos os status</option>
+            <option value="NO CARRINHO">Carrinho</option>
+            <option value="PENDENTE">Pendente</option>
+            <option value="CONCLUIDO">Concluído</option>
+            <option value="CANCELADO">Cancelado</option>
+        </select>
+
+        <input type="text" id="filtroCliente" placeholder="Cliente...">
+
+        <button id="btnFiltrar">Filtrar</button>
+    </div>
+
+    <!-- TABELA DE PEDIDOS -->
+    <div class="tabela-pedidos">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nº Pedido</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Itens</th>
+                    <th>Valor Total</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaPedidos">
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 20px;">
+                        Carregando pedidos...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PAGINAÇÃO -->
+    <div class="paginacao" id="paginacao"></div>
+
+</section>
+
+<!-- IMPORTA O JS DO GERENCIADOR -->
+<script src="js/pedido-adm.js"></script>
+
+</body>
+</html>

@@ -72,6 +72,7 @@ function carregarCarrinho() {
         `;
     });
 
+    document.getElementById("totalCompra1").innerText = total.toFixed(2);
     document.getElementById("totalCompra").innerText = total.toFixed(2);
 }
 

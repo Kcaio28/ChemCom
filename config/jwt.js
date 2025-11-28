@@ -5,9 +5,14 @@ dotenv.config();
 
 // Configurações JWT
 export const JWT_CONFIG = {
-    secret: process.env.JWT_SECRET,
-    expiresIn: process.env.JWT_EXPIRES_IN || '1h'
+    secret: process.env.JWT_SECRET || 'fallback-secret-key-change-in-production',
+    expiresIn: process.env.JWT_EXPIRES_IN || '24h'
 };
+
+// Validar se JWT_SECRET está configurado em produção
+if (process.env.NODE_ENV === 'production' && !process.env.JWT_SECRET) {
+    console.warn('⚠️ AVISO: JWT_SECRET não está configurado. Usando chave padrão (INSEGURO PARA PRODUÇÃO)');
+}
 
 // Configurações de Upload
 export const UPLOAD_CONFIG = {

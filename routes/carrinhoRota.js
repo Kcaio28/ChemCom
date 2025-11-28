@@ -1,17 +1,17 @@
 import express from "express"
-import PedidoController from "../controllers/PedidoController.js"
+import {PedidoController} from "../controllers/PedidoController.js"
 import { authMiddleware } from "../middlewares/authMiddleware.js"
 import {
   uploadImagens,
   handleUploadError,
 } from "../middlewares/uploadMiddleware.js";
-import { PedidoModel } from "../models/PedidoModel.js";
+import PedidoModel from "../models/PedidoModel.js";
 
 const router = express.Router()
 
-router.get('/meusPedidos', PedidoController.listarPedidoPorCliente)
+router.get('/meusPedidos', authMiddleware, PedidoController.listarPedidoPorCliente)
 
-router.get('/', PedidoController.listarCarrinho)
+router.get('/', authMiddleware, PedidoController.listarCarrinho)
 
 router.post('/adicionar', authMiddleware, PedidoController.adicionarItem)
 
