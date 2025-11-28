@@ -33,6 +33,17 @@ body {
     background-color: #E9FAF2;
 }
 
+@font-face {
+    font-family: 'MontserratArabic';
+    src: url('../fonts/Montserrat-Arabic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'MontserratArabic', sans-serif;
+}
+
 
 /*-------------------------------------------------------------------------*/
 

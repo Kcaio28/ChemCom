@@ -3,6 +3,17 @@ body {
     background-color: #E9FAF2;
 }
 
+@font-face {
+    font-family: 'MontserratArabic';
+    src: url('../fonts/Montserrat-Arabic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'MontserratArabic', sans-serif;
+}
+
 
 /*Header*/
 header {
@@ -180,7 +191,8 @@ header {
     background-color: #00bf63;
     color: #fff;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
+    width: 100%;
 }
 
 /* Ícone hamburguer do menu inferior */
