@@ -14,6 +14,17 @@ body {
     background-color: #00bf6311;
 }
 
+@font-face {
+    font-family: 'MontserratArabic';
+    src: url('../fonts/Montserrat-Arabic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    font-family: 'MontserratArabic', sans-serif;
+}
+
 /* Responsividade */
 @media(max-width: 992px) {
     .top-bar {
