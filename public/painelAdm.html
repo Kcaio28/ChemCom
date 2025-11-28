@@ -73,7 +73,13 @@
     </header>
 
     <div class="container-fluid">
-        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+
+        <div class="row justify-content-center align-items-center" style="margin-top: 50px;">
+            <div class="col-auto">
+                <h1 class="textAdm mt-4">Edição de Produtos</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
             <div class="col-auto">
                 <form class="formAdm" id="formCadastroProdutos" enctype="multipart/form-data" method="POST">
 
@@ -128,7 +134,7 @@
                         <input type="file" name="imagem3" accept="image/*">
                     </div>
 
-                    <button type="submit" class="botaoFormAdm">CADASTRAR</button>
+                    <button type="submit" class="botaoFormAdm">Cadastrar</button>
                 </form>
 
             </div>
@@ -186,7 +192,7 @@
                         <input type="file" name="imagem3" accept="image/*">
                     </div>
 
-                    <button type="submit" class="botaoFormAdm">ATUALIZAR</button>
+                    <button type="submit" class="botaoFormAdm">Atualizar</button>
                 </form>
             </div>
 
@@ -206,7 +212,12 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="row justify-content-center align-items-center"  style="margin-top: 100px;">
+            <div class="col-auto">
+                <h1 class="textAdm mt-4">Painel Administrativo</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center"">
             <div class="col-auto">
                 <form class="formAdm" id="formLotes">
                     <h1 class="mt-4">Cadastrar Novo Lote</h1>
@@ -217,17 +228,17 @@
                     </div>
 
                     <div class="textoEmCimaInpAdm">
-                        <h5>Data de Fabricação:</h5>
+                        <h5>Data de Fabricação</h5>
                         <input type="date" name="data_fab" required>
                     </div>
 
                     <div class="textoEmCimaInpAdm">
-                        <h5>Data de Validade:</h5>
+                        <h5>Data de Validade</h5>
                         <input type="date" name="data_validade" required>
                     </div>
 
                     <div class="textoEmCimaInpAdm">
-                        <h5>Quantidade Inicial:</h5>
+                        <h5>Quantidade Inicial</h5>
                         <input type="number" name="qtd_inicial" min="1" required>
                     </div>
 
@@ -241,8 +252,8 @@
                     <h1 class="mt-4">Deletar Lote</h1>
 
                     <div class="textoEmCimaInpAdm">
-                    <h5>Lote</h5>
-                    <input type="number" name="id" required>
+                        <h5>Lote</h5>
+                        <input type="number" name="id" required>
                     </div>
 
                     <button type="submit" class="botaoFormAdm">Deletar Lote</button>

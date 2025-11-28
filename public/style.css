@@ -1460,7 +1460,11 @@ select {
 /*--------------------------------------*/
 /*-----------------paineladm--------------------*/
 
-/* FORMULÁRIOS RESPONSIVOS */
+.textAdm {
+    color: #00bf63;
+    text-align: center;
+}
+
 .formAdm {
     margin-top: 60px;
     display: flex;
@@ -1476,14 +1480,12 @@ select {
     backdrop-filter: blur(4px);
 }
 
-/* Container dos inputs */
 .textoEmCimaInpAdm {
     margin-top: 20px;
     width: 100%;
     max-width: 420px;
 }
 
-/* Inputs */
 .textoEmCimaInpAdm input,
 .textoEmCimaInpAdm textarea,
 .textoEmCimaInpAdm select {
@@ -1493,13 +1495,11 @@ select {
     padding: 10px;
 }
 
-/* Textarea adaptável */
 .textoEmCimaInpAdm textarea {
     min-height: 160px;
     resize: vertical;
 }
 
-/* Botões */
 .botaoFormAdm {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -1522,7 +1522,6 @@ select {
     color: #fff;
 }
 
-/* GRID DOS FORMULÁRIOS (MUITO IMPORTANTE!) */
 @media (max-width: 992px) {
     .row.justify-content-center .col-auto {
         width: 100%;
@@ -1531,7 +1530,6 @@ select {
     }
 }
 
-/* Em telas menores, espaça os forms melhor */
 @media (max-width: 768px) {
     .formAdm {
         max-width: 95%;
