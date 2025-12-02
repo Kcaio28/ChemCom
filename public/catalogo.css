@@ -60,6 +60,11 @@
     .card-img-wrapper img{
         max-height: 150px;
     }
+
+    .conta-dropdown {
+        right: -10px;
+        min-width: 200px;
+    }
 }
 
 body {
