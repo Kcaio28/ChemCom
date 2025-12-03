@@ -112,7 +112,7 @@ header {
 /* Logo */
 .logo {
     flex-shrink: 0;
-    margin-left: 70px;
+    margin-left: 30px;
 }
 
 .logo img {
