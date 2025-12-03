@@ -366,6 +366,7 @@ header {
 
 .produto-card {
     width: 350px;
+    height: 350px;
     background: #1c5e3a;
     color: white;
     border-radius: 5px;
@@ -380,10 +381,9 @@ header {
 }
 
 .produto-card img {
-    height: 330px;
+    height: 230px;
     object-fit: contain;
     padding: 8px;
-    margin-top: -20px;
 }
 
 .produto-card a {
