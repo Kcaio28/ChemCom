@@ -550,12 +550,7 @@ header {
     color: #00613f;
 }
 
-select {
-    padding: 8px;
-    border-radius: 8px;
-    border: 2px solid #00bf63;
-    color: #00bf63;
-}
+
 
 /* Cards */
 .card-pedido {
