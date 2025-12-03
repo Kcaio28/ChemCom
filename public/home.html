@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="teste.css">
 
     <!-- Icon na aba do navegador -->
      <link rel="icon" href="./images/logo_mini.png" type="image/png">
@@ -366,49 +365,7 @@
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
 
-    <script>
-        // Dropdown de Conta
-        const btnConta = document.getElementById('btnConta');
-        const contaDropdown = document.getElementById('contaDropdown');
-        const btnSair = document.getElementById('btnSair');
-
-        // Toggle dropdown ao clicar no botão Conta
-        if (btnConta) {
-            btnConta.addEventListener('click', function (e) {
-                e.preventDefault();
-                contaDropdown.classList.toggle('show');
-            });
-        }
-
-        // Fecha dropdown ao clicar fora
-        document.addEventListener('click', function (e) {
-            if (contaDropdown && !contaDropdown.contains(e.target) && !btnConta.contains(e.target)) {
-                contaDropdown.classList.remove('show');
-            }
-        });
-
-        // Função de logout
-        if (btnSair) {
-            btnSair.addEventListener('click', function () {
-                if (confirm('Tem certeza que deseja sair?')) {
-                    // Adicione aqui sua lógica de logout
-                    // localStorage.removeItem('token');
-                    // sessionStorage.clear();
-
-                    alert('Logout realizado com sucesso!');
-                    window.location.href = 'home.html';
-                }
-            });
-        }
-
-        // Atualizar nome do usuário
-        const userName = document.getElementById('userName');
-        if (userName) {
-            const nomeUsuario = localStorage.getItem('nomeUsuario') || 'Usuário';
-            userName.textContent = nomeUsuario;
-        }
-    </script>
-
+    <script src="/js/contas.js"></script>
     <script src="/js/home_front.js"></script>
 </body>
 
