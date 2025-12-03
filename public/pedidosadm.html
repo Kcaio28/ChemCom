@@ -110,15 +110,26 @@
             <input type="date" id="dataInicio" class="calendario">
             <input type="date" id="dataFim" class="calendario">
 
-            <select id="filtroStatus">
-                <option value="">Todos os status</option>
-                <option value="NO CARRINHO">Carrinho</option>
-                <option value="PENDENTE">Pendente</option>
-                <option value="CONCLUIDO">Concluído</option>
-                <option value="CANCELADO">Cancelado</option>
+            <div class="custom-select">
+                <div class="select-selected">Todos os status</div>
+                <div class="select-items select-hide">
+                    <div data-value="">Todos os status</div>
+                    <div data-value="NO CARRINHO">Carrinho</div>
+                    <div data-value="PENDENTE">Pendente</div>
+                    <div data-value="CONCLUIDO">Concluído</div>
+                    <div data-value="CANCELADO">Cancelado</div>
+                </div>
+            </div>
+
+            <select id="filtroStatus" hidden>
+                <option class="option-status" value="">Todos os status</option>
+                <option class="option-status" value="NO CARRINHO">Carrinho</option>
+                <option class="option-status" value="PENDENTE">Pendente</option>
+                <option class="option-status" value="CONCLUIDO">Concluído</option>
+                <option class="option-status" value="CANCELADO">Cancelado</option>
             </select>
 
-            <input type="text" id="filtroCliente" placeholder="Cliente...">
+            <input class="input-cliente" type="text" id="filtroCliente" placeholder="Cliente...">
 
             <button id="btnFiltrar">Filtrar</button>
         </div>
@@ -156,11 +167,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+
     <!-- IMPORTA O JS DO GERENCIADOR -->
     <script src="js/pedido-adm.js"></script>
 
+    <!-- IMPORTA O JS DE CONTAS E HOME -->
     <script src="/js/contas.js"></script>
     <script src="/js/home_front.js"></script>
+
+    <!-- Script para sincronizar "select" com "div.custom-select" -->
+    <script>
+        const selected = document.querySelector(".select-selected");
+        const items = document.querySelector(".select-items");
+        const selectOriginal = document.querySelector("#filtroStatus");
+
+        selected.onclick = () => {
+            items.classList.toggle("select-hide");
+        };
+
+        items.querySelectorAll("div").forEach(option => {
+            option.onclick = () => {
+                selected.textContent = option.textContent;
+                selectOriginal.value = option.dataset.value;
+                items.classList.add("select-hide");
+            };
+        });
+    </script>
 
 </body>
 

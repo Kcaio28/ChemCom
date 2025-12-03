@@ -331,15 +331,15 @@ header {
 
 .calendario{
     border: 2px solid #00bf63;
-    color: #fff;
+    color: #00bf63;
     border-radius: 8px;
-    background-color: #00bf63;
+    background-color: #fff;
 }
 
 .calendario:hover {
-    background-color: #009b66;
+    background-color: #fff;
     border-color: #009b66;
-    color: #fff;
+    color: #00bf63;
 }
 
 .calendario:focus{
@@ -348,9 +348,57 @@ header {
     outline: none;
 }
 
-.calendario::-webkit-calendar-picker-indicator{
+.custom-date::-webkit-calendar-picker-indicator {
     cursor: pointer;
-    filter: brightness(0) invert(1);
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+.custom-select {
+    position: relative;
+    width: 200px;
+    user-select: none;
+}
+
+.select-selected {
+    border: 2px solid #00bf63;
+    border-radius: 8px;
+    padding: 8px;
+    color: #00bf63;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.select-items {
+    position: absolute;
+    background: #fff;
+    border: 2px solid #00bf63;
+    border-radius: 8px;
+    margin-top: 4px;
+    width: 100%;
+    z-index: 99;
+}
+
+.select-items div {
+    padding: 8px;
+    cursor: pointer;
+    color: #00bf63;
+}
+
+.select-items div:hover {
+    background: #00bf63;
+    color: #fff;
+}
+
+.select-hide {
+    display: none;
+}
+
+.input-cliente {
+    border: 2px solid #00bf63;
+    border-radius: 8px;
+    padding: 8px;
+    color: #00bf63;
+    background-color: #fff;
 }
 
 .table-detalhes-pedido {
