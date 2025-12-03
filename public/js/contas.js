@@ -25,6 +25,7 @@ if (btnSair) {
             // Adicione aqui sua lógica de logout
             // localStorage.removeItem('token');
             // sessionStorage.clear();
+            localStorage.removeItem('sessaoUsuario');
 
             alert('Logout realizado com sucesso!');
             window.location.href = 'home.html';
