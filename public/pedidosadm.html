@@ -1,121 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestão de Pedidos - Admin</title>
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .filtros-avancados {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .filtros-avancados input,
-        .filtros-avancados select,
-        .filtros-avancados button {
-            padding: 8px;
-        }
-
-        table {
-            width: 100%;
-            background: #fff;
-            border-collapse: collapse;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        thead {
-            background: #222;
-            color: #fff;
-        }
-
-        td, th {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .btn-acao {
-            background: #3498db;
-            border: none;
-            color: white;
-            padding: 6px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .badge {
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-        }
-
-        .status-pendente { background: #f1c40f; color: #000; }
-        .status-concluido { background: #2ecc71; }
-        .status-cancelado { background: #e74c3c; }
-        .status-no\ carrinho { background: #7f8c8d; }
-
-        .paginacao {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .btn-pag {
-            padding: 8px 12px;
-            margin: 3px;
-            border: 1px solid #555;
-            background: #fff;
-            cursor: pointer;
-        }
-
-        .btn-pag.active {
-            background: #555;
-            color: #fff;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-
-        .modal-content {
-            background: #fff;
-            padding: 20px;
-            width: 700px;
-            border-radius: 10px;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-fechar {
-            background: transparent;
-            border: none;
-            font-size: 26px;
-            cursor: pointer;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="pedidos.css">
 
     <!-- Icon na aba do navegador -->
-     <link rel="icon" href="./images/logo_mini.png" type="image/png">
+    <link rel="icon" href="./images/logo_mini.png" type="image/png">
 </head>
+
 <body>
 
     <header>
@@ -125,11 +22,11 @@
                 <a href="home.html" id="inicio"><img src="./images/logo_mini.png" alt="Logo" /></a>
             </div>
 
-            
+
 
             <!-- botão logar -->
             <div class="d-flex align-items-center gap-3" id="divLogin">
-                <a href="login_cliente.html" class="icon-btn text-menu btn-saiba-transporte">
+                <a href="login_cliente.html" class="icon-btn text-menu btn-entrar">
                     Entrar
                 </a>
             </div>
@@ -205,58 +102,66 @@
         </nav>
     </header>
 
-<section class="container-admin-pedidos">
-    <h1>Gestão de Pedidos</h1>
+    <section class="container-admin-pedidos">
+        <h1 class="title-table">Gestão de Pedidos</h1>
 
-    <!-- FILTROS AVANÇADOS -->
-    <div class="filtros-avancados">
-        <input type="date" id="dataInicio">
-        <input type="date" id="dataFim">
+        <!-- FILTROS AVANÇADOS -->
+        <div class="filtros-avancados">
+            <input type="date" id="dataInicio" class="calendario">
+            <input type="date" id="dataFim" class="calendario">
 
-        <select id="filtroStatus">
-            <option value="">Todos os status</option>
-            <option value="NO CARRINHO">Carrinho</option>
-            <option value="PENDENTE">Pendente</option>
-            <option value="CONCLUIDO">Concluído</option>
-            <option value="CANCELADO">Cancelado</option>
-        </select>
+            <select id="filtroStatus">
+                <option value="">Todos os status</option>
+                <option value="NO CARRINHO">Carrinho</option>
+                <option value="PENDENTE">Pendente</option>
+                <option value="CONCLUIDO">Concluído</option>
+                <option value="CANCELADO">Cancelado</option>
+            </select>
 
-        <input type="text" id="filtroCliente" placeholder="Cliente...">
+            <input type="text" id="filtroCliente" placeholder="Cliente...">
 
-        <button id="btnFiltrar">Filtrar</button>
-    </div>
+            <button id="btnFiltrar">Filtrar</button>
+        </div>
 
-    <!-- TABELA DE PEDIDOS -->
-    <div class="tabela-pedidos">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nº Pedido</th>
-                    <th>Cliente</th>
-                    <th>Data</th>
-                    <th>Itens</th>
-                    <th>Valor Total</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaPedidos">
-                <tr>
-                    <td colspan="7" style="text-align: center; padding: 20px;">
-                        Carregando pedidos...
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <!-- TABELA DE PEDIDOS -->
+        <div class="tabela-pedidos">
+            <table class="table table-detalhes-pedido">
+                <thead class="head-table">
+                    <tr class="tr-table">
+                        <th class="th-table">Nº Pedido</th>
+                        <th class="th-table">Cliente</th>
+                        <th class="th-table">Data</th>
+                        <th class="th-table">Itens</th>
+                        <th class="th-table">Valor Total</th>
+                        <th class="th-table">Status</th>
+                        <th class="th-table">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaPedidos">
+                    <tr class="tr-table">
+                        <td class="td-table" colspan="7" style="text-align: center; padding: 20px;">
+                            Carregando pedidos...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <!-- PAGINAÇÃO -->
-    <div class="paginacao" id="paginacao"></div>
+        <!-- PAGINAÇÃO -->
+        <div class="paginacao" id="paginacao"></div>
 
-</section>
+    </section>
 
-<!-- IMPORTA O JS DO GERENCIADOR -->
-<script src="js/pedido-adm.js"></script>
+    <!-- Script Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <!-- IMPORTA O JS DO GERENCIADOR -->
+    <script src="js/pedido-adm.js"></script>
+
+    <script src="/js/contas.js"></script>
+    <script src="/js/home_front.js"></script>
 
 </body>
+
 </html>
