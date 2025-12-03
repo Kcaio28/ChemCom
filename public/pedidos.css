@@ -401,6 +401,39 @@ header {
     background-color: #fff;
 }
 
+.input-cliente::placeholder {
+    color: #00bf63;
+}
+
+.input-cliente:hover {
+    background-color: #fff;
+    border-color: #009b66;
+    color: #00bf63;
+}
+
+.input-cliente:focus{
+    border-color: #009b66;
+    box-shadow: 0 0 0 3px rgba(0, 191, 99, 0.15);
+    outline: none;
+}
+
+.btn-filtrar {
+    width: 100px;
+    background-color: #00bf63;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-filtrar:hover {
+    background-color: #009b66;
+}
+
+
+
 .table-detalhes-pedido {
     width: 100%;
     background: #fff;
