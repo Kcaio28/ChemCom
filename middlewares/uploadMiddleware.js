@@ -81,7 +81,7 @@ const fileFilterArquivos = (req, file, cb) => {
 };
 
 // Obter tamanho máximo do arquivo
-const maxFileSize = parseInt(process.env.MAX_FILE_SIZE) || 5242880; // 5MB por padrão
+const maxFileSize = 26214400; // 5MB por padrão
 
 // Upload para imagens
 const uploadImagens = multer({
