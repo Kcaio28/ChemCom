@@ -454,6 +454,22 @@ header {
     box-shadow: 0 0 0 3px rgba(0, 191, 99, 0.2);
 }
 
+/* Chrome, Edge, Opera */
+input:-webkit-autofill {
+    background-color: #00bf63 !important;
+    -webkit-box-shadow: 0 0 0 30px #00bf63 inset !important;
+    -webkit-text-fill-color: #fff !important;
+    border-radius: 30px;
+}
+
+input:-webkit-autofill:focus {
+    background-color: #009b66 !important;
+    -webkit-box-shadow: 0 0 0 30px #009b66 inset !important;
+    -webkit-text-fill-color: #fff !important;
+    border-radius: 30px;
+}
+
+
 .login-btn {
     width: 100%;
     padding: 15px;
