@@ -100,22 +100,22 @@ class GerenciadorAdminPedidos {
 
     tbody.innerHTML = pedidos.map(pedido => `
       <tr>
-        <td>#${String(pedido.nro_pedido).padStart(3, '0')}</td>
-        <td>
+        <td data-title="Pedido">#${String(pedido.nro_pedido).padStart(3, '0')}</td>
+        <td data-title="Cliente">
           <div class="cliente-info">
             <strong>${pedido.cliente}</strong>
             <small>${pedido.email}</small>
           </div>
         </td>
-        <td>${this.formatarData(pedido.data_pedido)}</td>
-        <td>${pedido.quantidade_itens}</td>
-        <td><strong>R$ ${this.formatarValor(pedido.valor_total)}</strong></td>
-        <td>
+        <td data-title="Data">${this.formatarData(pedido.data_pedido)}</td>
+        <td data-title="Itens">${pedido.quantidade_itens}</td>
+        <td data-title="Total"><strong>R$ ${this.formatarValor(pedido.valor_total)}</strong></td>
+        <td data-title="Status">
           <span class="badge status-${pedido.status.toLowerCase()}">
             ${this.formatarStatus(pedido.status)}
           </span>
         </td>
-        <td>
+        <td data-title="Ações">
           <button 
             class="btn-acao" 
             onclick="adminPedidos.verDetalhes(${pedido.nro_pedido})"

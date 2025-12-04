@@ -670,7 +670,7 @@ header {
     cursor: pointer;
 }
 
-.btn-cancelar{
+.btn-cancelar {
     background-color: #dc3545;
     color: #fff;
     border: none;
@@ -679,7 +679,7 @@ header {
     cursor: pointer;
 }
 
-.btn-confirmar{
+.btn-confirmar {
     background-color: #00bf63;
     color: #fff;
     border: none;
@@ -707,6 +707,156 @@ header {
     border-radius: 8px;
     color: #b30000;
     text-align: center;
+}
+
+
+/* ===================================================== */
+/*                 RESPONSIVIDADE GERAL                  */
+/* ===================================================== */
+
+@media (max-width: 1024px) {
+
+    /* Filtros ADMIN */
+    .filtros-avancados {
+        flex-wrap: wrap;
+    }
+
+    .custom-select,
+    .input-cliente {
+        width: 48%;
+    }
+
+    .btn-filtrar {
+        width: 100%;
+    }
+
+    /* Tabela Admin */
+    .table-detalhes-pedido {
+        font-size: 0.9rem;
+    }
+
+    .td-table,
+    .th-table {
+        padding: 8px;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    table.table-detalhes-pedido,
+    table.table-detalhes-pedido thead {
+        display: none;
+    }
+
+    table.table-detalhes-pedido tr {
+        display: block;
+        background: #fff;
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px #0002;
+    }
+
+    table.table-detalhes-pedido td {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border: none;
+        font-size: 0.95rem;
+    }
+
+    table.table-detalhes-pedido td::before {
+        content: attr(data-title);
+        font-weight: bold;
+        color: #00613f;
+    }
+
+    table.table-detalhes-pedido .btn-acao {
+        margin-left: 8px;
+    }
+
+    .filtros-avancados {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .custom-select,
+    .input-cliente {
+        width: 100%;
+    }
+
+    .btn-filtrar {
+        width: 100%;
+    }
+
+    .pedido-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .pedido-body {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .btn-detalhes {
+        width: 100%;
+        text-align: center;
+    }
+
+    #paginacao .btn-pag {
+        padding: 10px 14px;
+        margin: 5px;
+    }
+
+    /* Modal USER */
+    .modal-content {
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .title-table {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .btn-acao,
+    .btn-status {
+        padding: 5px 6px;
+        font-size: 0.85rem;
+    }
+
+    .card-pedido {
+        padding: 12px;
+    }
+
+    .pedido-total {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .pedido-numero {
+        font-size: 1.1rem;
+    }
+
+    .pedido-status {
+        font-size: 0.8rem;
+    }
+
+    .btn-confirmar,
+    .btn-cancelar {
+        width: 100%;
+        margin-top: 10px;
+    }
 }
 
 
