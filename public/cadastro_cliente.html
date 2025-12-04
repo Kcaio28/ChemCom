@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="cadastro.css" />
 
     <!-- Icon na aba do navegador -->
-     <link rel="icon" href="./images/logo_mini.png" type="image/png">
+    <link rel="icon" href="./images/logo_mini.png" type="image/png">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
                 <a href="home.html" id="inicio"><img src="./images/logo_mini.png" alt="Logo" /></a>
             </div>
 
-            
+
 
             <!-- botão logar -->
             <div class="d-flex align-items-center gap-3" id="divLogin">
@@ -168,22 +168,22 @@
                                 <label class="form-label">Nome do Contato</label>
                                 <input type="text" class="form-control form-input" id="nomeContato" name="nomeContato">
                             </div>
+                        </div>
+                        <div class="divider"></div>
 
-                            <div class="divider"></div>
+                        <!-- Email e senha -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Email <span class="required">*</span></label>
+                                <input type="email" class="form-control form-input" name="email" required />
+                            </div>
 
-                            <!-- Email e senha -->
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Email <span class="required">*</span></label>
-                                    <input type="email" class="form-control form-input" name="email" required />
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Senha <span class="required">*</span></label>
-                                    <input type="password" class="form-control form-input" name="senha" required />
-                                </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Senha <span class="required">*</span></label>
+                                <input type="password" class="form-control form-input" name="senha" required />
                             </div>
                         </div>
+
 
                         <!-- Botão -->
                         <div class="text-end mt-4">
@@ -212,15 +212,15 @@
     <!-- Footer -->
     <footer class="footer-main">
         <div class="footer-container">
-            
+
             <div class="footer-logo">
                 <img src="./images/logo_chemcom_semFundo.png" alt="ChemCom Logo">
             </div>
-         
+
             <div class="footer-divider"></div>
 
             <!-- Conteúdo do footer -->
-            <div class="footer-content-wrapper" >
+            <div class="footer-content-wrapper">
 
                 <!-- Seção de empresas -->
                 <div class="footer-section">
@@ -264,7 +264,8 @@
 
         <!-- Botão de voltar ao topo -->
         <div class="footer-bottom">
-            <a href="#" class="btn-topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Voltar ao topo</a>
+            <a href="#" class="btn-topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Voltar
+                ao topo</a>
         </div>
     </footer>
 
