@@ -123,6 +123,14 @@ class GerenciadorAdminPedidos {
           >
             👁️
           </button>
+          </button>
+          <button 
+            class="btn-acao btn-status" 
+            onclick="adminPedidos.abrirModalStatus(${pedido.nro_pedido}, '${pedido.status}')"
+            title="Alterar status"
+          >
+            ✏️
+          </button>
         </td>
       </tr>
     `).join('');
@@ -261,6 +269,106 @@ class GerenciadorAdminPedidos {
     
     document.body.appendChild(modal);
   }
+  abrirModalStatus(nro_pedido, statusAtual) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.innerHTML = `
+      <div class="modal-content modal-small">
+        <div class="modal-header">
+          <h2>Alterar Status do Pedido #${String(nro_pedido).padStart(3, '0')}</h2>
+          <button class="btn-fechar" onclick="this.closest('.modal-overlay').remove()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="novoStatus">Status Atual: <strong>${this.formatarStatus(statusAtual)}</strong></label>
+            <select id="novoStatus" class="form-control">
+              <option value="">Selecione o novo status</option>
+              <option value="PENDENTE" ${statusAtual === 'PENDENTE' ? 'selected' : ''}>⏳ Pendente</option>
+              <option value="CONCLUIDO" ${statusAtual === 'CONCLUIDO' ? 'selected' : ''}>✅ Concluído</option>
+              <option value="CANCELADO" ${statusAtual === 'CANCELADO' ? 'selected' : ''}>❌ Cancelado</option>
+            </select>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #6b7280;">
+              Como administrador, você pode alterar para qualquer status.
+            </p>
+          </div>
+          
+          <div class="modal-actions">
+            <button class="btn-cancelar" onclick="this.closest('.modal-overlay').remove()">
+              Cancelar
+            </button>
+            <button class="btn-confirmar" onclick="adminPedidos.confirmarAlteracaoStatus(${nro_pedido}, this)">
+              Confirmar Alteração
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+  }
+  async confirmarAlteracaoStatus(nro_pedido, btnElement) {
+    try {
+      const modal = btnElement.closest('.modal-overlay');
+      const novoStatus = document.getElementById('novoStatus').value;
+
+      if (!novoStatus) {
+        alert('Por favor, selecione um status');
+        return;
+      }
+
+      // Desabilitar botão durante requisição
+      btnElement.disabled = true;
+      btnElement.textContent = 'Atualizando...';
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(`/api/pedidos/admin/status/${nro_pedido}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: novoStatus })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.sucesso) {
+        throw new Error(data.erro || 'Erro ao atualizar status');
+      }
+
+      // Fechar modal
+      modal.remove();
+
+      // Mostrar mensagem de sucesso
+      this.mostrarNotificacao('Status atualizado com sucesso!', 'sucesso');
+
+      // Recarregar lista de pedidos
+      await this.carregarPedidos();
+
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Erro ao atualizar status: ' + error.message);
+      btnElement.disabled = false;
+      btnElement.textContent = 'Confirmar Alteração';
+    }
+  }
+   mostrarNotificacao(mensagem, tipo = 'info') {
+    const notificacao = document.createElement('div');
+    notificacao.className = `notificacao notificacao-${tipo}`;
+    notificacao.textContent = mensagem;
+    notificacao.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      background: ${tipo === 'sucesso' ? '#10b981' : '#3b82f6'};
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      z-index: 10000;
+      animation: slideIn 0.3s ease-out;
+    `}
 
   async irParaPagina(pagina) {
     this.paginaAtual = pagina;

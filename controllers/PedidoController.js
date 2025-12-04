@@ -4,31 +4,63 @@ import PedidoModel from "../models/PedidoModel.js";
 export const PedidoController = {
   async meusPedidos(req, res) {
     try {
-      // Verificar autenticação
       if (!req.user || !req.user.id) {
-        console.log("Erro de autenticação - req.user:", req.user);
-        return res.status(401).json({ 
+        return res.status(401).json({
           sucesso: false,
-          erro: "Usuário não autenticado" 
+          erro: "Usuário não autenticado",
         });
       }
 
       const id_cliente = req.user.id;
-      console.log("Buscando pedidos para cliente ID:", id_cliente);
-      
-      const resultado = await PedidoModel.listarMeusPedidos(id_cliente);
-      console.log("Pedidos encontrados:", resultado.pedidos?.length || 0);
+      const pagina = parseInt(req.query.pagina) || 1;
+      const limite = parseInt(req.query.limite) || 9;
+
+      const resultado = await PedidoModel.listarMeusPedidosComPaginacao(
+        id_cliente,
+        pagina,
+        limite
+      );
 
       return res.json({
         sucesso: true,
-        pedidos: resultado.pedidos || []
+        pedidos: resultado.pedidos || [],
+        paginacao: resultado.paginacao,
       });
     } catch (err) {
       console.error("Erro em meusPedidos:", err);
-      console.error("Stack trace:", err.stack);
-      return res.status(500).json({ 
+      return res.status(500).json({
         sucesso: false,
-        erro: err.message || "Erro ao listar pedidos"
+        erro: err.message || "Erro ao listar pedidos",
+      });
+    }
+  },
+
+  async cancelarPedido(req, res) {
+    try {
+      const { nro_pedido } = req.params;
+      const id_cliente = req.user.id;
+
+      if (!id_cliente) {
+        return res.status(401).json({
+          erro: "Usuário não autenticado",
+          sucesso: false,
+        });
+      }
+
+      const resultado = await PedidoModel.cancelarPedido(
+        parseInt(nro_pedido),
+        id_cliente
+      );
+
+      return res.json({
+        sucesso: true,
+        ...resultado,
+      });
+    } catch (err) {
+      console.error("Erro em cancelarPedido:", err);
+      return res.status(400).json({
+        sucesso: false,
+        erro: err.message,
       });
     }
   },
@@ -49,9 +81,9 @@ export const PedidoController = {
       } = req.query;
 
       // Validar se é admin
-      if (!req.user || req.user.tipo !== 'admin') {
-        return res.status(403).json({ 
-          erro: "Acesso restrito a administradores" 
+      if (!req.user || req.user.tipo !== "admin") {
+        return res.status(403).json({
+          erro: "Acesso restrito a administradores",
         });
       }
 
@@ -69,13 +101,13 @@ export const PedidoController = {
       return res.json({
         sucesso: true,
         pedidos: resultado.pedidos,
-        paginacao: resultado.paginacao
+        paginacao: resultado.paginacao,
       });
     } catch (err) {
       console.error("Erro em todosPedidos:", err);
-      return res.status(500).json({ 
+      return res.status(500).json({
         sucesso: false,
-        erro: err.message 
+        erro: err.message,
       });
     }
   },
@@ -90,11 +122,11 @@ export const PedidoController = {
       // Se vier como :id, usar como nro_pedido também
       const pedidoId = nro_pedido || id;
       const id_cliente = req.user ? req.user.id : null;
-      const isAdmin = req.user && req.user.tipo === 'admin';
+      const isAdmin = req.user && req.user.tipo === "admin";
 
       if (!pedidoId) {
-        return res.status(400).json({ 
-          erro: "Número do pedido não informado" 
+        return res.status(400).json({
+          erro: "Número do pedido não informado",
         });
       }
 
@@ -106,25 +138,69 @@ export const PedidoController = {
 
       return res.json({
         sucesso: true,
-        pedido
+        pedido,
       });
     } catch (err) {
       console.error("Erro em detalharPedido:", err);
-      
+
       // Se for erro de acesso negado, retornar 403
-      if (err.message.includes('não encontrado') || err.message.includes('negado')) {
-        return res.status(403).json({ 
+      if (
+        err.message.includes("não encontrado") ||
+        err.message.includes("negado")
+      ) {
+        return res.status(403).json({
           sucesso: false,
-          erro: 'Acesso negado ou pedido não encontrado' 
+          erro: "Acesso negado ou pedido não encontrado",
         });
       }
 
-      return res.status(500).json({ 
+      return res.status(500).json({
         sucesso: false,
-        erro: err.message 
+        erro: err.message,
       });
     }
   },
+
+  async atualizarStatus(req, res) {
+    try {
+      const { nro_pedido } = req.params;
+      const { status } = req.body;
+
+      // Validar se é admin
+      if (!req.user || req.user.tipo !== "admin") {
+        return res.status(403).json({
+          erro: "Acesso restrito a administradores",
+          sucesso: false,
+        });
+      }
+
+      if (!status) {
+        return res.status(400).json({
+          erro: "Status não informado",
+          sucesso: false,
+        });
+      }
+
+      const resultado = await PedidoModel.atualizarStatus(
+        parseInt(nro_pedido),
+        status,
+        true // isAdmin = true
+      );
+
+      return res.json({
+        sucesso: true,
+        mensagem: `Status atualizado de ${resultado.status_anterior} para ${resultado.status_atual}`,
+        ...resultado,
+      });
+    } catch (err) {
+      console.error("Erro em atualizarStatus:", err);
+      return res.status(400).json({
+        sucesso: false,
+        erro: err.message,
+      });
+    }
+  },
+
   async listarCarrinho(req, res) {
     try {
       const userId = req.user && req.user.id;
@@ -164,8 +240,8 @@ export const PedidoController = {
       const id_cliente = req.user.id;
 
       if (!id_cliente) {
-        return res.status(401).json({ 
-          erro: "Usuário não autenticado" 
+        return res.status(401).json({
+          erro: "Usuário não autenticado",
         });
       }
 
@@ -173,13 +249,13 @@ export const PedidoController = {
 
       return res.json({
         sucesso: true,
-        pedidos: resultado.pedidos
+        pedidos: resultado.pedidos,
       });
     } catch (err) {
       console.error("Erro em listarPedidoPorCliente:", err);
-      return res.status(500).json({ 
+      return res.status(500).json({
         sucesso: false,
-        erro: err.message 
+        erro: err.message,
       });
     }
   },
@@ -189,14 +265,14 @@ export const PedidoController = {
       const { id_produto, id_lote, qtd } = req.body;
 
       if (!id_cliente) {
-        return res.status(401).json({ 
-          erro: "Usuário não autenticado" 
+        return res.status(401).json({
+          erro: "Usuário não autenticado",
         });
       }
 
       if (!id_produto || !id_lote || !qtd) {
-        return res.status(400).json({ 
-          erro: "Dados incompletos. Necessário: id_produto, id_lote, qtd" 
+        return res.status(400).json({
+          erro: "Dados incompletos. Necessário: id_produto, id_lote, qtd",
         });
       }
 
@@ -210,9 +286,9 @@ export const PedidoController = {
       return res.json(resultado);
     } catch (err) {
       console.error("Erro em adicionarItem:", err);
-      return res.status(500).json({ 
+      return res.status(500).json({
         sucesso: false,
-        erro: err.message 
+        erro: err.message,
       });
     }
   },

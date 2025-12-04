@@ -1,6 +1,7 @@
 body {
     padding-top: 135px;
     background-color: #E9FAF2;
+    font-family: 'MontserratArabic', sans-serif;
 }
 
 @font-face {
@@ -10,9 +11,6 @@ body {
     font-style: normal;
 }
 
-body{
-    font-family: 'MontserratArabic', sans-serif;
-}
 
 
 /*Header*/
@@ -382,10 +380,9 @@ header {
 }
 
 .produto-card img {
-    height: 330px;
+    height: 230px;
     object-fit: contain;
     padding: 8px;
-    margin-top: -20px;
 }
 
 .produto-card a {

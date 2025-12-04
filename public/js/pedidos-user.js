@@ -2,7 +2,7 @@ class GerenciadorMeusPedidos {
   constructor() {
     this.paginaAtual = 1;
     this.itensPorPagina = 10;
-    this.filtroStatus = '';
+    this.filtroStatus = "";
   }
 
   /**
@@ -17,9 +17,9 @@ class GerenciadorMeusPedidos {
    * Configurar event listeners
    */
   setupEventListeners() {
-    const filtroStatus = document.getElementById('filtroStatus');
+    const filtroStatus = document.getElementById("filtroStatus");
     if (filtroStatus) {
-      filtroStatus.addEventListener('change', async (e) => {
+      filtroStatus.addEventListener("change", async (e) => {
         this.filtroStatus = e.target.value;
         this.paginaAtual = 1;
         await this.carregarPedidos();
@@ -34,46 +34,53 @@ class GerenciadorMeusPedidos {
     try {
       const params = new URLSearchParams({
         pagina: this.paginaAtual,
-        limite: this.itensPorPagina
+        limite: this.itensPorPagina,
       });
 
       if (this.filtroStatus) {
-        params.append('status', this.filtroStatus);
+        params.append("status", this.filtroStatus);
       }
 
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        this.mostrarErro('Você precisa estar logado para ver seus pedidos. Redirecionando para login...');
+        this.mostrarErro(
+          "Você precisa estar logado para ver seus pedidos. Redirecionando para login..."
+        );
         setTimeout(() => {
-          window.location.href = '/login_cliente.html';
+          window.location.href = "/login_cliente.html";
         }, 2000);
         return;
       }
 
       const response = await fetch(`/api/pedidos/meus-pedidos`, {
-        method: 'GET',
-        credentials: 'include',
+        method: "GET",
+        credentials: "include",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.erro || `Erro ${response.status}: ${response.statusText}`);
+        throw new Error(
+          errorData.erro || `Erro ${response.status}: ${response.statusText}`
+        );
       }
 
       const data = await response.json();
-      
+
       if (data.sucesso) {
         this.renderizarPedidos(data.pedidos || []);
       } else {
-        this.mostrarErro(data.erro || 'Erro ao carregar pedidos');
+        this.mostrarErro(data.erro || "Erro ao carregar pedidos");
       }
     } catch (error) {
-      console.error('Erro ao carregar pedidos:', error);
-      this.mostrarErro(error.message || 'Erro ao carregar pedidos. Verifique se você está logado.');
+      console.error("Erro ao carregar pedidos:", error);
+      this.mostrarErro(
+        error.message ||
+          "Erro ao carregar pedidos. Verifique se você está logado."
+      );
     }
   }
 
@@ -81,8 +88,8 @@ class GerenciadorMeusPedidos {
    * Renderizar lista de pedidos
    */
   renderizarPedidos(pedidos) {
-    const container = document.getElementById('listaPedidos');
-    
+    const container = document.getElementById("listaPedidos");
+
     if (!container) return;
 
     if (pedidos.length === 0) {
@@ -94,45 +101,60 @@ class GerenciadorMeusPedidos {
       return;
     }
 
-    container.innerHTML = pedidos.map(pedido => `
+    container.innerHTML = pedidos
+      .map(
+        (pedido) => `
       <div class="card-pedido">
         <div class="pedido-header">
-          <span class="pedido-numero">#${String(pedido.nro_pedido).padStart(3, '0')}</span>
-          <span class="pedido-data">${this.formatarData(pedido.data_pedido)}</span>
+          <span class="pedido-numero">#${String(pedido.nro_pedido).padStart(
+            3,
+            "0"
+          )}</span>
+          <span class="pedido-data">${this.formatarData(
+            pedido.data_pedido
+          )}</span>
           <span class="pedido-status status-${pedido.status.toLowerCase()}">
             ${this.formatarStatus(pedido.status)}
           </span>
         </div>
         <div class="pedido-body">
           <div class="pedido-info">
-            <span>${pedido.quantidade_itens} ${pedido.quantidade_itens === 1 ? 'item' : 'itens'}</span>
-            <span class="pedido-total">R$ ${this.formatarValor(pedido.valor_total)}</span>
+            <span>${pedido.quantidade_itens} ${
+          pedido.quantidade_itens === 1 ? "item" : "itens"
+        }</span>
+            <span class="pedido-total">R$ ${this.formatarValor(
+              pedido.valor_total
+            )}</span>
           </div>
-          <button class="btn-detalhes" onclick="gerenciadorPedidos.verDetalhes(${pedido.nro_pedido})">
+          <button class="btn-detalhes" onclick="gerenciadorPedidos.verDetalhes(${
+            pedido.nro_pedido
+          })">
             Ver Detalhes
           </button>
         </div>
       </div>
-    `).join('');
+    `
+      )
+      .join("");
   }
 
   /**
    * Renderizar paginação
    */
   renderizarPaginacao(paginacao) {
-    const container = document.getElementById('paginacao');
-    
+    const container = document.getElementById("paginacao");
+
     if (!container || paginacao.total_paginas <= 1) {
-      if (container) container.innerHTML = '';
+      if (container) container.innerHTML = "";
       return;
     }
 
     const { pagina_atual, total_paginas } = paginacao;
-    
+
     let html = `
       <button 
         class="btn-pag" 
-        ${pagina_atual === 1 ? 'disabled' : ''}
+        ${pagina_atual === 1 ? "disabled" : ""}
         onclick="gerenciadorPedidos.irParaPagina(${pagina_atual - 1})"
       >
         Anterior
@@ -141,10 +163,14 @@ class GerenciadorMeusPedidos {
 
     // Mostrar páginas
     for (let i = 1; i <= total_paginas; i++) {
-      if (i === 1 || i === total_paginas || (i >= pagina_atual - 2 && i <= pagina_atual + 2)) {
+      if (
+        i === 1 ||
+        i === total_paginas ||
+        (i >= pagina_atual - 2 && i <= pagina_atual + 2)
+      ) {
         html += `
           <button 
-            class="btn-pag ${i === pagina_atual ? 'active' : ''}"
+            class="btn-pag ${i === pagina_atual ? "active" : ""}"
             onclick="gerenciadorPedidos.irParaPagina(${i})"
           >
             ${i}
@@ -158,7 +184,7 @@ class GerenciadorMeusPedidos {
     html += `
       <button 
         class="btn-pag"
-        ${pagina_atual === total_paginas ? 'disabled' : ''}
+        ${pagina_atual === total_paginas ? "disabled" : ""}
         onclick="gerenciadorPedidos.irParaPagina(${pagina_atual + 1})"
       >
         Próximo
@@ -173,35 +199,35 @@ class GerenciadorMeusPedidos {
    */
   async verDetalhes(nro_pedido) {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        alert('Você precisa estar logado para ver os detalhes do pedido.');
-        window.location.href = '/login_cliente.html';
+        alert("Você precisa estar logado para ver os detalhes do pedido.");
+        window.location.href = "/login_cliente.html";
         return;
       }
 
       const response = await fetch(`/api/pedidos/detalhes/${nro_pedido}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        credentials: 'include'
+        credentials: "include",
       });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.erro || 'Erro ao carregar detalhes');
+        throw new Error(errorData.erro || "Erro ao carregar detalhes");
       }
 
       const data = await response.json();
-      
+
       if (data.sucesso) {
         this.mostrarModalDetalhes(data.pedido);
       } else {
-        alert(data.erro || 'Erro ao carregar detalhes do pedido');
+        alert(data.erro || "Erro ao carregar detalhes do pedido");
       }
     } catch (error) {
-      console.error('Erro ao carregar detalhes:', error);
-      alert(error.message || 'Erro ao carregar detalhes do pedido');
+      console.error("Erro ao carregar detalhes:", error);
+      alert(error.message || "Erro ao carregar detalhes do pedido");
     }
   }
 
@@ -209,10 +235,10 @@ class GerenciadorMeusPedidos {
    * Mostrar modal com detalhes
    */
   mostrarModalDetalhes(pedido) {
-    const modal = document.createElement('div');
-    modal.className = 'modal-overlay';
-    modal.innerHTML = `
-      <div class="modal-content">
+    const podeCancelar = pedido.status === 'PENDENTE';
+    const modal = document.createElement("div");
+    modal.className = "modal-overlay";
+    modal.innerHTML = `<div class="modal-content">
         <div class="modal-header">
           <h2>Pedido #${String(pedido.nro_pedido).padStart(3, '0')}</h2>
           <button class="btn-fechar" onclick="this.closest('.modal-overlay').remove()">×</button>
@@ -256,11 +282,71 @@ class GerenciadorMeusPedidos {
               </tr>
             </tfoot>
           </table>
+
+          ${podeCancelar ? `
+            <div class="modal-actions" style="margin-top: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 1.5rem;">
+              <button 
+                class="btn-cancelar-pedido" 
+                onclick="gerenciadorPedidos.confirmarCancelamento(${pedido.nro_pedido}, this)"
+                style="background-color: #ef4444; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;"
+              >
+                🗑️ Cancelar Pedido
+              </button>
+              <p style="margin-top: 0.5rem; font-size: 0.875rem; color: #6b7280;">
+                Esta ação devolverá os produtos ao estoque.
+              </p>
+            </div>
+          ` : ''}
         </div>
       </div>
     `;
-    
+
     document.body.appendChild(modal);
+  }
+
+  async confirmarCancelamento(nro_pedido, btnElement) {
+    if (
+      !confirm(
+        "Tem certeza que deseja cancelar este pedido? Os itens serão devolvidos ao estoque."
+      )
+    ) {
+      return;
+    }
+
+    try {
+      btnElement.disabled = true;
+      btnElement.textContent = "⏳ Cancelando...";
+      const token = localStorage.getItem("token");
+      const response = await fetch(`/api/pedidos/cancelar/${nro_pedido}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.sucesso) {
+        throw new Error(data.erro || "Erro ao cancelar pedido");
+      }
+
+      // Fechar modal
+      btnElement.closest(".modal-overlay").remove();
+
+      // Mostrar mensagem de sucesso
+      alert("✅ " + data.mensagem);
+
+      // Recarregar pedidos
+      await this.carregarPedidos();
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("❌ " + error.message);
+      btnElement.disabled = false;
+      btnElement.textContent = "🗑️ Cancelar Pedido";
+    }
   }
 
   /**
@@ -269,36 +355,36 @@ class GerenciadorMeusPedidos {
   async irParaPagina(pagina) {
     this.paginaAtual = pagina;
     await this.carregarPedidos();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   /**
    * Helpers de formatação
    */
   formatarData(data) {
-    return new Date(data).toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
+    return new Date(data).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
   }
 
   formatarValor(valor) {
-    return Number(valor).toFixed(2).replace('.', ',');
+    return Number(valor).toFixed(2).replace(".", ",");
   }
 
   formatarStatus(status) {
     const labels = {
-      'PENDENTE': 'Pendente',
-      'CONCLUIDO': 'Concluído',
-      'CANCELADO': 'Cancelado',
-      'NO CARRINHO': 'Carrinho'
+      PENDENTE: "Pendente",
+      CONCLUIDO: "Concluído",
+      CANCELADO: "Cancelado",
+      "NO CARRINHO": "Carrinho",
     };
     return labels[status] || status;
   }
 
   mostrarErro(mensagem) {
-    const container = document.getElementById('listaPedidos');
+    const container = document.getElementById("listaPedidos");
     if (container) {
       container.innerHTML = `
         <div class="alert-erro">
@@ -313,6 +399,6 @@ class GerenciadorMeusPedidos {
 const gerenciadorPedidos = new GerenciadorMeusPedidos();
 
 // Inicializar quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   gerenciadorPedidos.init();
 });
