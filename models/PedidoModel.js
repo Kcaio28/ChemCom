@@ -129,9 +129,71 @@ class PedidoModel {
     }
   }
 
+  static async listarMeusPedidosComPaginacao(
+    id_cliente,
+    pagina = 1,
+    limite = 9
+  ) {
+    const connection = await getConnection();
+
+    try {
+      if (!id_cliente) {
+        throw new Error("ID do cliente não fornecido");
+      }
+
+      const offset = (pagina - 1) * limite;
+
+      // Contar total
+      const [totalResult] = await connection.query(
+        `SELECT COUNT(*) as total 
+       FROM pedido 
+       WHERE id_cliente = ? AND status != 'NO CARRINHO'`,
+        [id_cliente]
+      );
+      const total = totalResult[0].total;
+
+      // Buscar pedidos paginados
+      const query = `
+      SELECT 
+        p.nro_pedido,
+        DATE_FORMAT(p.data_pedido, '%Y-%m-%d %H:%i:%s') AS data_pedido,
+        p.status,
+        p.valor_total,
+        COALESCE(
+          (SELECT SUM(ip.qtd)
+           FROM itensPedidos ip
+           WHERE ip.nro_pedido = p.nro_pedido), 0
+        ) AS quantidade_itens
+      FROM pedido p
+      WHERE p.id_cliente = ?
+        AND p.status != 'NO CARRINHO'
+      ORDER BY p.data_pedido DESC
+      LIMIT ? OFFSET ?
+    `;
+
+      const [pedidos] = await connection.query(query, [
+        id_cliente,
+        limite,
+        offset,
+      ]);
+
+      return {
+        pedidos: pedidos || [],
+        paginacao: {
+          pagina,
+          limite,
+          total,
+          totalPaginas: Math.ceil(total / limite),
+        },
+      };
+    } finally {
+      connection.release();
+    }
+  }
+
   static async atualizarStatus(nro_pedido, novoStatus, isAdmin = true) {
     const connection = await getConnection();
-    
+
     try {
       // Verificar se o pedido existe
       const [pedido] = await connection.query(
@@ -140,20 +202,25 @@ class PedidoModel {
       );
 
       if (pedido.length === 0) {
-        throw new Error('Pedido não encontrado');
+        throw new Error("Pedido não encontrado");
       }
 
       const statusAntigo = pedido[0].status;
 
       // Validar status
-      const statusValidos = ['NO CARRINHO', 'PENDENTE', 'CONCLUIDO', 'CANCELADO'];
+      const statusValidos = [
+        "NO CARRINHO",
+        "PENDENTE",
+        "CONCLUIDO",
+        "CANCELADO",
+      ];
       if (!statusValidos.includes(novoStatus)) {
-        throw new Error('Status inválido');
+        throw new Error("Status inválido");
       }
 
       // Admin pode alterar qualquer status, exceto carrinhos ativos
-      if (isAdmin && statusAntigo === 'NO CARRINHO') {
-        throw new Error('Não é possível alterar status de carrinhos ativos');
+      if (isAdmin && statusAntigo === "NO CARRINHO") {
+        throw new Error("Não é possível alterar status de carrinhos ativos");
       }
 
       // Atualizar status
@@ -166,7 +233,7 @@ class PedidoModel {
         sucesso: true,
         nro_pedido,
         status_anterior: statusAntigo,
-        status_atual: novoStatus
+        status_atual: novoStatus,
       };
     } finally {
       connection.release();
