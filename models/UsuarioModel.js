@@ -80,13 +80,13 @@ class UsuarioModel {
                 [email]
             );
             connection.release();
-            
+
             if (rows.length > 0) {
                 console.log(`✅ [ADM] Admin encontrado: ID ${rows[0].id}, Nome: ${rows[0].nome}`);
             } else {
                 console.log(`❌ [ADM] Nenhum admin encontrado com email: ${email}`);
             }
-            
+
             return rows[0] || null;
         } catch (error) {
             console.error('❌ [ADM] Erro ao buscar adm por email:', error);
@@ -104,15 +104,21 @@ class UsuarioModel {
                 CNPJ: dadosEmpresa.cnpj,
                 Telefone: dadosEmpresa.telefone,
                 email: dadosEmpresa.email,
-                senha_hash: senhaHash, // nome da coluna correto
+                senha_hash: senhaHash,
                 CEP: dadosEmpresa.cep,
                 estado: dadosEmpresa.estado,
                 cidade: dadosEmpresa.cidade,
                 logradouro: dadosEmpresa.logradouro,
-                Nro: dadosEmpresa.numero
+                Nro: dadosEmpresa.numero,
+
+                // 🆕 Dados automáticos da API
+                cnae_principal: dadosEmpresa.cnaePrincipal,
+                cnaes_secundarios: JSON.stringify(dadosEmpresa.cnaesSecundarios),
+                autorizacao_status: dadosEmpresa.autorizacao_status
             };
 
             return await create(TABELA_empresa, dadosCompletos);
+
         } catch (error) {
             console.error('Erro ao criar empresa:', error);
             throw error;
