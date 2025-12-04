@@ -668,6 +668,24 @@ header {
     cursor: pointer;
 }
 
+.btn-cancelar{
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.btn-confirmar{
+    background-color: #00bf63;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
 .tabela-itens {
     width: 100%;
     border-collapse: collapse;
