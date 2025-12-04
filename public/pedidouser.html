@@ -101,51 +101,48 @@
     </nav>
   </header>
 
-  <h1 class="title-table">Meus Pedidos</h1>
-
-  <!-- Filtro -->
-  <div class="filtros">
-    <label class="label-status" for="filtroStatus">Filtrar por status:</label>
-    <div class="custom-select" id="selectStatus">
-      <div class="select-selected">Todos</div>
-      <div class="select-items select-hide">
-        <div data-value="">Todos</div>
-        <div data-value="PENDENTE">Pendente</div>
-        <div data-value="CONCLUIDO">Concluído</div>
-        <div data-value="CANCELADO">Cancelado</div>
-        <div data-value="NO CARRINHO">Carrinho</div>
+  <div class="div-pai">
+    <h1 class="title-table">Meus Pedidos</h1>
+    <!-- Filtro -->
+    <div class="filtros">
+      <label class="label-status" for="filtroStatus">Filtrar por status:</label>
+      <div class="custom-select" id="selectStatus">
+        <div class="select-selected">Todos</div>
+        <div class="select-items select-hide">
+          <div data-value="">Todos</div>
+          <div data-value="PENDENTE">Pendente</div>
+          <div data-value="CONCLUIDO">Concluído</div>
+          <div data-value="CANCELADO">Cancelado</div>
+          <div data-value="NO CARRINHO">Carrinho</div>
+        </div>
       </div>
+      <select id="filtroStatus" hidden>
+        <option value="">Todos</option>
+        <option value="PENDENTE">Pendente</option>
+        <option value="CONCLUIDO">Concluído</option>
+        <option value="CANCELADO">Cancelado</option>
+        <option value="NO CARRINHO">Carrinho</option>
+      </select>
     </div>
-
-    <select id="filtroStatus" hidden>
-      <option value="">Todos</option>
-      <option value="PENDENTE">Pendente</option>
-      <option value="CONCLUIDO">Concluído</option>
-      <option value="CANCELADO">Cancelado</option>
-      <option value="NO CARRINHO">Carrinho</option>
-    </select>
+    <!-- Lista de pedidos -->
+    <div id="listaPedidos"></div>
+    <!-- Paginação -->
+    <div id="paginacao"></div>
   </div>
 
 
-  <!-- Lista de pedidos -->
-  <div id="listaPedidos"></div>
-
-  <!-- Paginação -->
-  <div id="paginacao"></div>
-
-
   <!-- Parte final da página -->
-    <section class="feedback-section">
-        <div class="feedback-container">
-            <div class="feedback-content">
-                <h2>O que está achando do site?</h2>
-                <p>Sua experiência é importante para nós</p>
-            </div>
-            <a href="formContato.html" class="btn-feedback">Dê Seu Feedback</a>
-        </div>
-    </section>
+  <section class="feedback-section">
+    <div class="feedback-container">
+      <div class="feedback-content">
+        <h2>O que está achando do site?</h2>
+        <p>Sua experiência é importante para nós</p>
+      </div>
+      <a href="formContato.html" class="btn-feedback">Dê Seu Feedback</a>
+    </div>
+  </section>
 
-    <!-- Footer -->
+  <!-- Footer -->
     <footer class="footer-main">
         <div class="footer-container">
 
@@ -174,23 +171,23 @@
                     <div class="footer-categories">
                         <div class="category-column">
                             <ul>
-                                <li><a href="">Ácidos</a></li>
-                                <li><a href="">Bases</a></li>
-                                <li><a href="">Sais</a></li>
+                                <li><a href="catalogo.html">Ácidos</a></li>
+                                <li><a href="catalogo.html">Bases</a></li>
+                                <li><a href="catalogo.html">Sais</a></li>
                             </ul>
                         </div>
                         <div class="category-column">
                             <ul>
-                                <li><a href="">Solventes</a></li>
-                                <li><a href="">Polímeros</a></li>
-                                <li><a href="">Agricultura</a></li>
+                                <li><a href="catalogo.html">Solventes</a></li>
+                                <li><a href="catalogo.html">Polímeros</a></li>
+                                <li><a href="catalogo.html">Agricultura</a></li>
                             </ul>
                         </div>
                         <div class="category-column">
                             <ul>
-                                <li><a href="">Farmacêuticos</a></li>
-                                <li><a href="">Cosméticos</a></li>
-                                <li><a href="">Reagentes</a></li>
+                                <li><a href="catalogo.html">Farmacêuticos</a></li>
+                                <li><a href="catalogo.html">Cosméticos</a></li>
+                                <li><a href="catalogo.html">Reagentes</a></li>
                             </ul>
                         </div>
                     </div>
@@ -213,9 +210,8 @@
   <script src="/js/home_front.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous">
-  </script>
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
+    </script>
 
 
   <script>
