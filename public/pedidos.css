@@ -2,8 +2,6 @@ body {
     padding-top: 150px;
     background-color: #E9FAF2;
     font-family: 'MontserratArabic', sans-serif;
-    padding-right: 20px;
-    padding-left: 20px;
 }
 
 @font-face {
@@ -11,6 +9,10 @@ body {
     src: url('../fonts/Montserrat-Arabic.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+.div-pai {
+    padding: 0 20px 50px 20px;
 }
 
 /*Header*/
