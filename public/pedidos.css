@@ -1,15 +1,7 @@
 body {
-<<<<<<< HEAD
-  padding-top: 150px;
-  background-color: #e9faf2;
-  font-family: "MontserratArabic", sans-serif;
-  padding-right: 20px;
-  padding-left: 20px;
-=======
     padding-top: 150px;
     background-color: #E9FAF2;
     font-family: 'MontserratArabic', sans-serif;
->>>>>>> 7eefdf08dc356265a0063eef8d7463f0928e7f24
 }
 
 @font-face {
