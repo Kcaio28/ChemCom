@@ -597,7 +597,7 @@ header {
 }
 
 .btn-detalhes {
-    background: #007bff;
+    background: #009b66;
     color: #fff;
     border: none;
     padding: 8px 14px;
@@ -622,7 +622,7 @@ header {
 }
 
 .btn-pag.active {
-    background: #007bff;
+    background: #009b66;
     color: #fff;
     font-weight: bold;
 }
