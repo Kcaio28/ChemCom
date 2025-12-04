@@ -4,9 +4,7 @@ import PedidoModel from "../models/PedidoModel.js";
 export const PedidoController = {
   async meusPedidos(req, res) {
     try {
-      // Verificar autenticação
       if (!req.user || !req.user.id) {
-        console.log("Erro de autenticação - req.user:", req.user);
         return res.status(401).json({
           sucesso: false,
           erro: "Usuário não autenticado",
@@ -14,18 +12,22 @@ export const PedidoController = {
       }
 
       const id_cliente = req.user.id;
-      console.log("Buscando pedidos para cliente ID:", id_cliente);
+      const pagina = parseInt(req.query.pagina) || 1;
+      const limite = parseInt(req.query.limite) || 9;
 
-      const resultado = await PedidoModel.listarMeusPedidos(id_cliente);
-      console.log("Pedidos encontrados:", resultado.pedidos?.length || 0);
+      const resultado = await PedidoModel.listarMeusPedidosComPaginacao(
+        id_cliente,
+        pagina,
+        limite
+      );
 
       return res.json({
         sucesso: true,
         pedidos: resultado.pedidos || [],
+        paginacao: resultado.paginacao,
       });
     } catch (err) {
       console.error("Erro em meusPedidos:", err);
-      console.error("Stack trace:", err.stack);
       return res.status(500).json({
         sucesso: false,
         erro: err.message || "Erro ao listar pedidos",
