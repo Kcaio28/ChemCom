@@ -10,7 +10,32 @@
     <link rel="stylesheet" href="style.css">
 
     <!-- Icon na aba do navegador -->
-     <link rel="icon" href="./images/logo_mini.png" type="image/png">
+    <link rel="icon" href="./images/logo_mini.png" type="image/png">
+
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #bbb;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: #ddd;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -294,6 +319,33 @@
     </div>
 
 
+    <h1>Usuários Ativos</h1>
+
+    <label>ID do usuário:</label>
+    <input type="number" id="buscarId">
+    <button onclick="buscarUsuario()">Buscar</button>
+
+    <div id="resultadoBusca"></div>
+
+    <h2>Lista Completa</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Empresa</th>
+                <th>Email</th>
+                <th>CNPJ</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody id="listaUsuarios"></tbody>
+    </table>
+
+
+
     <!-- Parte final da página -->
     <section class="feedback-section">
         <div class="feedback-container">
@@ -376,7 +428,7 @@
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
 
-
+    <script src="/js/clientes.js"></script>
     <script src="/js/contas.js"></script>
     <script src="/js/home_front.js"></script>
     <script src="/js/lotes.js"></script>
