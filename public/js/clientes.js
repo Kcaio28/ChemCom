@@ -15,8 +15,11 @@ async function carregarUsuarios() {
                         <td>${usuario.CNPJ}</td>
                         <td>${usuario.Telefone}</td>
                         <td>
-                            <button onclick="deletarUsuario(${usuario.id})">
+                            <button onclick="deletarUsuario(${usuario.id})" class="botao-deletar">
                                 Deletar
+                            </button>
+                            <button class="botao-pedidos">
+                                Pedidos
                             </button>
                         </td>
                     </tr>
@@ -67,6 +70,8 @@ async function buscarUsuario() {
                 <p><strong>Email:</strong> ${u.email}</p>
                 <p><strong>CNPJ:</strong> ${u.CNPJ}</p>
                 <p><strong>Telefone:</strong> ${u.Telefone}</p>
+                <button class="botao-deletar">Deletar</button>
+                <button class="botao-pedidos">Pedidos</button>
             `;
 }
 
