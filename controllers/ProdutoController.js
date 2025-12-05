@@ -15,7 +15,7 @@ class ProdutoController {
         try {
 
             let pagina = parseInt(req.query.pagina) || 1;
-            let limite = parseInt(req.query.limite) || 10;
+            let limite = parseInt(req.query.limite) || 100;
 
             if (pagina <= 0) {
                 return res.status(400).json({
