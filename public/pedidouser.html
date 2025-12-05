@@ -48,8 +48,10 @@
           <!-- Dropdown de logout -->
           <div class="conta-dropdown" id="contaDropdown">
             <div class="dropdown-header">
-              <img src="./images/icons/icon_user.svg" alt="Usuário" width="30" height="30" />
-              <span class="user-name" id="userName">Nome do Usuário</span>
+              <a href="perfil.html" class="d-flex align-items-center gap-2" style="text-decoration: none;">
+                <img src="./images/icons/icon_user.svg" alt="Usuário" width="30" height="30" />
+                <span class="user-name" id="userName">Nome do Usuário</span>
+              </a>
             </div>
             <a href="pedidouser.html"><button class="btn-pedidos">Meus Pedidos</button></a>
             <button class="btn-sair" id="btnSair">
@@ -143,64 +145,64 @@
   </section>
 
   <!-- Footer -->
-    <footer class="footer-main">
-        <div class="footer-container">
+  <footer class="footer-main">
+    <div class="footer-container">
 
-            <div class="footer-logo">
-                <img src="./images/logo_chemcom_semFundo.png" alt="ChemCom Logo">
-            </div>
+      <div class="footer-logo">
+        <img src="./images/logo_chemcom_semFundo.png" alt="ChemCom Logo">
+      </div>
 
-            <div class="footer-divider"></div>
+      <div class="footer-divider"></div>
 
-            <!-- Conteúdo do footer -->
-            <div class="footer-content-wrapper">
+      <!-- Conteúdo do footer -->
+      <div class="footer-content-wrapper">
 
-                <!-- Seção de empresas -->
-                <div class="footer-section">
-                    <h3>Empresas</h3>
-                    <ul>
-                        <li><a href="https://www.braskem.com.br/" target="_blank">Braskem</a></li>
-                        <li><a href="https://unipar.com/" target="_blank">Unipar</a></li>
-                        <li><a href="https://www.bayer.com.br/pt/" target="_blank">Bayer</a></li>
-                    </ul>
-                </div>
-
-                <!-- Seção de Categoria de produtos -->
-                <div class="footer-section" style="flex: 1;">
-                    <h3>Categoria de produtos</h3>
-                    <div class="footer-categories">
-                        <div class="category-column">
-                            <ul>
-                                <li><a href="catalogo.html">Ácidos</a></li>
-                                <li><a href="catalogo.html">Bases</a></li>
-                                <li><a href="catalogo.html">Sais</a></li>
-                            </ul>
-                        </div>
-                        <div class="category-column">
-                            <ul>
-                                <li><a href="catalogo.html">Solventes</a></li>
-                                <li><a href="catalogo.html">Polímeros</a></li>
-                                <li><a href="catalogo.html">Agricultura</a></li>
-                            </ul>
-                        </div>
-                        <div class="category-column">
-                            <ul>
-                                <li><a href="catalogo.html">Farmacêuticos</a></li>
-                                <li><a href="catalogo.html">Cosméticos</a></li>
-                                <li><a href="catalogo.html">Reagentes</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Seção de empresas -->
+        <div class="footer-section">
+          <h3>Empresas</h3>
+          <ul>
+            <li><a href="https://www.braskem.com.br/" target="_blank">Braskem</a></li>
+            <li><a href="https://unipar.com/" target="_blank">Unipar</a></li>
+            <li><a href="https://www.bayer.com.br/pt/" target="_blank">Bayer</a></li>
+          </ul>
         </div>
 
-        <!-- Botão de voltar ao topo -->
-        <div class="footer-bottom">
-            <a href="#" class="btn-topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Voltar
-                ao topo</a>
+        <!-- Seção de Categoria de produtos -->
+        <div class="footer-section" style="flex: 1;">
+          <h3>Categoria de produtos</h3>
+          <div class="footer-categories">
+            <div class="category-column">
+              <ul>
+                <li><a href="catalogo.html">Ácidos</a></li>
+                <li><a href="catalogo.html">Bases</a></li>
+                <li><a href="catalogo.html">Sais</a></li>
+              </ul>
+            </div>
+            <div class="category-column">
+              <ul>
+                <li><a href="catalogo.html">Solventes</a></li>
+                <li><a href="catalogo.html">Polímeros</a></li>
+                <li><a href="catalogo.html">Agricultura</a></li>
+              </ul>
+            </div>
+            <div class="category-column">
+              <ul>
+                <li><a href="catalogo.html">Farmacêuticos</a></li>
+                <li><a href="catalogo.html">Cosméticos</a></li>
+                <li><a href="catalogo.html">Reagentes</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
+
+    <!-- Botão de voltar ao topo -->
+    <div class="footer-bottom">
+      <a href="#" class="btn-topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Voltar
+        ao topo</a>
+    </div>
+  </footer>
 
   <!-- Importar seu JS -->
   <script src="js/pedidos-user.js"></script>
