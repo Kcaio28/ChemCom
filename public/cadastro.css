@@ -492,6 +492,13 @@ input:-webkit-autofill:focus {
     border-radius: 7px;
 }
 
+.form-input:not(:placeholder-shown) {
+    border-color: #009b66;
+    background-color: #00bf63;
+    color: #fff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 191, 99, 0.15);
+}
+
 .row.mb-3 {
     margin-bottom: 20px !important;
 }
