@@ -1,6 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import UsuarioModel from '../models/UsuarioModel.js';
+import UsuarioController from "../controllers/UsuarioController.js";
 import { JWT_CONFIG } from '../config/jwt.js';
 import axios from 'axios';
 import { CNAES_PERMITIDOS } from '../utils/cnaes.js';
@@ -157,5 +158,10 @@ router.post('/login', async (req, res) => {
         });
     }
 });
+
+
+router.get("/", UsuarioController.listarAtivos);
+router.get("/:id", UsuarioController.buscarPorId);
+router.delete("/:id", UsuarioController.excluir);
 
 export default router;

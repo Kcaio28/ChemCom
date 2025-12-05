@@ -13,10 +13,16 @@ class UsuarioModel {
             const connection = await getConnection();
 
             try {
-                const sql = `SELECT * FROM ${TABELA_empresa} ORDER BY id DESC LIMIT ? OFFSET ?`;
+                const sql = `
+                    SELECT * FROM ${TABELA_empresa}
+                    WHERE status = 'ATIVO'
+                    ORDER BY id DESC
+                    LIMIT ? OFFSET ?
+                `;
                 const [empresas] = await connection.query(sql, [limite, offset]);
-
-                const [totalResult] = await connection.execute(`SELECT COUNT(*) as total FROM ${TABELA_empresa}`);
+                const [totalResult] = await connection.execute(
+                    `SELECT COUNT(*) as total FROM ${TABELA_empresa} WHERE status = 'ATIVO'`
+                );
                 const total = totalResult[0].total;
 
                 return {
@@ -41,7 +47,7 @@ class UsuarioModel {
             const connection = await getConnection();
             try {
                 const [rows] = await connection.query(
-                    `SELECT * FROM ${TABELA_empresa} WHERE id = ?`,
+                    `SELECT * FROM ${TABELA_empresa} WHERE id = ? AND status = 'ATIVO'`,
                     [id]
                 );
                 return rows[0] || null;
@@ -157,7 +163,7 @@ class UsuarioModel {
             const connection = await getConnection();
             try {
                 const [result] = await connection.execute(
-                    `DELETE FROM ${TABELA_empresa} WHERE id = ?`,
+                    `UPDATE ${TABELA_empresa} SET status = 'INATIVO' WHERE id = ?`,
                     [id]
                 );
                 return result.affectedRows;
@@ -165,10 +171,11 @@ class UsuarioModel {
                 connection.release();
             }
         } catch (error) {
-            console.error('Erro ao excluir empresa:', error);
+            console.error("Erro ao inativar empresa:", error);
             throw error;
         }
     }
+
 
     // Verificar credenciais de login
     static async verificarCredenciais(email, senha) {
