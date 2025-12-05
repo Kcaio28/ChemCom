@@ -185,7 +185,7 @@ header {
     flex-shrink: 0;
 }
 
-.btn-pedidos{
+.btn-pedidos {
     background-color: #00bf63;
     color: #fff;
     border: none;
@@ -235,7 +235,7 @@ header {
     display: inline-block;
 }
 
-.nav-link::after{
+.nav-link::after {
     content: '';
     position: absolute;
     left: 15px;
@@ -250,7 +250,7 @@ header {
     color: #00bf63;
 }
 
-.nav-link:hover::after{
+.nav-link:hover::after {
     width: calc(100% - 30px);
 }
 
@@ -282,30 +282,30 @@ header {
 }
 
 /* Responsividade */
-@media(max-width: 992px){
-    .top-bar{
+@media(max-width: 992px) {
+    .top-bar {
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
         padding: 10px 15px;
     }
 
-    .logo{
+    .logo {
         order: 1;
     }
 
-    .d-flex{
+    .d-flex {
         order: 2;
     }
 
-    .search-bar{
+    .search-bar {
         order: 3;
         margin: 0;
         width: 100%;
         max-width: 100%;
     }
 
-    .menu-bar .container-fluid{
+    .menu-bar .container-fluid {
         padding-left: 15px;
         padding-right: 15px;
     }
@@ -1477,7 +1477,7 @@ select {
     align-items: start;
 }
 
-.footer-logo{
+.footer-logo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1495,7 +1495,7 @@ select {
     height: 100%;
 }
 
-.footer-content-wrapper{
+.footer-content-wrapper {
     display: flex;
     gap: 120px;
 }
@@ -1712,4 +1712,61 @@ select {
         max-width: 100%;
         margin-top: 15px;
     }
+}
+
+
+/*clientes*/
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #bbb;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #1c5e3a;
+    color: white;
+}
+
+.botao-deletar {
+    width: auto;
+    height: auto;
+    background-color: #bf0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.botao-deletar:hover {
+    background-color: #9b0000;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(191, 0, 0, 0.4);
+    color: #fff;
+}
+
+.botao-pedidos {
+    width: auto;
+    height: auto;
+    background-color: #00bf63;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.botao-pedidos:hover {
+    background-color: #009b66;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 191, 99, 0.4);
+    color: #fff;
 }

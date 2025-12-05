@@ -123,5 +123,4 @@ async function finalizarCompra() {
 }
 
 
-document.querySelector(".btn-finalizar-pagamento")
-    .addEventListener("click", finalizarCompra);
+document.querySelector(".btn-finalizar-pagamento").addEventListener("click", finalizarCompra);
