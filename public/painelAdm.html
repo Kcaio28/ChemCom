@@ -12,30 +12,6 @@
     <!-- Icon na aba do navegador -->
     <link rel="icon" href="./images/logo_mini.png" type="image/png">
 
-
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th,
-        td {
-            border: 1px solid #bbb;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background: #ddd;
-        }
-
-        button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
@@ -73,7 +49,8 @@
                     <!-- Dropdown de logout -->
                     <div class="conta-dropdown" id="contaDropdown">
                         <div class="dropdown-header">
-                            <a href="perfil.html" class="d-flex align-items-center gap-2" style="text-decoration: none;">
+                            <a href="perfil.html" class="d-flex align-items-center gap-2"
+                                style="text-decoration: none;">
                                 <img src="./images/icons/icon_user.svg" alt="Usuário" width="30" height="30" />
                                 <span class="user-name" id="userName">Nome do Usuário</span>
                             </a>
@@ -136,7 +113,7 @@
                 <h1 class="textAdm mt-4">Edição de Produtos</h1>
             </div>
         </div>
-        <div class="row justify-content-center align-items-center">
+        <div class="row justify-content-center align-items-start">
             <div class="col-auto">
                 <form class="formAdm" id="formCadastroProdutos" enctype="multipart/form-data" method="POST">
 
@@ -274,7 +251,7 @@
                 <h1 class="textAdm mt-4">Edição de Lotes</h1>
             </div>
         </div>
-        <div class="row justify-content-center align-items-center"">
+        <div class="row justify-content-center align-items-start">
             <div class=" col-auto">
             <form class="formAdm" id="formLotes">
                 <h1 class="mt-4">Cadastrar Novo Lote</h1>
@@ -320,31 +297,46 @@
     </div>
     </div>
 
+    <div class="container-fluid">
 
-    <h1>Usuários Ativos</h1>
+        <div class="row justify-content-center align-items-center" style="margin-top: 50px;">
+            <div class="col-auto">
+                <h1 class="textAdm mt-4">Usuários Ativos</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-start">
+            <div class="col-auto">
+                <h1 class="textAdm mt-4">Pesquisar</h1>
+                <label>ID do usuário:</label>
+                <input type="number" id="buscarId">
+                <button onclick="buscarUsuario()" class="botao-pedidos">Buscar</button>
 
-    <label>ID do usuário:</label>
-    <input type="number" id="buscarId">
-    <button onclick="buscarUsuario()">Buscar</button>
+                <div id="resultadoBusca"></div>
+            </div>
+            <div class="col-auto">
+                <h1 class="textAdm mt-4">Lista Completa</h1>
 
-    <div id="resultadoBusca"></div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Empresa</th>
+                            <th>Email</th>
+                            <th>CNPJ</th>
+                            <th>Telefone</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
 
-    <h2>Lista Completa</h2>
+                    <tbody id="listaUsuarios"></tbody>
+                </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Empresa</th>
-                <th>Email</th>
-                <th>CNPJ</th>
-                <th>Telefone</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
+            </div>
+        </div>
+    </div>
 
-        <tbody id="listaUsuarios"></tbody>
-    </table>
+
+
 
 
 
