@@ -4,49 +4,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Produto</title>
+    <title>ChemCom | Painel Administrativo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Icon na aba do navegador -->
     <link rel="icon" href="./images/logo_mini.png" type="image/png">
+    <style>
+        .admin-section {
+            background: #f8f9fa;
+            padding: 40px 0;
+            min-height: calc(100vh - 300px);
+        }
 
+        .admin-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .admin-card h2 {
+            color: #00bf63;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #00bf63;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #00bf63;
+            box-shadow: 0 0 0 0.2rem rgba(0, 191, 99, 0.25);
+        }
+
+        .btn-submit {
+            background-color: #00bf63;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #009b66;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 191, 99, 0.4);
+        }
+
+        .table-lotes {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-lotes thead {
+            background-color: #00bf63;
+            color: white;
+        }
+
+        .table-lotes th {
+            padding: 15px;
+            font-weight: 600;
+            border: none;
+        }
+
+        .table-lotes td {
+            padding: 12px 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .table-lotes tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .btn-delete-lote {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 15px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete-lote:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-action {
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            margin: 0 2px;
+        }
+
+        .btn-deletar {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-deletar:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-pedidos {
+            background-color: #00bf63;
+            color: white;
+        }
+
+        .btn-pedidos:hover {
+            background-color: #009b66;
+            transform: translateY(-2px);
+        }
+
+        .usuario-card {
+            background: #f8f9fa;
+            border: 2px solid #00bf63;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .usuario-card h4 {
+            color: #00bf63;
+            margin-bottom: 15px;
+        }
+
+        .usuario-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .usuario-info-item {
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .usuario-info-item strong {
+            color: #666;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-valido {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-proximo {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .badge-vencido {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .admin-card {
+                padding: 20px;
+            }
+
+            .table-responsive {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
     <header>
         <div class="container-fluid top-bar">
-            <!-- Logo minimalista -->
             <div class="logo">
                 <a href="home.html" id="inicio"><img src="./images/logo_mini.png" alt="Logo" /></a>
             </div>
 
-
-
-            <!-- botão logar -->
             <div class="d-flex align-items-center gap-3" id="divLogin">
-                <a href="login_cliente.html" class="icon-btn text-menu btn-entrar">
-                    Entrar
-                </a>
+                <a href="login_cliente.html" class="icon-btn text-menu btn-entrar">Entrar</a>
             </div>
 
-            <!-- Carrinho -->
             <div class="d-none align-items-center gap-3" id="divCarrinho">
                 <a href="carrinho.html" class="icon-btn text-menu">
                     <img src="./images/icons/icon_carrinho.svg" alt="Carrinho" width="22" height="22" />
                     Carrinho
                 </a>
 
-                <!-- Conta com Dropdown -->
                 <div class="conta-dropdown-wrapper">
                     <a href="#" class="icon-btn text-menu" id="btnConta">
                         <img src="./images/icons/icon_user.svg" alt="Usuário" width="22" height="22" />
                         Conta
                     </a>
 
-                    <!-- Dropdown de logout -->
                     <div class="conta-dropdown" id="contaDropdown">
                         <div class="dropdown-header">
                             <a href="perfil.html" class="d-flex align-items-center gap-2"
@@ -69,16 +265,14 @@
                 </div>
             </div>
 
-            <!-- ADM -->
             <div class="d-none align-items-center gap-3" id="painelAdm">
                 <a href="pedidosadm.html" class="icon-btn text-menu">
-                    <img src="./images/icons/icon_carrinho.svg" alt="Usuário" width="22" height="22" />
+                    <img src="./images/icons/icon_carrinho.svg" alt="Pedidos" width="22" height="22" />
                     Pedidos
                 </a>
             </div>
         </div>
 
-        <!-- Menu inferior -->
         <nav class="navbar navbar-expand-lg menu-bar">
             <div class="container-fluid">
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
@@ -106,241 +300,241 @@
         </nav>
     </header>
 
-    <div class="container-fluid">
+    <div class="admin-section">
+        <div class="container">
+            <h1 class="text-center mb-5" style="color: #00bf63; font-weight: 700;">Painel Administrativo</h1>
 
-        <div class="row justify-content-center align-items-center" style="margin-top: 50px;">
-            <div class="col-auto">
-                <h1 class="textAdm mt-4">Edição de Produtos</h1>
-            </div>
-        </div>
-        <div class="row justify-content-center align-items-start">
-            <div class="col-auto">
-                <form class="formAdm" id="formCadastroProdutos" enctype="multipart/form-data" method="POST">
+            <!-- Seção de Produtos -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="admin-card">
+                        <h2>📦 Cadastrar Novo Produto</h2>
+                        <form id="formCadastroProdutos" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nome do Produto *</label>
+                                    <input type="text" name="nome" class="form-control" required>
+                                </div>
 
-                    <h1 class="mt-4">Cadastrar Produtos</h1>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Preço (R$) *</label>
+                                    <input type="number" step="0.01" name="preco" class="form-control" required>
+                                </div>
 
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Nome</h5>
-                        <input type="text" name="nome" required>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Classificação *</label>
+                                    <select name="id_classificacao" class="form-select" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="1">Baixa (1)</option>
+                                        <option value="2">Média (2)</option>
+                                        <option value="3">Alta (3)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Categoria *</label>
+                                    <select name="categoria" class="form-select" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="Ácido">Ácido</option>
+                                        <option value="Base">Base</option>
+                                        <option value="Sal">Sal</option>
+                                        <option value="Solvente">Solvente</option>
+                                        <option value="Polímero">Polímero</option>
+                                        <option value="Agricultura">Agricultura</option>
+                                        <option value="Farmacêuticos">Farmacêuticos</option>
+                                        <option value="Cosméticos">Cosméticos</option>
+                                        <option value="Reagente">Reagente</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Descrição *</label>
+                                    <textarea name="descricao" class="form-control" rows="3" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Imagem 1</label>
+                                    <input type="file" name="imagem1" class="form-control" accept="image/*">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Imagem 2</label>
+                                    <input type="file" name="imagem2" class="form-control" accept="image/*">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Imagem 3</label>
+                                    <input type="file" name="imagem3" class="form-control" accept="image/*">
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn-submit">✅ Cadastrar Produto</button>
+                            </div>
+                        </form>
                     </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Descrição</h5>
-                        <textarea name="descricao" required></textarea>
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Preço</h5>
-                        <input type="number" step="0.01" name="preco" required>
-                    </div>
-
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5 for="categoria">Categoria</h5>
-                        <select id="categoria" name="categoria" required>
-                            <option value="">Selecione...</option>
-                            <option value="Ácido">Ácido</option>
-                            <option value="Base">Base</option>
-                            <option value="Sal">Sal</option>
-                            <option value="Solvente">Solvente</option>
-                            <option value="Polímero">Polímero</option>
-                            <option value="Agricultura">Agricultura</option>
-                            <option value="Farmacêuticos">Farmacêuticos</option>
-                            <option value="Cosméticos">Cosméticos</option>
-                            <option value="Reagente">Reagente</option>
-                        </select>
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5 for="classificacao">Classificação</h5>
-                        <select id="classificacao" name="id_classificacao" required>
-                            <option value="">Selecione...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Imagem do Produto</h5>
-                        <input type="file" name="imagem1" accept="image/*">
-                        <input type="file" name="imagem2" accept="image/*">
-                        <input type="file" name="imagem3" accept="image/*">
-                    </div>
-
-                    <button type="submit" class="botaoFormAdm">Cadastrar</button>
-                </form>
-
-            </div>
-
-            <div class="col-auto">
-                <form class="formAdm" id="formAtualizarProdutos" enctype="multipart/form-data" method="POST">
-
-                    <h1 class="mt-4">Atualizar Produto</h1>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Nome</h5>
-                        <input type="text" name="nome">
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Descrição</h5>
-                        <textarea name="descricao"></textarea>
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Preço</h5>
-                        <input type="number" name="preco">
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5 for="categoria">Categoria</h5>
-                        <select id="categoria_UP" name="categoria">
-                            <option value="">Selecione...</option>
-                            <option value="Ácido">Ácido</option>
-                            <option value="Base">Base</option>
-                            <option value="Sal">Sal</option>
-                            <option value="Solvente">Solvente</option>
-                            <option value="Polímero">Polímero</option>
-                            <option value="Agricultura">Agricultura</option>
-                            <option value="Farmacêuticos">Farmacêuticos</option>
-                            <option value="Cosméticos">Cosméticos</option>
-                            <option value="Reagente">Reagente</option>
-                        </select>
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5 for="classificacao">Classificação</h5>
-                        <select id="classificacao_UP" name="id_classificacao">
-                            <option value="">Selecione...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </div>
-
-                    <div class="textoEmCimaInpAdm">
-                        <h5>Imagens do Produto</h5>
-                        <input type="file" name="imagem1" accept="image/*">
-                        <input type="file" name="imagem2" accept="image/*">
-                        <input type="file" name="imagem3" accept="image/*">
-                    </div>
-
-                    <button type="submit" class="botaoFormAdm">Atualizar</button>
-                </form>
+                </div>
             </div>
 
-            <div class="col-auto">
-                <form class="formAdm" id="formDeletarProdutos" enctype="multipart/form-data">
-                    <h1 class="mt-4">Deletar Produto</h1>
+            <!-- Seção de Lotes -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="admin-card">
+                        <h2>📋 Cadastrar Novo Lote</h2>
+                        <form id="formCadastroLote">
+                            <div class="mb-3">
+                                <label class="form-label">Produto *</label>
+                                <select name="id_produto" id="selectProduto" class="form-select" required>
+                                    <option value="">Carregando produtos...</option>
+                                </select>
+                            </div>
 
-                    <div class="textoEmCimaInpAdm">
-                        <h5>ID do Produto</h5>
-                        <input type="number" name="id" required>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Data de Fabricação *</label>
+                                    <input type="date" name="data_fab" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Data de Validade *</label>
+                                    <input type="date" name="data_validade" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Quantidade Inicial *</label>
+                                <input type="number" name="qtd_inicial" class="form-control" min="1" required>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn-submit">✅ Cadastrar Lote</button>
+                            </div>
+                        </form>
                     </div>
+                </div>
 
-                    <button type="submit" class="botaoFormAdm">Deletar</button>
-                </form>
+                <div class="col-lg-6">
+                    <div class="admin-card">
+                        <h2>🗑️ Excluir Lote</h2>
+                        <form id="formExcluirLote">
+                            <div class="mb-3">
+                                <label class="form-label">ID do Lote *</label>
+                                <input type="number" name="id" class="form-control" min="1" required
+                                    placeholder="Digite o ID do lote">
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn-submit" style="background-color: #dc3545;">
+                                    🗑️ Excluir Lote
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de Lotes -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="admin-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h2 class="mb-0">📊 Lotes Cadastrados</h2>
+                            <button class="btn btn-sm btn-outline-success" onclick="carregarLotes()">
+                                🔄 Atualizar
+                            </button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-lotes">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Produto</th>
+                                        <th>Data Fab.</th>
+                                        <th>Validade</th>
+                                        <th>Qtd Inicial</th>
+                                        <th>Qtd Atual</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaLotes">
+                                    <tr>
+                                        <td colspan="8" class="text-center">
+                                            <div class="spinner-border text-success" role="status">
+                                                <span class="visually-hidden">Carregando...</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Usuários -->
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <div class="admin-card">
+                        <h2>👥 Gerenciar Usuários</h2>
+
+                        <!-- Buscar Usuário -->
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <label class="form-label">Buscar Usuário por ID</label>
+                                <div class="input-group">
+                                    <input type="number" id="buscarUsuarioId" class="form-control"
+                                        placeholder="Digite o ID do usuário" min="1">
+                                    <button class="btn btn-outline-success" onclick="buscarUsuario()">
+                                        🔍 Buscar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resultado da Busca -->
+                        <div id="resultadoBusca" class="mb-4"></div>
+
+                        <!-- Tabela de Usuários -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 style="color: #00bf63; font-size: 20px; margin: 0;">Lista Completa de Usuários</h3>
+                            <button class="btn btn-sm btn-outline-success" onclick="carregarUsuarios()">
+                                🔄 Atualizar
+                            </button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-lotes">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Empresa</th>
+                                        <th>Email</th>
+                                        <th>CNPJ</th>
+                                        <th>Telefone</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabelaUsuarios">
+                                    <tr>
+                                        <td colspan="6" class="text-center">
+                                            <div class="spinner-border text-success" role="status">
+                                                <span class="visually-hidden">Carregando...</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container-fluid">
-        <div class="row justify-content-center align-items-center" style="margin-top: 100px;">
-            <div class="col-auto">
-                <h1 class="textAdm mt-4">Edição de Lotes</h1>
-            </div>
-        </div>
-        <div class="row justify-content-center align-items-start">
-            <div class=" col-auto">
-            <form class="formAdm" id="formLotes">
-                <h1 class="mt-4">Cadastrar Novo Lote</h1>
-
-                <div class="textoEmCimaInpAdm">
-                    <h5>Produto</h5>
-                    <select name="id_produto" id="id_produto" required></select>
-                </div>
-
-                <div class="textoEmCimaInpAdm">
-                    <h5>Data de Fabricação</h5>
-                    <input type="date" name="data_fab" required>
-                </div>
-
-                <div class="textoEmCimaInpAdm">
-                    <h5>Data de Validade</h5>
-                    <input type="date" name="data_validade" required>
-                </div>
-
-                <div class="textoEmCimaInpAdm">
-                    <h5>Quantidade Inicial</h5>
-                    <input type="number" name="qtd_inicial" min="1" required>
-                </div>
-
-                <button type="submit" class="botaoFormAdm">Salvar Lote</button>
-            </form>
-
-        </div>
-
-        <div class="col-auto">
-            <form class="formAdm" id="formDeletarLote">
-                <h1 class="mt-4">Deletar Lote</h1>
-
-                <div class="textoEmCimaInpAdm">
-                    <h5>Lote</h5>
-                    <input type="number" name="id" required>
-                </div>
-
-                <button type="submit" class="botaoFormAdm">Deletar Lote</button>
-            </form>
-
-        </div>
-    </div>
-    </div>
-
-    <div class="container-fluid">
-
-        <div class="row justify-content-center align-items-center" style="margin-top: 50px;">
-            <div class="col-auto">
-                <h1 class="textAdm mt-4">Usuários Ativos</h1>
-            </div>
-        </div>
-        <div class="row justify-content-center align-items-start">
-            <div class="col-auto">
-                <h1 class="textAdm mt-4">Pesquisar</h1>
-                <label>ID do usuário:</label>
-                <input type="number" id="buscarId">
-                <button onclick="buscarUsuario()" class="botao-pedidos">Buscar</button>
-
-                <div id="resultadoBusca"></div>
-            </div>
-            <div class="col-auto">
-                <h1 class="textAdm mt-4">Lista Completa</h1>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Empresa</th>
-                            <th>Email</th>
-                            <th>CNPJ</th>
-                            <th>Telefone</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="listaUsuarios"></tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-    <!-- Parte final da página -->
     <section class="feedback-section">
         <div class="feedback-container">
             <div class="feedback-content">
@@ -351,20 +545,15 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer-main">
         <div class="footer-container">
-
             <div class="footer-logo">
                 <img src="./images/logo_chemcom_semFundo.png" alt="ChemCom Logo">
             </div>
 
             <div class="footer-divider"></div>
 
-            <!-- Conteúdo do footer -->
             <div class="footer-content-wrapper">
-
-                <!-- Seção de empresas -->
                 <div class="footer-section">
                     <h3>Empresas</h3>
                     <ul>
@@ -374,7 +563,6 @@
                     </ul>
                 </div>
 
-                <!-- Seção de Categoria de produtos -->
                 <div class="footer-section" style="flex: 1;">
                     <h3>Categoria de produtos</h3>
                     <div class="footer-categories">
@@ -404,31 +592,19 @@
             </div>
         </div>
 
-        <!-- Botão de voltar ao topo -->
         <div class="footer-bottom">
-            <a href="#" class="btn-topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Voltar
-                ao topo</a>
+            <a href="#" class="btn-topo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                Voltar ao topo
+            </a>
         </div>
     </footer>
 
-
+    <script src="/js/contas.js"></script>
+    <script src="/js/home_front.js"></script>
+    <script src="/js/painel_adm_novo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-        crossorigin="anonymous"></script>
-
-    <script src="/js/clientes.js"></script>
-    <script src="/js/contas.js"></script>
-    <script src="/js/home_front.js"></script>
-    <script src="/js/lotes.js"></script>
-    <script src="/js/atualizar_produtos.js"></script>
-    <script src="/js/cadastro_produtos.js"></script>
-    <script src="/js/deletar_produtos.js"></script>
 </body>
 
 </html>
