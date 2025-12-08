@@ -1,20 +1,21 @@
 // Carregar produtos no select
 async function carregarProdutosSelect() {
     try {
-        const response = await fetch("/api/produtos?limite=1000&pagina=1");
+        const response = await fetch("/api/produtos?limite=100&pagina=1");
         const json = await response.json();
 
         const select = document.getElementById("selectProduto");
         select.innerHTML = '<option value="">Selecione um produto...</option>';
 
-        if (json.sucesso && json.dados) {
-            json.dados.forEach(produto => {
-                const option = document.createElement("option");
-                option.value = produto.id;
-                option.textContent = `${produto.nome} (ID: ${produto.id})`;
-                select.appendChild(option);
-            });
-        }
+        const lista = json.dados || json.produtos || json.lista || [];
+
+        lista.forEach(produto => {
+            const option = document.createElement("option");
+            option.value = produto.id;
+            option.textContent = `${produto.nome} (ID: ${produto.id})`;
+            select.appendChild(option);
+        });
+
     } catch (error) {
         console.error("Erro ao carregar produtos:", error);
         const select = document.getElementById("selectProduto");
@@ -173,7 +174,7 @@ async function carregarLotes() {
         }
 
         // Carregar produtos para mapear nomes
-        const produtosResponse = await fetch("/api/produtos?limite=1000&pagina=1");
+        const produtosResponse = await fetch("/api/produtos?limite=100&pagina=1");
         const produtosJson = await produtosResponse.json();
         const produtosMap = {};
 

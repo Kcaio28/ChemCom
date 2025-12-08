@@ -239,6 +239,88 @@ class UsuarioModel {
             throw error;
         }
     }
+    // ---------------------------------------------------------
+    // SALVAR AUTORIZAÇÃO POR CATEGORIA
+    // ---------------------------------------------------------
+    static async salvarAutorizacaoCategoria(idEmpresa, categoria) {
+        try {
+            const connection = await getConnection();
+
+            const sql = `
+            INSERT INTO autorizacoes_categoria (id_empresa, categoria)
+            VALUES (?, ?)
+        `;
+
+            const [result] = await connection.execute(sql, [idEmpresa, categoria]);
+
+            connection.release();
+            return result;
+        } catch (error) {
+            console.error("Erro ao salvar autorização por categoria:", error);
+            throw error;
+        }
+    }
+
+    // ---------------------------------------------------------
+    // BUSCAR TODAS AS AUTORIZAÇÕES DE UMA EMPRESA
+    // ---------------------------------------------------------
+    static async buscarAutorizacoes(idEmpresa) {
+        try {
+            const connection = await getConnection();
+
+            const sql = `
+            SELECT categoria 
+            FROM autorizacoes_categoria
+            WHERE id_empresa = ?
+        `;
+
+            const [rows] = await connection.execute(sql, [idEmpresa]);
+
+            connection.release();
+            return rows;
+        } catch (error) {
+            console.error("Erro ao buscar autorizações:", error);
+            throw error;
+        }
+    }
+
+    // ---------------------------------------------------------
+    // REMOVER TODAS AS AUTORIZAÇÕES DE UMA EMPRESA (OPCIONAL)
+    // ---------------------------------------------------------
+    static async removerAutorizacoes(idEmpresa) {
+        try {
+            const connection = await getConnection();
+
+            const sql = `DELETE FROM autorizacoes_categoria WHERE id_empresa = ?`;
+
+            const [result] = await connection.execute(sql, [idEmpresa]);
+
+            connection.release();
+            return result;
+        } catch (error) {
+            console.error("Erro ao remover autorizações:", error);
+            throw error;
+        }
+    }
+
+    static async salvarAutorizacaoCategoria(id_empresa, categoria, nivel) {
+        try {
+            const connection = await getConnection();
+
+            const sql = `
+            INSERT INTO autorizacoes_categoria (id_empresa, categoria, nivel)
+            VALUES (?, ?, ?)
+        `;
+
+            await connection.execute(sql, [id_empresa, categoria, nivel]);
+            connection.release();
+
+        } catch (error) {
+            console.error("Erro ao salvar autorização por categoria:", error);
+            throw error;
+        }
+    }
+
 }
 
 export default UsuarioModel;

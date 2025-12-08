@@ -4,39 +4,79 @@ import UsuarioModel from '../models/UsuarioModel.js';
 import UsuarioController from "../controllers/UsuarioController.js";
 import { JWT_CONFIG } from '../config/jwt.js';
 import axios from 'axios';
-import { CNAES_PERMITIDOS } from '../utils/cnaes.js';
+import { CATEGORIAS_CNAE } from '../utils/cnaes.js';
 
 const router = express.Router();
 
-router.post('/cadastro', async (req, res) => {
+router.post("/cadastro", async (req, res) => {
     try {
-        const { nome, cnpj, email, senha, cidade, estado, telefone, cep, numero, logradouro } = req.body;
+        const {
+            nome,
+            cnpj,
+            email,
+            senha,
+            cidade,
+            estado,
+            telefone,
+            cep,
+            numero,
+            logradouro
+        } = req.body;
 
-        // Verifica email duplicado
+        // 1️⃣ Verifica duplicidade de email
         const existe = await UsuarioModel.buscarPorEmail(email);
         if (existe) {
-            return res.status(400).json({ mensagem: 'Este email já está cadastrado.' });
+            return res.status(400).json({
+                mensagem: "Este email já está cadastrado."
+            });
         }
 
+        // 2️⃣ Limpa CNPJ
         const cnpjLimpo = cnpj.replace(/\D/g, "");
-        // 1️⃣ CONSULTA AUTOMÁTICA NO CNPJ
+
+        // 3️⃣ Consulta automática no CNPJ
         const consulta = await axios.get(`https://publica.cnpj.ws/cnpj/${cnpjLimpo}`);
         const dados = consulta.data;
 
-        const cnaePrincipal = dados.estabelecimento.atividade_principal.id.replace(/\D/g, "");
+        // 4️⃣ Normaliza CNAEs
+        function normalizarCNAE(cnae) {
+            if (!cnae) return null;
+            cnae = cnae.toString().replace(/\D/g, "");
+            return cnae.padEnd(7, "0"); // Exemplo: 19217 => 1921700
+        }
+
+
+        const cnaePrincipal = normalizarCNAE(dados.estabelecimento.atividade_principal.id);
+
         const cnaesSecundarios = dados.estabelecimento.atividades_secundarias.map(a =>
-            a.id.replace(/\D/g, "")
+            normalizarCNAE(a.id)
         );
 
-        // 2️⃣ VERIFICA SE O CNAE É PERMITIDO
-        const autorizado =
-            CNAES_PERMITIDOS.includes(cnaePrincipal) ||
-            cnaesSecundarios.some(c => CNAES_PERMITIDOS.includes(c));
+        const todosCnaes = [cnaePrincipal, ...cnaesSecundarios];
 
-        const status = autorizado ? "APROVADO" : "PENDENTE";
+        // 5️⃣ Determina permissões de categorias e níveis
+        let categoriasPermitidas = [];
 
-        // 3️⃣ CRIAR NO BANCO
-        await UsuarioModel.criar({
+        Object.keys(CATEGORIAS_CNAE).forEach(categoria => {
+            Object.keys(CATEGORIAS_CNAE[categoria]).forEach(nivel => {
+                const listaCnaes = CATEGORIAS_CNAE[categoria][nivel];
+
+                const possui = todosCnaes.some(c => listaCnaes.includes(c));
+
+                if (possui) {
+                    categoriasPermitidas.push({
+                        categoria,
+                        nivel: Number(nivel.replace("nivel", ""))
+                    });
+                }
+            });
+        });
+
+        // 6️⃣ Status geral de autorização
+        const autorizado = categoriasPermitidas.length > 0 ? "APROVADO" : "PENDENTE";
+
+        // 7️⃣ Cria usuário no banco
+        const idUsuario = await UsuarioModel.criar({
             nome,
             cnpj,
             email,
@@ -49,19 +89,42 @@ router.post('/cadastro', async (req, res) => {
             logradouro,
             cnaePrincipal,
             cnaesSecundarios,
-            autorizacao_status: status
+            autorizacao_status: autorizado
         });
 
-        res.status(201).json({
-            mensagem: 'Empresa cadastrada com sucesso!',
-            autorizacao: status
+        // 8️⃣ Salva permissões da empresa
+        for (const item of categoriasPermitidas) {
+            await UsuarioModel.salvarAutorizacaoCategoria(
+                idUsuario,
+                item.categoria,
+                item.nivel
+            );
+        }
+
+        // 9️⃣ Retorno
+        return res.status(201).json({
+            mensagem: "Empresa cadastrada com sucesso!",
+            autorizacao: autorizado,
+            cnaes_encontrados: todosCnaes,
+            categorias_autorizadas: categoriasPermitidas
         });
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ mensagem: 'Erro ao cadastrar empresa.' });
+
+        // CNPJ não encontrado
+        if (error.response && error.response.status === 404) {
+            return res.status(400).json({
+                mensagem: "CNPJ inválido ou não encontrado."
+            });
+        }
+
+        return res.status(500).json({
+            mensagem: "Erro ao cadastrar empresa."
+        });
     }
 });
+
 
 router.post('/login', async (req, res) => {
     try {
