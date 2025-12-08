@@ -14,5 +14,3 @@ create table pedido(
     primary key (nro_pedido),
     foreign key (id_cliente) references empresa(id)
 );
-    
-

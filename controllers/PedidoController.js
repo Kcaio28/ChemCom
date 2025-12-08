@@ -309,13 +309,72 @@ export const finalizarCompra = async (req, res) => {
   try {
     await conn.beginTransaction();
 
-    // 1 - Calcular valor total
+    // ============================================================
+    // 1. BUSCAR AUTORIZAÇÕES DA EMPRESA
+    // ============================================================
+    const [autorizacoes] = await conn.query(
+      `SELECT categoria, nivel FROM autorizacoes_categoria WHERE id_empresa = ?`,
+      [id_cliente]
+    );
+    console.log("AUTORIZAÇÕES ENCONTRADAS NO BANCO:", autorizacoes);
+
+    if (autorizacoes.length === 0) {
+      throw new Error("Esta empresa não possui nenhuma autorização cadastrada.");
+    }
+
+    // Criar mapa: { acidos: 3, bases: 0 ... }
+    const mapaAutorizacoes = {};
+    autorizacoes.forEach(a => {
+      mapaAutorizacoes[a.categoria.toLowerCase()] = Number(a.nivel);
+    });
+
+    // ============================================================
+    // 2. VALIDAR AUTORIZAÇÃO PARA CADA PRODUTO DO CARRINHO
+    // ============================================================
+    for (const item of itens) {
+      const { id_produto } = item;
+
+      const [[produto]] = await conn.query(
+        `SELECT categoria, id_classificacao FROM produto WHERE id = ?`,
+        [id_produto]
+      );
+
+      if (!produto) {
+        throw new Error(`Produto ${id_produto} não encontrado.`);
+      }
+
+      // Buscar classificação de risco para obter o nível
+      const [[classificacao]] = await conn.query(
+        `SELECT id FROM classificacao_risco WHERE id = ?`,
+        [produto.id_classificacao]
+      );
+
+      const categoriaProd = produto.categoria.toLowerCase();
+      const nivelProd = classificacao.id; // id = nível
+
+      const nivelAutorizado = mapaAutorizacoes[categoriaProd] || 0;
+
+      if (nivelAutorizado < nivelProd) {
+        throw new Error(
+          `A empresa não possui autorização para comprar ${produto.categoria} nível ${nivelProd}. (Autorizado até nível ${nivelAutorizado})`
+        );
+      }
+    }
+    console.log("MAPA AUTORIZAÇÕES:", mapaAutorizacoes);
+
+    console.log("✔ Autorização validada para todos os produtos.");
+
+    // ============================================================
+    // 3. CALCULAR VALOR TOTAL
+    // ============================================================
     const valor_total = itens.reduce(
       (total, item) => total + Number(item.preco) * Number(item.qtd),
       0
     );
 
-    // 2 - Criar pedido
+    // ============================================================
+    // 4. CRIAR PEDIDO
+    // ============================================================
     const [pedidoResult] = await conn.query(
       `INSERT INTO pedido (id_cliente, valor_total, data_pedido, status)
        VALUES (?, ?, NOW(), ?)`,
@@ -324,13 +383,15 @@ export const finalizarCompra = async (req, res) => {
 
     const nro_pedido = pedidoResult.insertId;
 
-    // 3 - Processar cada item do carrinho
+    // ============================================================
+    // 5. PROCESSAR ITENS (estoque por lote)
+    // ============================================================
     for (const item of itens) {
       const { id_produto, qtd } = item;
 
       let quantidadeSolicitada = Number(qtd);
 
-      // Buscar lotes válidos (ordem por validade)
+      // Buscar lotes válidos (ordem: mais próximo de vencer)
       const [lotes] = await conn.query(
         `SELECT * FROM lotes 
          WHERE id_produto = ? AND qtd_atual > 0
@@ -339,7 +400,7 @@ export const finalizarCompra = async (req, res) => {
       );
 
       if (lotes.length === 0) {
-        throw new Error(`Produto ${id_produto} sem estoque`);
+        throw new Error(`Produto ${id_produto} sem estoque.`);
       }
 
       for (const lote of lotes) {
@@ -355,7 +416,7 @@ export const finalizarCompra = async (req, res) => {
 
         const precoUnitario = Number(produtoInfo.preco);
 
-        // Registrar item no pedido
+        // Inserir item no pedido
         await conn.query(
           `INSERT INTO itensPedidos 
            (nro_pedido, id_produto, id_lote, qtd, preco_unitario)
@@ -363,7 +424,7 @@ export const finalizarCompra = async (req, res) => {
           [nro_pedido, id_produto, lote.id, usar, precoUnitario]
         );
 
-        // Atualizar lote
+        // Atualizar estoque do lote
         await conn.query(
           `UPDATE lotes SET qtd_atual = qtd_atual - ? WHERE id = ?`,
           [usar, lote.id]
@@ -373,10 +434,13 @@ export const finalizarCompra = async (req, res) => {
       }
 
       if (quantidadeSolicitada > 0) {
-        throw new Error(`Estoque insuficiente para o produto ${id_produto}`);
+        throw new Error(`Estoque insuficiente para o produto ${id_produto}.`);
       }
     }
 
+    // ============================================================
+    // 6. FINALIZA TRANSAÇÃO
+    // ============================================================
     await conn.commit();
 
     res.json({
@@ -384,6 +448,7 @@ export const finalizarCompra = async (req, res) => {
       mensagem: "Compra finalizada com sucesso!",
       pedido: nro_pedido,
     });
+
   } catch (err) {
     await conn.rollback();
     console.error(err);
@@ -392,6 +457,7 @@ export const finalizarCompra = async (req, res) => {
       sucesso: false,
       erro: err.message,
     });
+
   } finally {
     conn.release();
   }

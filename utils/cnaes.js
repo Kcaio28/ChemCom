@@ -1,45 +1,45 @@
 export const CATEGORIAS_CNAE = {
-    acidos: {
+    Ácido: {
         nivel1: ["2013300"],
         nivel2: ["2014100"],
         nivel3: ["1921700"]
     },
-    bases: {
+    Base: {
         nivel1: ["2013300"],
         nivel2: ["2014100"],
         nivel3: ["2012500"]
     },
-    sais: {
+    Sal: {
         nivel1: ["2019100"],
         nivel2: ["2022300"],
         nivel3: ["4664800"]
     },
-    solventes: {
+    Solvente: {
         nivel1: ["2021500"],
-        nivel2: ["2022300"],
+        nivel2: ["0600001"],
         nivel3: ["4664700"]
     },
-    polimeros: {
+    Polímero: {
         nivel1: ["2013300"],
         nivel2: ["2021500"],
         nivel3: ["4664800"]
     },
-    agricultura: {
+    Agricultura: {
         nivel1: ["4664800"],
         nivel2: ["2019100"],
         nivel3: ["2022300"]
     },
-    farmaceuticos: {
+    Farmacêuticos: {
         nivel1: ["2014100"],
         nivel2: ["2021500"],
         nivel3: ["4664700"]
     },
-    cosmeticos: {
+    Cosméticos: {
         nivel1: ["2021500"],
         nivel2: ["2019100"],
         nivel3: ["4664800"]
     },
-    reagentes: {
+    Reagente: {
         nivel1: ["2013300"],
         nivel2: ["2022300"],
         nivel3: ["4664700"]

@@ -8,6 +8,6 @@ create table classificacao_risco (
 	id int,
 	nome varchar(100),
 	descricao varchar(500),
-    nivel_periculosidade varchar(50),
+
 	primary key(id)
 );
