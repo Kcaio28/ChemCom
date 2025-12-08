@@ -320,6 +320,24 @@ class UsuarioModel {
             throw error;
         }
     }
+    
+    static async listarAutorizacoes(id_empresa) {
+        try {
+            const connection = await getConnection();
+            const sql = `
+            SELECT categoria, nivel
+            FROM autorizacoes_categoria
+            WHERE id_empresa = ?
+        `;
+            const [rows] = await connection.execute(sql, [id_empresa]);
+            connection.release();
+            return rows;
+        } catch (error) {
+            console.error("Erro ao listar autorizações:", error);
+            throw error;
+        }
+    }
+
 
 }
 

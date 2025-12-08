@@ -131,17 +131,7 @@ router.post('/login', async (req, res) => {
         const { email, senha } = req.body;
 
         if (!email || !senha) {
-            return res.status(400).json({
-                mensagem: 'Email e senha são obrigatórios.'
-            });
-        }
-
-        // Verificar se JWT_SECRET está configurado
-        if (!JWT_CONFIG.secret) {
-            console.error('ERRO: JWT_SECRET não está configurado no arquivo .env');
-            return res.status(500).json({
-                mensagem: 'Erro de configuração do servidor. Contate o administrador.'
-            });
+            return res.status(400).json({ mensagem: 'Email e senha são obrigatórios.' });
         }
 
         console.log('🔐 Tentativa de login para:', email);
@@ -150,77 +140,50 @@ router.post('/login', async (req, res) => {
         let adm = null;
 
         if (!usuario) {
-            console.log('👤 Usuário comum não encontrado, tentando como admin...');
-            try {
-                adm = await UsuarioModel.verificarADM(email, senha);
-                if (adm) {
-                    console.log('✅ Admin encontrado e autenticado!');
-                } else {
-                    console.log('❌ Admin não encontrado ou credenciais inválidas');
-                }
-            } catch (admError) {
-                console.error('❌ Erro ao verificar admin:', admError);
-                // Continuar para retornar erro genérico
-            }
+            adm = await UsuarioModel.verificarADM(email, senha);
         }
 
         if (!usuario && !adm) {
-            console.log('❌ Credenciais inválidas para:', email);
-            return res.status(401).json({
-                mensagem: 'Email ou senha inválidos.'
-            });
+            return res.status(401).json({ mensagem: 'Email ou senha inválidos.' });
         }
 
         const userData = usuario || adm;
-        // Padronizar tipo: 'adm' -> 'admin' para compatibilidade com middleware
         const userType = usuario ? 'usuario' : 'admin';
-        const tipoRetorno = usuario ? 'usuario' : 'adm'; // Manter 'adm' na resposta para compatibilidade com frontend
+        const tipoRetorno = usuario ? 'usuario' : 'adm';
 
-        console.log('✅ Credenciais válidas. Tipo:', userType, 'ID:', userData.id);
+        // 🔹 BUSCAR AUTORIZAÇÕES DO USUÁRIO (só para empresas/usuários)
+        let autorizacoes = [];
+        if (usuario) {
+            autorizacoes = await UsuarioModel.listarAutorizacoes(usuario.id); 
+            // implementar listarAutorizacoes no model se ainda não existir
+        }
+
+        // Adicionar autorizações ao objeto que será enviado pro frontend
+        const dadosComAutorizacoes = {
+            ...userData,
+            autorizacoes
+        };
 
         // Gerar token JWT
-        try {
-            if (!JWT_CONFIG.secret) {
-                throw new Error('JWT_SECRET não está configurado');
-            }
+        const token = jwt.sign(
+            { id: userData.id, email: userData.email, tipo: userType },
+            JWT_CONFIG.secret,
+            { expiresIn: JWT_CONFIG.expiresIn }
+        );
 
-            const token = jwt.sign(
-                {
-                    id: userData.id,
-                    email: userData.email,
-                    tipo: userType // Usar 'admin' no token para compatibilidade com middleware
-                },
-                JWT_CONFIG.secret,
-                { expiresIn: JWT_CONFIG.expiresIn }
-            );
+        return res.json({
+            mensagem: "Login bem-sucedido!",
+            tipo: tipoRetorno,
+            dados: dadosComAutorizacoes,
+            token
+        });
 
-            console.log('✅ Token gerado com sucesso. Tipo no token:', userType);
-
-            return res.json({
-                mensagem: "Login bem-sucedido!",
-                tipo: tipoRetorno, // Retornar 'adm' na resposta para compatibilidade com frontend
-                dados: userData,
-                token: token
-            });
-        } catch (tokenError) {
-            console.error('❌ Erro ao gerar token JWT:', tokenError);
-            console.error('JWT_CONFIG:', {
-                secret: JWT_CONFIG.secret ? 'Configurado' : 'NÃO CONFIGURADO',
-                expiresIn: JWT_CONFIG.expiresIn
-            });
-            return res.status(500).json({
-                mensagem: 'Erro ao gerar token de autenticação.',
-                erro: process.env.NODE_ENV === 'development' ? tokenError.message : undefined
-            });
-        }
     } catch (error) {
         console.error('Erro no login:', error);
-        res.status(500).json({
-            mensagem: 'Erro ao realizar login.',
-            erro: process.env.NODE_ENV === 'development' ? error.message : undefined
-        });
+        res.status(500).json({ mensagem: 'Erro ao realizar login.', erro: error.message });
     }
 });
+
 
 
 router.get("/", UsuarioController.listarAtivos);
