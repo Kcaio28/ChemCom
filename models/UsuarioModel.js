@@ -65,7 +65,7 @@ class UsuarioModel {
         try {
             const connection = await getConnection();
             const [rows] = await connection.query(
-                `SELECT * FROM ${TABELA_empresa} WHERE email = ? LIMIT 1`,
+                `SELECT * FROM ${TABELA_empresa} WHERE email = ? AND status = 'ATIVO' LIMIT 1`,
                 [email]
             );
             connection.release();
