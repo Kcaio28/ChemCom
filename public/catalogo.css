@@ -929,7 +929,8 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #333;
+  color: white;
+  background-color: #00bf63;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
